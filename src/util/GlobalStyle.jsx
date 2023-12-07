@@ -41,6 +41,9 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     font-size: 1.6em;
   }
+  main {
+    min-height: 60vh;
+  }
   .container {
     max-width: 1200px;
     margin: 0 auto;
