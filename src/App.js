@@ -37,9 +37,9 @@ function App() {
               <Route path="/mypage/memberpost" element={<MemberPost />} />
               <Route path="/moviesearch" element={<MovieSearch />} />
               <Route path="/moviesearch/:id" element={<MovieInfo />} />
-              <Route path="/board" element={<Board />} />
+              <Route path="/board/:id" element={<Board />} />
               <Route path="/board/new" element={<NewPost />} />
-              <Route path="/board/:id" element={<Post />} />
+              <Route path="/board/post/:id" element={<Post />} />
               <Route path="/board/revise/:id" element={<PostRevise />} />
               <Route path="/kikilist" element={<ChatList />} />
               <Route path="/kikilist/:id" element={<Chat />} />
