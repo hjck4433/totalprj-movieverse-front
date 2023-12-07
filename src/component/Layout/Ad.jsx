@@ -55,21 +55,14 @@ const AdComp = styled.div`
 `;
 const Advertise = ({ onNext }) => {
   const navigate = useNavigate();
-  const [clicked, setClicked] = useState(false);
 
-  const containerClickHandler = () => {
-    setClicked(true);
+  const toPayment = () => {
+    navigate("/Payment");
   };
-
-  useEffect(() => {
-    if (clicked) {
-      navigate("/Payment");
-    }
-  }, [clicked, navigate]);
 
   return (
     <>
-      <AdComp onClick={containerClickHandler}>
+      <AdComp onClick={toPayment}>
         <div className="container">
           <div className="ad">
             <p>지금 멤버십에 가입하고 광고 없는</p>
