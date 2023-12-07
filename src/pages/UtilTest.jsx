@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../util/Button";
 import Modal from "../util/Modal";
+import AgreementModal from "../util/Agreement/AgreementModal";
 
 const UtilTest = () => {
   //Modal
@@ -26,6 +27,15 @@ const UtilTest = () => {
     isActive ? setActive(false) : setActive(true);
   };
 
+  // AgreementModal
+  const [openAgreement, setAModalOpen] = useState(false);
+  const agreeTest = () => {
+    setAModalOpen(true);
+  };
+  const closeAgree = () => {
+    setAModalOpen(false);
+  };
+
   return (
     <>
       <div className="container">
@@ -40,6 +50,8 @@ const UtilTest = () => {
           clickEvt={test}
         />
         <Button children="활성화" clickEvt={activate} active={true} />
+        <br />
+        <Button children="약관" active={true} clickEvt={agreeTest} />
       </div>
       <Modal
         open={openModal}
@@ -49,6 +61,7 @@ const UtilTest = () => {
         type={true}
         confirm={modalTest}
       />
+      <AgreementModal open={openAgreement} close={closeAgree} type={"use"} />
     </>
   );
 };

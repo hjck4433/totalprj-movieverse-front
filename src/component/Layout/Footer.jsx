@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useState } from "react";
+import AgreementModal from "../../util/Agreement/AgreementModal";
 
 const FooterComp = styled.footer`
   width: 100%;
@@ -20,7 +22,7 @@ const FooterComp = styled.footer`
         transition: 0.3s ease-in;
         &:hover {
           cursor: pointer;
-          color: white;
+          color: var(--LIGHTVIO);
         }
         &:first-child {
           margin-right: 20px;
@@ -49,26 +51,51 @@ const FooterComp = styled.footer`
 `;
 
 const Footer = () => {
+  // AgreementModal
+  const [openAgreement, setAModalOpen] = useState(false);
+  const [type, setType] = useState("");
+  const openAgree = (agreeType) => {
+    setAModalOpen(true);
+    setType(agreeType);
+  };
+  const closeAgree = () => {
+    setAModalOpen(false);
+  };
+
   return (
     <>
       <FooterComp>
         <div className="container">
           <ul className="footer-menu">
-            <li>이용약관</li>
-            <li>개인정보 취급방침</li>
+            <li
+              onClick={() => {
+                openAgree("use");
+              }}
+            >
+              이용약관
+            </li>
+            <li
+              onClick={() => {
+                openAgree("privacy");
+              }}
+            >
+              개인정보 취급방침
+            </li>
           </ul>
           <div className="info">
             <p>(주) MovieVerse</p>
             <p>김현지 | 박소현 | 이재원 | 이세웅 | 유현주</p>
             <p>주소: 서울특별시 강남구 역삼로</p>
             <p>전화번호 02-123-4567</p>
-            <p>이메일 : movieverse@naver.com</p>
+            <p>이메일 : movieverse2023@naver.com</p>
           </div>
           <div className="copyright">
             CopyRight © 2024 MovieVerse All Rights Reserved.
           </div>
         </div>
       </FooterComp>
+
+      <AgreementModal open={openAgreement} close={closeAgree} type={type} />
     </>
   );
 };

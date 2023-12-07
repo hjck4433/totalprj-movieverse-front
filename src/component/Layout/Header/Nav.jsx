@@ -12,15 +12,15 @@ const Nav = ({ active, togle }) => {
         togle();
         break;
       case 2:
-        navigate("/board");
+        navigate("/board/gather");
         togle();
         break;
       case 3:
-        navigate("/board");
+        navigate("/board/recap");
         togle();
         break;
       case 4:
-        navigate("/board");
+        navigate("/board/recs");
         togle();
         break;
       case 5:
