@@ -2,13 +2,13 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCLA-DzcKtNeBsjKDH2o-RxH6wNWJFfJ3Y",
-  authDomain: "movieverse-e1c4f.firebaseapp.com",
-  projectId: "movieverse-e1c4f",
-  storageBucket: "movieverse-e1c4f.appspot.com",
-  messagingSenderId: "1092840104025",
-  appId: "1:1092840104025:web:31eff7fbf20cf22c925148",
-  measurementId: "G-JN12LEWLD0",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
