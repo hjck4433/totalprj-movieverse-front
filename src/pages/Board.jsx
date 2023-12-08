@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import BoardHeaderList from "../component/Board/BoardHeader";
-
+import BoardCardList from "../component/Board/BoardCardList";
 const Board = () => {
   const { id } = useParams();
 
@@ -39,8 +39,7 @@ const Board = () => {
         title={title}
         description={description}
       />
-      {/* 각 페이지에 따른 내용 */}
-      {/* ... */}
+      <BoardCardList />
     </div>
   );
 };
