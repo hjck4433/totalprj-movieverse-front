@@ -20,7 +20,7 @@ const PostStyle = styled.div`
       display: flex;
       justify-content: end;
       button {
-        background-color: var(--DARKBLUE);
+        background-color: var(--LIGHTVIO);
         border: none;
         padding: 10px 12px;
         color: white;

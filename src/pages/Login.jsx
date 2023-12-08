@@ -59,6 +59,7 @@ const LoginComp = styled.section`
     .bgBox {
       .container {
         .loginBox {
+          width: 90%;
           h2 {
             margin-bottom: 20px;
           }
