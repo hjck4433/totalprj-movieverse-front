@@ -46,7 +46,7 @@ const HeaderComp = styled.header`
           height: 100%;
           flex-grow: 1;
           position: relative;
-          font-size: 1.3em;
+          font-size: 1.2em;
           font-weight: 600;
           padding: 10px 20px;
           cursor: pointer;
@@ -68,7 +68,7 @@ const HeaderComp = styled.header`
             top: 100%;
             left: 0;
 
-            border-radius: 0 0 10px 10px;
+            border-radius: 0 0 5px 5px;
             transition: height 0.8s ease-out;
             li {
               background-color: var(--GREY);
