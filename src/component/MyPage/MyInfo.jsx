@@ -128,11 +128,11 @@ const MyInfo = () => {
                 <p className="title">주소</p>
                 <p>{userInfo && userInfo.userAddr}</p>
               </div>
+              <div className="buttonBox">
+                <Button children="수정하기" active={true} />
+                <Button children="내 글 관리하기" active={true} />
+              </div>
             </div>
-          </div>
-          <div className="buttonBox">
-            <Button children="수정하기" active={true} />
-            <Button children="내 글 관리하기" active={true} />
           </div>
         </div>
       </MyInfoComp>
