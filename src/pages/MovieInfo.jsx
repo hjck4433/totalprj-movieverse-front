@@ -1,7 +1,11 @@
+import MovieInfoSection1 from "../component/MovieInfo/MovieInfoSection1";
+import MovieInfoSection2 from "../component/MovieInfo/MovieInfoSection2";
+
 const MovieInfo = () => {
   return (
     <>
-      <div>movieInfo</div>
+      <MovieInfoSection1 />
+      <MovieInfoSection2 />
     </>
   );
 };
