@@ -12,13 +12,11 @@ const PayComp = styled.section`
     padding: 130px 0;
     background-color: var(--BLUE);
     border-radius: 10px;
-
     .paymentBox {
       width: 70%;
       padding-left: 15%;
       .textBox {
         margin-bottom: 50px;
-
         h2 {
           padding-bottom: 5%;
         }
