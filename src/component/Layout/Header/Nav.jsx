@@ -62,10 +62,6 @@ const Nav = ({ active, togle }) => {
           <div className="m-title" onClick={() => onClickMenu(6)}>
             마이페이지
           </div>
-          {/* <ul className="sub-menu">
-            <li onClick={() => onClickMenu(9)}></li>
-            <li onClick={() => onClickMenu(10)}>FAQ</li>
-          </ul> */}
         </li>
       </ul>
     </nav>

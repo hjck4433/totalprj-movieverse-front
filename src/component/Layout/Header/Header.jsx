@@ -29,7 +29,7 @@ const Header = () => {
   const isMobile = useMediaQuery({
     query: "(max-width:768px)",
   });
-  console.log("isMobile" + isMobile);
+  console.log("isMobile : " + isMobile);
 
   const mMenuClick = () => {
     if (isMobile) {
@@ -40,11 +40,6 @@ const Header = () => {
 
   const onLogOutClick = () => {
     setLoginStatus("");
-    window.localStorage.setItem("userId", "");
-    window.localStorage.setItem("userPw", "");
-    console.log(
-      "유저로그아웃 확인 아이디" + window.localStorage.getItem("userId")
-    );
     console.log(
       "유저로그아웃 확인 상태" + window.localStorage.getItem("loginStatus")
     );
