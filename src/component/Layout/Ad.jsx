@@ -22,7 +22,7 @@ const AdComp = styled.div`
   }
   .ad {
     width: 65%;
-    padding-left: 7%;
+    padding-left: 5%;
     display: flex;
     justify-content: center;
     align-items: left;
@@ -33,10 +33,12 @@ const AdComp = styled.div`
     }
     @media only screen and (max-width: 768px) {
       p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
-      .container {
-        width: 90vw;
+    }
+    @media only screen and (max-width: 569px) {
+      p {
+        font-size: 0.9rem;
       }
     }
   }
