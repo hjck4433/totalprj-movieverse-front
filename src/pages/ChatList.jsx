@@ -1,7 +1,11 @@
+import ChatBanner from "../component/ChatList/ChatBanner";
+import KikiList from "../component/ChatList/KikiList";
+
 const ChatList = () => {
   return (
     <>
-      <div>ChatList!</div>
+      <ChatBanner />
+      <KikiList />
     </>
   );
 };
