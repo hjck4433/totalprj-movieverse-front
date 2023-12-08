@@ -81,10 +81,6 @@ const Login = () => {
   const onChangePw = (e) => {
     setInputPw(e.target.value);
   };
-  const resetInput = () => {
-    setInputId("");
-    setInputPw("");
-  };
 
   // 버튼 활성화
   const [isActive, setIsActive] = useState(false);
@@ -108,7 +104,7 @@ const Login = () => {
   const loginClick = () => {
     console.log("로그인!");
     // API 들어올 자리
-    resetInput();
+    setInputPw("");
   };
   const toJoin = () => {
     navigate("/join");
