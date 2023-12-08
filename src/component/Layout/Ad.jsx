@@ -53,7 +53,7 @@ const AdComp = styled.div`
     }
   }
 `;
-const Advertise = ({ onNext }) => {
+const Advertise = () => {
   const navigate = useNavigate();
 
   const toPayment = () => {
