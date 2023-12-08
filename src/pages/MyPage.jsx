@@ -1,7 +1,10 @@
+import MyInfo from "../component/MyPage/MyInfo";
+import MembershipJoin from "../component/MyPage/MembershipJoin";
 const MyPage = () => {
   return (
     <>
-      <div>MyPage!</div>
+      <MyInfo />
+      <MembershipJoin />
     </>
   );
 };
