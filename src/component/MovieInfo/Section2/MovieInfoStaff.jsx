@@ -4,7 +4,6 @@ const MovieStaffStyle = styled.section`
   background-color: white;
   padding: 100px 0;
   .container {
-    display: flex-row;
     .content {
       .bigText {
         color: var(--VIOLET);
@@ -23,14 +22,19 @@ const MovieStaffStyle = styled.section`
     }
     .smallText {
       .staff {
+        width: 100%;
         display: flex;
-        .movieStaff {
-          font-weight: 600;
-          color: #939393;
-          outline: 1px solid red;
-          width: 100px;
-          position: relative;
-          .movieActor {
+        p {
+          &.movieStaff {
+            width: 20%;
+            font-weight: 600;
+            color: #939393;
+            outline: 1px solid red;
+            margin-right: 10px;
+          }
+          &.movieActor {
+            width: 60%;
+            word-break: keep-all;
           }
         }
       }
@@ -54,7 +58,11 @@ const MovieInfoStaff = () => {
             </div>
             <div className="staff">
               <p className="movieStaff">출연 배우</p>
-              <p className="movieActor">배우 불러오기</p>
+              <p className="movieActor">
+                배우
+                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                aaaaa aaaaaa aaaaaaaa aaaaaaaaaaaa
+              </p>
             </div>
           </div>
         </div>
