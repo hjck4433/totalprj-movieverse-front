@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import StillCutComp from "./StillCutComp";
 
 const MovieInfoStillStyle = styled.section`
   background-color: white;
-  padding: 100px 0;
+  padding: 50px 0;
   .container {
     display: flex-row;
     .content {
@@ -16,10 +17,17 @@ const MovieInfoStillStyle = styled.section`
         margin-bottom: 50px;
       }
     }
+    .movieStill {
+      .StillCutComp {
+      }
+    }
     p {
       color: black;
       font-size: 1.4em;
     }
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 50px 0;
   }
 `;
 
@@ -33,7 +41,7 @@ const MovieInfoStill = () => {
             <div className="divider"></div>
           </div>
           <div className="movieStill">
-            <p>이미지 가져오기</p>
+            <StillCutComp />
           </div>
         </div>
       </section>

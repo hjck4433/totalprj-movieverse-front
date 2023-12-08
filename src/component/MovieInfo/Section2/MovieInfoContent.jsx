@@ -21,6 +21,9 @@ const MovieInfoContentStyle = styled.section`
       font-size: 1.4em;
     }
   }
+  @media only screen and (max-width: 768px) {
+    padding: 50px 0;
+  }
 `;
 
 const MovieInfoContent = () => {
@@ -33,7 +36,7 @@ const MovieInfoContent = () => {
             <div className="divider"></div>
           </div>
           <div className="smallText">
-            <p className="movieContent">내용 가져오기</p>
+            <p className="movieContent">줄거리 가져오기</p>
           </div>
         </div>
       </section>

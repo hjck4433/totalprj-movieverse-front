@@ -6,9 +6,9 @@ const InfoSection1Style = styled.section`
   padding: 90px 0;
   .container {
     display: flex;
-    position: relative;
     .movieDetail {
       flex-grow: 4.5;
+      outline: 1px solid red;
       .moviePoster {
         width: 80%;
         height: 95%;
@@ -53,7 +53,7 @@ const InfoSection1Style = styled.section`
       .movieDetail {
         flex-grow: 5;
         .moviePoster {
-          width: 80%;
+          width: 90%;
           height: 100%;
           margin-right: 40px;
           img {
@@ -90,15 +90,22 @@ const MovieInfoSection1 = () => {
     <InfoSection1Style>
       <div className="container">
         <div className="movieDetail">
-          <div className="moviePoster">{<img src="" alt="" />}</div>
+          <div className="moviePoster">
+            {
+              <img
+                src="https://img1.daumcdn.net/thumb/C408x596/?fname=https%3A%2F%2Ft1.daumcdn.net%2Fmovie%2Ff47bdb7c3174e8bcf43fb6ab27283fc2f4d34555"
+                alt="PosterImg"
+              />
+            }
+          </div>
         </div>
         <div className="movieOtherInfo">
           <div className="infoBox">
-            <h3 className="titleMain">제목1</h3>
+            <h3 className="titleMain">프로젝트는 힘들어</h3>
             <p></p>
           </div>
           <div className="infoBox">
-            <p className="titleSub">제목2</p>
+            <p className="titleSub">subtitle:</p>
             <p></p>
           </div>
           <div className="infoBox">
