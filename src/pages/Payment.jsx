@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../util/Button";
 import face from "../images/faceIcon/faceIcon4.png";
@@ -66,7 +68,7 @@ const PayComp = styled.section`
       }
     }
     .buttonBox {
-      width: 200px;
+      width: 350px;
       p {
         padding-top: 3%;
         text-align: right;
@@ -75,8 +77,64 @@ const PayComp = styled.section`
     }
   }
 `;
-
 const Payment = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const jquery = document.createElement("script");
+    jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+    const iamport = document.createElement("script");
+    iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.8.js";
+    document.head.appendChild(jquery);
+    document.head.appendChild(iamport);
+
+    return () => {
+      document.head.removeChild(jquery);
+      document.head.removeChild(iamport);
+    };
+  }, []);
+
+  const onClickPayment = () => {
+    const { IMP } = window;
+    IMP.init("imp78148083");
+
+    const data = {
+      // pg: "tosspay",// 토스페이 간편결제
+      // pg: "kakaopay", // 카카오페이 간편결제
+      pg: "kcp.AO09C", // NHN KCP 결제 방식 사용
+      pay_method: "card",
+      merchant_uid: `mid_${new Date().getTime()}`,
+      amount: "2900",
+      name: "결제 테스트",
+      buyer_name: "홍길동",
+      // buyer_tel: "01012345678",
+      buyer_email: "14279625@gmail.com",
+      buyer_addr: "구천면로 000-00",
+      // buyer_postcode: "01234",
+    };
+
+    IMP.request_pay(data, callback);
+  };
+
+  const callback = (response) => {
+    const {
+      success,
+      error_msg,
+      imp_uid,
+      merchant_uid,
+      pay_method,
+      paid_amount,
+      status,
+    } = response;
+
+    if (success) {
+      // alert("결제 성공");
+      navigate("../payment/result");
+    } else {
+      alert(`결제 실패: ${error_msg}`);
+    }
+  };
+
   return (
     <>
       <PayComp>
@@ -92,7 +150,12 @@ const Payment = () => {
               <p>마음의 평화를 얻을 수 있어요 :)</p>
             </div>
             <div className="buttonBox">
-              <Button children="결제하기" active={true} />
+              <Button
+                children="결제하기"
+                active={true}
+                width="350px"
+                clickEvt={onClickPayment}
+              />
               <p>VAT포함</p>
             </div>
           </div>
