@@ -76,14 +76,14 @@ const IconSlide = () => {
         autoplay={{
           delay: 0,
         }}
-        slidesPerView={7}
+        slidesPerView={5}
         speed={3000}
         allowTouchMove={false}
-        initalSlide={0}
+        initialSlide={0}
       >
         {Urls.map((url, index) => (
           <SwiperSlide className="slide" key={index}>
-            <img src={url} alt="" />
+            <img src={url} alt="뭅뭅친구" />
           </SwiperSlide>
         ))}
       </Swiper>
