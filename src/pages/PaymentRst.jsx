@@ -1,20 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../util/Button";
+import IconSlide from "../component/Slide/IconSlide";
 import { useNavigate } from "react-router-dom";
-import face1 from "../images/faceIcon/faceIcon1.png";
-import face2 from "../images/faceIcon/faceIcon2.png";
-import face3 from "../images/faceIcon/faceIcon3.png";
-import face4 from "../images/faceIcon/faceIcon4.png";
-import face5 from "../images/faceIcon/faceIcon5.png";
-import face6 from "../images/faceIcon/faceIcon6.png";
-import face7 from "../images/faceIcon/faceIcon7.png";
-import face8 from "../images/faceIcon/faceIcon8.png";
-import face9 from "../images/faceIcon/faceIcon9.png";
-import face10 from "../images/faceIcon/faceIcon10.png";
-import face11 from "../images/faceIcon/faceIcon11.png";
-import face12 from "../images/faceIcon/faceIcon12.png";
-import face13 from "../images/faceIcon/faceIcon13.png";
 import congrats from "../images/congrats.png";
 
 const PayRstComp = styled.section`
@@ -22,7 +10,7 @@ const PayRstComp = styled.section`
   padding: 5% 0;
 
   .container {
-    padding: 130px 0;
+    padding-top: 130px;
     background-color: var(--LIGHTVIO);
     border-radius: 10px;
 
@@ -134,6 +122,7 @@ const PaymentRst = () => {
                 clickEvt={toMain}
               />
             </div>
+            <IconSlide />
           </div>
         </div>
       </PayRstComp>
