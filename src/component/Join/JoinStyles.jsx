@@ -53,9 +53,13 @@ const JoinComp = styled.section`
     }
 
     .inputArea {
-      outline: 1px solid red;
       max-width: 400px;
       margin: 0 auto;
+
+      .agreementBox {
+        width: 100%;
+        margin-bottom: 40px;
+      }
     }
   }
 `;
