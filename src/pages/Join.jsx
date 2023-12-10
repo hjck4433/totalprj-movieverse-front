@@ -8,6 +8,7 @@ import AgreeCheck from "../component/Join/AgreeCheck";
 import Modal from "../util/Modal";
 import { Input, InputButton, Address } from "../component/Join/JoinInput";
 import Button from "../util/Button";
+import MemberApi from "../api/MemberApi";
 
 const Join = () => {
   const navigate = useNavigate();
@@ -30,6 +31,17 @@ const Join = () => {
     }
   };
   ////////////////////////////////////////////////////////////////
+
+  //모달/////////////////////////////////////////////////////////
+  const [openModal, setModalOpen] = useState(false);
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+  /////////////////////////////////////////////////////////////
+
   //키보드 입력
   const [inputEmail, setInputEmail] = useState("");
   const [inputCode, setInputCode] = useState("");
@@ -50,7 +62,7 @@ const Join = () => {
 
   // 유효성
   const [isEmail, setIsEmail] = useState(false);
-  const [isCode, setIsCode] = useState(true);
+  const [isCode, setIsCode] = useState(false);
   const [isPw, setIsPw] = useState(false);
   const [isPw2, setIsPw2] = useState(false);
   const [isName, setIsName] = useState(false);
@@ -67,6 +79,26 @@ const Join = () => {
     //phone
     /^\d{3}-\d{4}-\d{4}$/,
   ];
+  //중복체크
+  const isUnique = async (num, checkVal) => {
+    const msgList = [setEmailMessage, setAliasMessage, setPhoneMessage];
+    const validList = [setIsEmail, setIsAlias, setIsPhone];
+    try {
+      const res = await MemberApi.checkUnique(num, checkVal);
+      console.log("중복여부 : " + !res.data);
+      if (!res.data) {
+        if (num === 0) {
+          msgList[num]("사용 가능합니다. 인증을 해주세요.");
+        } else msgList[num]("사용 가능합니다.");
+        validList[num](true);
+      } else {
+        msgList[num]("이미 사용중입니다.");
+        validList[num](false);
+      }
+    } catch (err) {
+      console.log("중복오류 : " + err);
+    }
+  };
 
   // 이메일
   const onChangeEmail = (e) => {
@@ -77,22 +109,38 @@ const Join = () => {
       setEmailMessage("잘못 된 형식입니다.");
       setIsEmail(false);
     } else {
-      setEmailMessage("이메일 인증이 필요합니다.");
-      setIsEmail(true);
+      isUnique(0, currEmail);
     }
   };
 
   // 이메일 인증 번호 확인
-  const [sentCode, setSentCode] = useState("123456");
+  const [sentCode, setSentCode] = useState("");
   const onChangeEmailCode = (e) => {
-    const currCode = e.target.value;
-    console.log("currr" + currCode);
+    const currCode = Number(e.target.value);
+    console.log("currr" + typeof currCode);
+    console.log("sentCode: " + typeof sentCode);
+    console.log("code : " + (currCode === sentCode));
     setInputCode(currCode);
   };
 
   // 이메일 인증
-  const authorizeMail = () => {
-    console.log("이메일 인증");
+  const authorizeMail = async () => {
+    try {
+      const res = await MemberApi.sendEmailCode(inputEmail);
+      console.log("이메일전송 결과 : " + res.data);
+      if (res.data !== null) setSentCode(res.data);
+    } catch (e) {
+      console.log("이메일 err : " + e);
+    }
+  };
+  const checkCode = () => {
+    if (inputCode === sentCode) {
+      setIsCode(true);
+      setCodeMessage("인증이 완료되었습니다.");
+    } else {
+      setIsCode(false);
+      setCodeMessage("인증번호를 확인해주세요.");
+    }
   };
 
   // 비밀번호
@@ -145,8 +193,7 @@ const Join = () => {
       setAliasMessage("2자 이상 8자 이하로 입력하세요");
       setIsAlias(false);
     } else {
-      setAliasMessage("사용 가능합니다");
-      setIsAlias(true);
+      isUnique(1, currAlias);
     }
   };
   const onChangePhone = (e) => {
@@ -157,8 +204,7 @@ const Join = () => {
       setPhoneMessage("잘못 입력 하셨습니다.");
       setIsPhone(false);
     } else {
-      setPhoneMessage("사용 가능합니다");
-      setIsPhone(true);
+      isUnique(2, currPhone);
     }
   };
 
@@ -217,6 +263,46 @@ const Join = () => {
     }
   }, [checked1, checked2]);
   /////////////////////////////////////////////////////////////////
+  // 회원가입 /////////////////////////////////////////////////////
+  const onSubmit = () => {
+    if (imgSrc !== basicProfile) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(file.name);
+      fileRef.put(file).then(() => {
+        console.log("저장성공!");
+        fileRef.getDownloadURL().then((url) => {
+          console.log("저장경로 확인 : " + url);
+          setUrl(url);
+          addNewMember(url);
+        });
+      });
+    } else {
+      addNewMember();
+    }
+  };
+
+  const addNewMember = async (url) => {
+    try {
+      const res = await MemberApi.joinMember(
+        inputEmail,
+        inputPw2,
+        inputName,
+        inputAlias,
+        inputPhone,
+        inputAddr,
+        url
+      );
+      if (res.data !== null) {
+        console.log("회원가입 성공!");
+        setModalOpen(true);
+        setModalHeader("회원가입");
+        setModalMsg("회원가입에 성공했습니다!");
+        setModalType("회원가입");
+      }
+    } catch (err) {
+      console.log("회원가입 : " + err);
+    }
+  };
 
   return (
     <>
@@ -241,6 +327,7 @@ const Join = () => {
               changeEvt={onChangeEmail}
               btnChild="인증하기"
               active={isEmail}
+              clickEvt={authorizeMail}
               msg={emailMessage}
               msgType={isEmail}
             />
@@ -249,7 +336,8 @@ const Join = () => {
               value={inputCode}
               changeEvt={onChangeEmailCode}
               btnChild="확인"
-              active={false}
+              active={isEmail}
+              clickEvt={checkCode}
               msg={codeMessage}
               msgType={isCode}
             />
@@ -336,10 +424,21 @@ const Join = () => {
                 isAddr &&
                 checkedAll
               }
+              clickEvt={onSubmit}
             />
           </div>
         </div>
       </JoinComp>
+      <Modal
+        open={openModal}
+        close={closeModal}
+        header={modalHeader}
+        children={modalMsg}
+        type={modalType}
+        confirm={() => {
+          navigate("/login");
+        }}
+      />
     </>
   );
 };

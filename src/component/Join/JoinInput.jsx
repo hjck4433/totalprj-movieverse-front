@@ -32,8 +32,17 @@ const InputButtonComp = styled.div`
 `;
 
 export const InputButton = (props) => {
-  const { value, holder, changeEvt, type, btnChild, active, msg, msgType } =
-    props;
+  const {
+    value,
+    holder,
+    changeEvt,
+    type,
+    btnChild,
+    active,
+    clickEvt,
+    msg,
+    msgType,
+  } = props;
 
   return (
     <InputButtonComp>
@@ -47,6 +56,7 @@ export const InputButton = (props) => {
         <Button
           children={btnChild}
           active={active}
+          clickEvt={clickEvt}
           width="30%"
           height="48px"
           fontSize="14px"
