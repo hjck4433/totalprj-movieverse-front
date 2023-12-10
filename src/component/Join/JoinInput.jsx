@@ -23,7 +23,8 @@ const InputButtonComp = styled.div`
     padding-top: 5px;
     padding-left: 2px;
     letter-spacing: 0.8px;
-    font-size: 0.9em;
+    word-break: keep-all;
+    font-size: 0.8em;
     font-weight: 600;
     &.fail {
       color: red;
@@ -85,7 +86,8 @@ const InputComp = styled.div`
     padding-top: 5px;
     padding-left: 2px;
     letter-spacing: 0.8px;
-    font-size: 0.9em;
+    word-break: keep-all;
+    font-size: 0.8em;
     font-weight: 600;
     &.fail {
       color: red;

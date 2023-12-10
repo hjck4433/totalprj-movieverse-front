@@ -30,5 +30,14 @@ const MemberApi = {
     };
     return await axios.post(Common.MV_DOMAIN + "/auth/join", data);
   },
+  //로그인
+  login: async (email, password) => {
+    console.log("로그인 진입 : " + email);
+    const data = {
+      email: email,
+      password: password,
+    };
+    return await axios.post(Common.MV_DOMAIN + "/auth/login", data);
+  },
 };
 export default MemberApi;
