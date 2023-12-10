@@ -1,7 +1,14 @@
+import BoxOffice from "../component/Main/BoxOffcie";
+import Faq from "../component/Main/Faq";
+import MainTop from "../component/Main/MainTop";
+import OTT from "../component/Main/OTT";
 const MainPage = () => {
   return (
     <>
-      <div>MainPage!</div>
+      <MainTop />
+      <BoxOffice />
+      <OTT />
+      <Faq />
     </>
   );
 };

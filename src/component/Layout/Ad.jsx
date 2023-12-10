@@ -13,7 +13,7 @@ const AdComp = styled.div`
   }
   &:hover {
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s ease-in;
     background-color: var(--LIGHTVIO);
 
     p {
