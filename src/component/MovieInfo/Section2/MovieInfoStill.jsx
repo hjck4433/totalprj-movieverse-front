@@ -3,23 +3,22 @@ import StillCutComp from "./StillCutComp";
 
 const MovieInfoStillStyle = styled.section`
   background-color: white;
-  padding: 50px 0;
   .container {
-    display: flex-row;
+    display: grid;
     .content {
+      margin-left: 50px;
       .bigText {
         color: var(--VIOLET);
         margin-bottom: 20px;
         font-weight: 600;
       }
       .divider {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--GREY);
         margin-bottom: 50px;
       }
     }
     .movieStill {
-      .StillCutComp {
-      }
+      margin-left: 50px;
     }
     p {
       color: black;

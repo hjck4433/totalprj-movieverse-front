@@ -5,6 +5,7 @@ const MovieStaffStyle = styled.section`
   padding: 100px 0;
 
   .container {
+    padding-left: 50px;
     .content {
       .bigText {
         color: var(--VIOLET);

@@ -4,6 +4,7 @@ const MovieInfoContentStyle = styled.section`
   background-color: white;
   padding: 100px 0;
   .container {
+    padding-left: 50px;
     display: flex-row;
     .content {
       .bigText {
@@ -12,7 +13,7 @@ const MovieInfoContentStyle = styled.section`
         font-weight: 600;
       }
       .divider {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--GREY);
         margin-bottom: 50px;
       }
     }
