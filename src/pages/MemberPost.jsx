@@ -1,7 +1,11 @@
+import MempostSort from "../component/MemberPost/MempostSort";
+import MemPostBox from "../component/MemberPost/MemPostBox";
+
 const MemberPost = () => {
   return (
     <>
-      <div>MemberPost!</div>
+    <MempostSort />
+    <MemPostBox />
     </>
   );
 };
