@@ -6,8 +6,18 @@ import watcha from "../../images/logo_watcha.svg";
 
 const OTTComp = styled.section`
   width: 100%;
+  height: 800px;
   padding: 5% 0;
   background-color: white;
+  position: relative;
+  .bgBox {
+    height: 250px;
+    background-color: var(--LIGHTVIO);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
   .container {
     width: 100%;
     padding: 100px 0;
@@ -33,11 +43,15 @@ const OTTComp = styled.section`
         align-items: center;
         width: 50%;
         button {
-          width: 130px;
-          height: 60px;
+          width: 150px;
+          height: 50px;
           cursor: pointer;
           margin: 0 10px;
+          border: 0;
+          background-color: white;
+          box-shadow: 2px 2px 2px 2px rgba(204, 204, 204, 0.4);
 
+          border-radius: 5px;
           img {
             /* height: 60px; */
             height: 100%;
@@ -54,6 +68,7 @@ const OTT = () => {
   return (
     <>
       <OTTComp>
+        <div className="bgBox"></div>
         <div className="container">
           <div className="ottRankBox">
             <h3>OTT별 순위</h3>
