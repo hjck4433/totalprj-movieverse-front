@@ -108,6 +108,9 @@ const MyInfoComp = styled.section`
 
 const MyInfo = () => {
   const navigate = useNavigate();
+  const tomemberpost = () => {
+    navigate("/mypage/memberpost");
+  };
   const toinfochange = () => {
     navigate("/infochange");
   };
@@ -177,6 +180,7 @@ const MyInfo = () => {
                   height="30px"
                   width="95px"
                   fontSize="12px"
+                  clickEvt={tomemberpost}
                 />
               </div>
             </div>
