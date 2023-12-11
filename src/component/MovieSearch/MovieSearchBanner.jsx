@@ -12,7 +12,7 @@ const SearchBannerStyle = styled.section`
   .wrapper {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 80px 0;
     .container {
       text-align: center;
