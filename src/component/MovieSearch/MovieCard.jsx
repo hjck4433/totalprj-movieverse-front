@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import BookMark from "../MyPage/BookMark";
 
 const MovieCardComp = styled.div`
   position: relative;
@@ -47,7 +46,6 @@ const MovieCardComp = styled.div`
         font-weight: 300;
         font-size: 1em;
         border-top: 1px solid var(--GREY);
-        padding-top: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -110,7 +108,6 @@ const MovieCard = () => {
                 <span className="scoreText">관람평</span>
                 <span className="scoreNum">{movie.scoreNum}</span>
               </p>
-              <BookMark />
             </div>
           </div>
         </MovieCardComp>
