@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+import BoxOfficeSlide from "../Slide/BoxOfficeSlide";
 
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -43,7 +44,9 @@ const BoxOffice = () => {
               <hr />
             </div>
 
-            <div className="cardSwiper">{/* 슬라이더 들어갈 자리 */}</div>
+            <div className="cardSwiper">
+              <BoxOfficeSlide />
+            </div>
           </div>
         </div>
       </BoxOfficeComp>
