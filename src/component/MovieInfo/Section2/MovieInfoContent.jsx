@@ -4,6 +4,7 @@ const MovieInfoContentStyle = styled.section`
   background-color: white;
   padding: 100px 0;
   .container {
+    padding-left: 50px;
     display: flex-row;
     .content {
       .bigText {
@@ -12,7 +13,7 @@ const MovieInfoContentStyle = styled.section`
         font-weight: 600;
       }
       .divider {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--GREY);
         margin-bottom: 50px;
       }
     }
@@ -20,6 +21,9 @@ const MovieInfoContentStyle = styled.section`
       color: black;
       font-size: 1.4em;
     }
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 50px 0;
   }
 `;
 
@@ -33,7 +37,7 @@ const MovieInfoContent = () => {
             <div className="divider"></div>
           </div>
           <div className="smallText">
-            <p className="movieContent">내용 가져오기</p>
+            <p className="movieContent">줄거리 가져오기</p>
           </div>
         </div>
       </section>

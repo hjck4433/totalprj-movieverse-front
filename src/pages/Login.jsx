@@ -5,6 +5,8 @@ import loginBgPc from "../images/login_bg_pc.jpg";
 import loginBgMo from "../images/login_bg_mo.jpg";
 import Button from "../util/Button";
 import Modal from "../util/Modal";
+import MemberApi from "../api/MemberApi";
+import Common from "../util/Common";
 
 const LoginComp = styled.section`
   width: 100%;
@@ -59,6 +61,7 @@ const LoginComp = styled.section`
     .bgBox {
       .container {
         .loginBox {
+          width: 90%;
           h2 {
             margin-bottom: 20px;
           }
@@ -72,11 +75,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   //키보드 입력
-  const [inputId, setInputId] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
 
-  const onChangeId = (e) => {
-    setInputId(e.target.value);
+  const onChangeEmail = (e) => {
+    setInputEmail(e.target.value);
   };
   const onChangePw = (e) => {
     setInputPw(e.target.value);
@@ -93,18 +96,41 @@ const Login = () => {
   const [modalMsg, setModalMsg] = useState("");
 
   useEffect(() => {
-    console.log("id:" + inputId);
+    console.log("id:" + inputEmail);
     console.log("pw:" + inputPw);
 
     // 이메일 + 비밀번호 입력시 로그인 버튼 활성화
-    if (inputId.length > 0 && inputPw.length > 0) setIsActive(true);
+    if (inputEmail.length > 0 && inputPw.length > 0) setIsActive(true);
     else setIsActive(false);
-  }, [inputId, inputPw, modalMsg]);
+  }, [inputEmail, inputPw, modalMsg]);
 
-  const loginClick = () => {
+  const loginClick = async () => {
     console.log("로그인!");
-    // API 들어올 자리
-    setInputPw("");
+    try {
+      const res = await MemberApi.login(inputEmail, inputPw);
+      console.log(res.data);
+      if (res.data.grantType === "Bearer") {
+        console.log("accessToken : " + res.data.accessToken);
+        console.log("refreshToken : " + res.data.refreshToken);
+        Common.setAccessToken(res.data.accessToken);
+        Common.setRefreshToken(res.data.refreshToken);
+        navigate("/");
+      } else {
+        setModalOpen(true);
+        setModalMsg("잘못된 아이디 또는 비밀번호 입니다.");
+      }
+    } catch (err) {
+      console.log("로그인 에러 : " + err);
+      if (err.response && err.response.status === 401) {
+        console.log("로그인 실패: 401 Unauthorized");
+        setModalOpen(true);
+        setModalMsg("잘못된 아이디 또는 비밀번호 입니다.");
+      } else {
+        console.log("로그인 에러 : " + err);
+        setModalOpen(true);
+        setModalMsg("서버와의 연결이 끊어졌습니다!");
+      }
+    }
   };
   const toJoin = () => {
     navigate("/join");
@@ -121,8 +147,8 @@ const Login = () => {
                 <input
                   type="text"
                   placeholder="이메일(example@naver.com)"
-                  value={inputId}
-                  onChange={onChangeId}
+                  value={inputEmail}
+                  onChange={onChangeEmail}
                 />
                 <input
                   type="password"

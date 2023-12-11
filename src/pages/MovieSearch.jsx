@@ -1,7 +1,13 @@
+import MovieSearchBanner from "../component/MovieSearch/MovieSearchBanner";
+import MovieSort from "../component/MovieSearch/MovieSort";
+import SearchMapBox from "../component/MovieSearch/SearchMapBox";
+
 const MovieSearch = () => {
   return (
     <>
-      <div>MovieSearch</div>
+      <MovieSearchBanner />
+      <MovieSort />
+      <SearchMapBox />
     </>
   );
 };

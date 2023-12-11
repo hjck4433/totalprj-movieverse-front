@@ -1,16 +1,23 @@
 const BoardCard = ({ board }) => {
   return (
     <>
-      <div className="cardimgText">
+      <div className="mapBox">
         <div className="imgBox">
-          <img className="cardImg" src={board.image} alt="이미지" />
+          <img src={board.image} alt="이미지" />
         </div>
-        <div className="categoryGatherType">
-          <div>{board.categoryId}</div>
-          <div>{board.gatherType}</div>
+        <div className="textBox">
+          <div className="categoryGatherBox">
+            <div className="categoryGather">
+              <p className="gather">{board.categoryId}</p>
+              <p className="category">{board.gatherType}</p>
+            </div>
+            <div className="regdate">
+              <p className="regdate">{board.regdate}</p>
+            </div>
+          </div>
+          <h3>{board.title}</h3>
+          <p className="content">{board.content}</p>
         </div>
-        <div>{board.title}</div>
-        <div>{board.content}</div>
       </div>
     </>
   );

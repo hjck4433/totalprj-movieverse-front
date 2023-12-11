@@ -1,25 +1,32 @@
 import styled from "styled-components";
+import StillCutComp from "./StillCutComp";
 
 const MovieInfoStillStyle = styled.section`
   background-color: white;
-  padding: 100px 0;
   .container {
-    display: flex-row;
+    display: grid;
     .content {
+      margin-left: 50px;
       .bigText {
         color: var(--VIOLET);
         margin-bottom: 20px;
         font-weight: 600;
       }
       .divider {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--GREY);
         margin-bottom: 50px;
       }
+    }
+    .movieStill {
+      margin-left: 50px;
     }
     p {
       color: black;
       font-size: 1.4em;
     }
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 50px 0;
   }
 `;
 
@@ -33,7 +40,7 @@ const MovieInfoStill = () => {
             <div className="divider"></div>
           </div>
           <div className="movieStill">
-            <p>이미지 가져오기</p>
+            <StillCutComp />
           </div>
         </div>
       </section>

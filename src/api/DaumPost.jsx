@@ -8,6 +8,8 @@ const PostStyle = styled.div`
   top: 0;
   height: 100%;
   width: 100%;
+  z-index: 99;
+
   .postWrapper {
     width: 50%;
     height: 80%;
@@ -16,11 +18,11 @@ const PostStyle = styled.div`
     top: 15%;
     .close {
       padding: 10px;
-      background-color: white;
+      background-color: var(--LIGHTVIO);
       display: flex;
       justify-content: end;
       button {
-        background-color: var(--DARKBLUE);
+        background-color: var(--VIOLET);
         border: none;
         padding: 10px 12px;
         color: white;
@@ -37,7 +39,8 @@ const PostStyle = styled.div`
 `;
 
 const DaumPostPopup = (props) => {
-  const { onClose, setAddr } = props;
+  const { onClose, setAddr, open } = props;
+
   const handlePostCode = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";

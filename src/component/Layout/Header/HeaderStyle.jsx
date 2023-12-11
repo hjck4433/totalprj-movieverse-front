@@ -3,7 +3,8 @@ import { styled } from "styled-components";
 const HeaderComp = styled.header`
   width: 100vw;
   height: 80px;
-  background-color: var(--DARKBLUE);
+  background-color: rgba(24, 18, 43, 0.7);
+  backdrop-filter: blur(40px);
   position: fixed;
   top: 0;
   left: 0;

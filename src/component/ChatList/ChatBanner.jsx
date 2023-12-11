@@ -1,16 +1,20 @@
 import { styled } from "styled-components";
+import bannerPc from "../../images/chatList_pc.jpg"
 
 const ChatBannerComp = styled.section`
   width: 100%;
-  height: 300px;
-  outline: 1px solid yellow;
+  height: 350px;
+  /* outline: 1px solid yellow; */
+  background-image: url(${bannerPc});
+  background-size: cover;
+  background-position: center;
   /* margin-bottom: 60px; */
   .wrapper {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     .container {
-      padding-top: 80px;
+      padding-top: 100px;
       text-align: center;
       h1 {
         font-size: 2.2em;
