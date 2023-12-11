@@ -4,11 +4,10 @@ const MovieInfoContentStyle = styled.section`
   background-color: white;
   padding: 100px 0;
   .container {
-    padding-left: 50px;
-    display: flex-row;
     .content {
       .bigText {
         color: var(--VIOLET);
+        padding-top: 100px;
         margin-bottom: 20px;
         font-weight: 600;
       }

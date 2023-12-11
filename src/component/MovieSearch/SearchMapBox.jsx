@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import MovieCard from "./MovieCard";
 
 const SearchMapBoxStyle = styled.div`
   .container {
@@ -6,95 +7,10 @@ const SearchMapBoxStyle = styled.div`
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
     margin-bottom: 100px;
-
-    .sortedPoster {
-      position: relative;
-      cursor: pointer;
-
-      img {
-        width: 100%;
-        border-radius: 5px;
-      }
-
-      .overlay {
-        position: absolute;
-        outline: 1px solid red;
-        border-radius: 5px;
-        padding: 8% 10%;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        opacity: 0;
-        transition: opacity 0.3s;
-        .hoverInfo {
-          width: 100%;
-          height: 100%;
-          .title {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 8%;
-          }
-          .contents {
-            font-size: 0.8em;
-            line-height: 1.4em;
-            margin-bottom: 10px;
-            word-break: break-all;
-            text-overflow: ellipsis;
-            height: 68%;
-            overflow: hidden;
-          }
-          .score {
-            position: absolute;
-            width: 80%;
-            left: 10%;
-            bottom: 5%;
-            font-weight: 300;
-            font-size: 1em;
-            border-top: 1px solid var(--GREY);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            .scoreText {
-            }
-            .scoreNum {
-              font-size: 1.8rem;
-              font-weight: 600;
-              color: var(--LIGHTVIO);
-            }
-          }
-        }
-      }
-
-      &:hover .overlay {
-        opacity: 1; // 호버 시 오버레이
-      }
-    }
   }
   @media only screen and (max-width: 768px) {
     .container {
       grid-template-columns: repeat(2, 1fr);
-      .sortedPoster {
-        .overlay {
-          .hoverInfo {
-            .title {
-              font-size: 1.5rem;
-            }
-            .contents {
-              font-size: 0.9rem;
-            }
-            .score {
-              .scoreText {
-                font-size: 1rem;
-              }
-              .scoreNum {
-                font-size: 1.8rem;
-              }
-            }
-          }
-        }
-      }
     }
   }
 `;
@@ -103,82 +19,7 @@ const SearchMapBox = () => {
   return (
     <SearchMapBoxStyle>
       <div className="container">
-        <div className="sortedPoster">
-          <img src="https://img.movist.com/?img=/x00/05/96/41_p1.jpg" alt="" />
-          <div className="overlay">
-            <div className="hoverInfo">
-              <p className="title">서울의봄</p>
-              <p className="contents">
-                《서울의 봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로,
-                12.12 사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이
-                출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터
-                이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.《서울의
-                봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로, 12.12
-                사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이
-                출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터
-                이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.
-              </p>
-              <p className="score">
-                <span className="scoreText">관람평</span>
-                <span className="scoreNum">9.0</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="sortedPoster">
-          <img src="https://img.movist.com/?img=/x00/05/96/41_p1.jpg" alt="" />
-          <div className="overlay">
-            <div className="hoverInfo">
-              <p className="title">서울의봄</p>
-              <p className="contents">
-                《서울의 봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로,
-                12.12 사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이
-                출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터
-                이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.
-              </p>
-              <p className="score">
-                <span className="scoreText">관람평</span>
-                <span className="scoreNum">9.0</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="sortedPoster">
-          <img src="https://img.movist.com/?img=/x00/05/96/41_p1.jpg" alt="" />
-          <div className="overlay">
-            <div className="hoverInfo">
-              <p className="title">서울의봄</p>
-              <p className="contents">
-                《서울의 봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로,
-                12.12 사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이
-                출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터
-                이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.
-              </p>
-              <p className="score">
-                <span className="scoreText">관람평</span>
-                <span className="scoreNum">9.0</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="sortedPoster">
-          <img src="https://img.movist.com/?img=/x00/05/96/41_p1.jpg" alt="" />
-          <div className="overlay">
-            <div className="hoverInfo">
-              <p className="title">서울의봄</p>
-              <p className="contents">
-                《서울의 봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로,
-                12.12 사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이
-                출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터
-                이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.
-              </p>
-              <p className="score">
-                <span className="scoreText">관람평</span>
-                <span className="scoreNum">9.0</span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <MovieCard />
       </div>
     </SearchMapBoxStyle>
   );

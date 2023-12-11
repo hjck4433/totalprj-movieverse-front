@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const MovieStaffStyle = styled.section`
   background-color: white;
+  outline: 1px solid red;
   padding: 100px 0;
-
   .container {
-    padding-left: 50px;
+    outline: 1px solid blue;
     .content {
       .bigText {
         color: var(--VIOLET);

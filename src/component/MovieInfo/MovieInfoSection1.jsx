@@ -6,14 +6,13 @@ const InfoSection1Style = styled.section`
   .container {
     display: flex;
     .moviePoster {
-      width: 300px;
-      margin-right: 100px;
-      margin-left: 100px;
+      width: 30%;
+      margin: 0 10%;
       img {
         width: 100%;
         border-radius: 20px;
         object-fit: cover;
-        height: 100%;
+        height: 91.5%;
       }
     }
     .movieOtherInfo {
@@ -23,10 +22,10 @@ const InfoSection1Style = styled.section`
       box-sizing: border-box;
       .infoBox {
         display: flex;
-        margin-top: 40px;
+        margin-bottom: 8%;
         .movieInfo {
           margin-right: 10px;
-          width: 150px;
+          width: 23%;
           font-weight: 600;
           color: var(--LIGHTVIO);
         }
@@ -51,29 +50,16 @@ const InfoSection1Style = styled.section`
     background-color: black;
     padding: 50px 0;
     .container {
+      width: 100%;
+
       .moviePoster {
-        width: 250px;
-        margin-left: 50px;
-        margin-right: 50px;
+        width: 40%;
+        margin: 0 5%;
       }
       .movieOtherInfo {
         .infoBox {
-          margin-top: 35px;
           .movieInfo {
-            width: 100px;
-          }
-        }
-        .infoTitle {
-          .titleMain {
-            word-break: keep-all;
-            white-space: normal;
-            margin-bottom: 5px;
-          }
-        }
-        .infoSubTitle {
-          .titleSub {
-            color: var(--GREY);
-            margin-bottom: 30px;
+            width: 32%;
           }
         }
       }

@@ -3,10 +3,12 @@ import StillCutComp from "./StillCutComp";
 
 const MovieInfoStillStyle = styled.section`
   background-color: white;
+  outline: 1px solid red;
+  padding-bottom: 100px;
   .container {
+    outline: 1px solid blue;
     display: grid;
     .content {
-      margin-left: 50px;
       .bigText {
         color: var(--VIOLET);
         margin-bottom: 20px;
@@ -17,16 +19,13 @@ const MovieInfoStillStyle = styled.section`
         margin-bottom: 50px;
       }
     }
-    .movieStill {
-      margin-left: 50px;
-    }
     p {
       color: black;
       font-size: 1.4em;
     }
   }
   @media only screen and (max-width: 768px) {
-    padding: 50px 0;
+    margin-bottom: 50px;
   }
 `;
 
