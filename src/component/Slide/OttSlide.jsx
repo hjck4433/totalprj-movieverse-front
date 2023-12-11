@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/bundle"; // 스와이퍼 버튼 css 변경하기 위해 추가
 import styled from "styled-components";
 import poster1 from "../../images/poster/poster1.jpeg";
 import poster2 from "../../images/poster/poster2.jpeg";
@@ -21,6 +22,36 @@ const OttSlideStyle = styled.div`
   /* outline: 1px solid yellow; */
   .ottRank-slider {
     width: 100%;
+    position: relative;
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: white;
+      /* width: 20px;
+      height: 20px; */
+      background-size: 90% auto;
+      background-position: center;
+      position: absolute;
+      top: 50%; // 추가
+      transform: translateY(-50%);
+      cursor: pointer; // 추가
+      z-index: 10; // 추가
+    }
+
+    /* 버튼 뒤에 동그란 배경 추가 */
+    /* .swiper-button-prev::before,
+    .swiper-button-next::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1; 
+    } */
     .swiper-wrapper {
       .slide {
         width: 20%;
@@ -83,7 +114,10 @@ const OttSlide = () => {
         className="ottRank-slider"
         loop={false}
         modules={[Navigation]}
-        navigation={true}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
         slidesPerView={slidesPerView}
         allowTouchMove={true}
         initialSlide={0}
@@ -93,6 +127,9 @@ const OttSlide = () => {
             <img src={url} alt="ottRank" />
           </SwiperSlide>
         ))}
+        {/* css 적용을 위해 스와이퍼 버튼 추가 */}
+        <div className="swiper-button-prev"></div>
+        <div className="swiper-button-next"></div>
       </Swiper>
     </OttSlideStyle>
   );
