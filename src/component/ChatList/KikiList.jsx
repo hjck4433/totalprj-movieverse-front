@@ -4,7 +4,7 @@ import Kiki from "./Kiki";
 
 const KikiListComp = styled.section`
   width: 100%;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   padding-top: 60px;
   
   .container {
@@ -19,12 +19,47 @@ const KikiListComp = styled.section`
     }
     .kikiBox {
       height: 120px;
-      /* min-height: 30vh; */
       outline: 1px solid white;
       background-color: var(--LIGHTVIO);
       border-radius: 5px;
-      font-weight: 600;
-      font-size: 1.1rem;
+      margin-bottom: 50px;
+    }
+
+    .chatBox{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 45px;
+    }
+
+    .p1{
+      color:#000;
+      font-weight: 800;
+      font-size: 1.5rem;
+      /* outline: 1px solid red; */
+      margin-right: 65%;
+
+      @media (max-width: 767px){
+        font-size: 1.2rem;
+        margin-right: 50px;
+        
+      }
+
+  
+      
+    }
+    .p2{
+      color:#000;
+      font-weight: 800;
+      font-size: 1.3rem;
+      /* outline: 1px solid lightgreen; */
+
+      @media (max-width:767px){
+        font-size: 1rem;
+        
+      }
+
+  
     }
     
   }
