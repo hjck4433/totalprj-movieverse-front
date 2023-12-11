@@ -13,6 +13,7 @@ const MovieSortStyle = styled.div`
     background: none;
     border: none;
     color: white;
+    transition: font-size 0.2s, font-weight 0.2s;
 
     &:hover {
       cursor: pointer;
@@ -20,17 +21,21 @@ const MovieSortStyle = styled.div`
 
     &.recent {
       margin-right: 10px;
+      vertical-align: text-bottom;
       font-weight: ${({ selectedButton }) =>
         selectedButton === "recent" ? "bold" : "normal"};
       font-size: ${({ selectedButton }) =>
         selectedButton === "recent" ? "1.3em" : "1.1em"};
+      line-height: 1;
     }
 
     &.count {
+      vertical-align: text-bottom;
       font-weight: ${({ selectedButton }) =>
         selectedButton === "count" ? "bold" : "normal"};
       font-size: ${({ selectedButton }) =>
         selectedButton === "count" ? "1.3em" : "1.1em"};
+      line-height: 1;
     }
   }
 `;

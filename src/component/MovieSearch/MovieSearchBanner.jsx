@@ -30,12 +30,17 @@ const SearchBannerStyle = styled.section`
             width: 600px;
             height: 40px;
             border-radius: 5px;
+            padding-left: 20px;
           }
         }
         .searchBox {
           color: black;
-          margin-left: -20px;
+          padding: 10px;
+          margin-left: -40px;
           cursor: pointer;
+          svg {
+            font-size: 20px;
+          }
         }
       }
     }
