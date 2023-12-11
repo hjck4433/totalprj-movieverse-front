@@ -1,15 +1,15 @@
 import { styled } from "styled-components";
 
 const SearchMapBoxStyle = styled.div`
-  padding: 40px 0;
-
   .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
+    margin-bottom: 100px;
 
     .sortedPoster {
       position: relative;
+      cursor: pointer;
 
       img {
         width: 100%;
@@ -18,43 +18,38 @@ const SearchMapBoxStyle = styled.div`
 
       .overlay {
         position: absolute;
+        outline: 1px solid red;
         border-radius: 5px;
-        padding: 40px;
+        padding: 8% 10%;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.8);
-        display: flex;
-        flex-direction: column; /* 세로 방향으로 배치 */
-        align-items: flex-start;
-        justify-content: space-between; /* 각 요소 사이에 여백 추가 */
         opacity: 0;
         transition: opacity 0.3s;
-
-        .contents {
-          color: white;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 8;
-          -webkit-box-orient: vertical;
-          position: relative;
-        }
-
         .hoverInfo {
+          width: 100%;
+          height: 100%;
           .title {
             font-size: 1.2em;
             font-weight: 600;
+            margin-bottom: 8%;
           }
           .contents {
-            font-size: 1em;
-            padding: 20px 0;
+            font-size: 0.8em;
             line-height: 1.4em;
-            margin-bottom: 35px;
+            margin-bottom: 10px;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            height: 68%;
+            overflow: hidden;
           }
           .score {
-            padding: 25px 0;
+            position: absolute;
+            width: 80%;
+            left: 10%;
+            bottom: 5%;
             font-weight: 300;
             font-size: 1em;
             border-top: 1px solid var(--GREY);
@@ -74,7 +69,6 @@ const SearchMapBoxStyle = styled.div`
 
       &:hover .overlay {
         opacity: 1; // 호버 시 오버레이
-        content: "...";
       }
     }
   }
@@ -86,10 +80,9 @@ const SearchMapBoxStyle = styled.div`
           .hoverInfo {
             .title {
               font-size: 1.5rem;
-              padding-bottom: 20px;
             }
             .contents {
-              font-size: 1rem;
+              font-size: 0.9rem;
             }
             .score {
               .scoreText {

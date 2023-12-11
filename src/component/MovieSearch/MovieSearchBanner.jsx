@@ -9,6 +9,7 @@ const SearchBannerStyle = styled.section`
   background-image: url(${searchBannerPc});
   background-size: cover;
   background-position: center;
+  margin-bottom: 100px;
   .wrapper {
     width: 100%;
     height: 100%;
@@ -17,29 +18,52 @@ const SearchBannerStyle = styled.section`
     .container {
       text-align: center;
       .searchText {
-        padding-bottom: 50px;
+        margin-bottom: 50px;
       }
       .movieSearchBar {
+        width: 100%;
         align-items: center;
         justify-content: center;
         display: flex;
         .inputBox {
+          position: relative;
+          width: 50%;
           input {
+            text-align: center;
             border: none;
             outline: none;
-            width: 600px;
+            width: 100%;
             height: 40px;
             border-radius: 5px;
-            padding-left: 20px;
+          }
+          .searchBox {
+            position: absolute;
+            top: 0;
+            color: black;
+            right: 10px;
+            padding: 10px;
+            cursor: pointer;
+            svg {
+              font-size: 20px;
+            }
           }
         }
-        .searchBox {
-          color: black;
-          padding: 10px;
-          margin-left: -40px;
-          cursor: pointer;
-          svg {
-            font-size: 20px;
+      }
+    }
+    @media only screen and (max-width: 768px) {
+      .container {
+        .movieSearchBar {
+          .inputBox {
+            position: relative;
+            width: 80%;
+            input {
+              text-align: center;
+              border: none;
+              outline: none;
+              width: 100%;
+              height: 40px;
+              border-radius: 5px;
+            }
           }
         }
       }
@@ -58,9 +82,9 @@ const MovieSearchBanner = () => {
           <div className="movieSearchBar">
             <div className="inputBox">
               <input type="text" placeholder="찾으시는 영화를 검색하세요." />
-            </div>
-            <div className="searchBox">
-              <FontAwesomeIcon icon={faSearch} />
+              <div className="searchBox">
+                <FontAwesomeIcon icon={faSearch} />
+              </div>
             </div>
           </div>
         </div>
