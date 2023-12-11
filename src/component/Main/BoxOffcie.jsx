@@ -8,7 +8,7 @@ import "swiper/css/effect-cards";
 
 const BoxOfficeComp = styled.section`
   width: 100%;
-  padding: 5% 0;
+  /* padding: 5% 0; */
   .container {
     width: 100%;
     padding: 100px 0;

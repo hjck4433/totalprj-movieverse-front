@@ -64,7 +64,6 @@ const IconSlide = () => {
     face11,
     face12,
     face13,
-    // ... 추가로 필요한 이미지 URL들
   ];
 
   return (
