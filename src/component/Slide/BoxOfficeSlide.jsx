@@ -38,33 +38,9 @@ const BoxOfficeSlideStyle = styled.div`
       font-weight: 600;
     }
   }
-  @media only screen and (max-width: 768px) {
-    padding: 20px 0;
-    .swiper-wrapper {
-      .slide {
-        width: 50%;
-      }
-    }
-  }
 `;
 
 const BoxOfficeSlide = () => {
-  const [slidesPerView, setSlidesPerView] = useState(
-    window.innerWidth > 768 ? 3 : 2
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSlidesPerView(window.innerWidth > 768 ? 3 : 2);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const generateMovieCards = () => {
     const movieData = [
       { id: 1, imgUrl: "url1" },
@@ -96,9 +72,22 @@ const BoxOfficeSlide = () => {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        slidesPerView={slidesPerView}
         allowTouchMove={true}
         initialSlide={0}
+        spaceBetween={10}
+        breakpoints={{
+          992: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          576: {
+            slidesPerView: 1,
+          },
+        }}
       >
         {generateMovieCards()}
         <div className="swiper-button-prev"></div>

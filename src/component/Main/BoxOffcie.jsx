@@ -12,23 +12,44 @@ const BoxOfficeComp = styled.section`
   /* padding: 5% 0; */
   .container {
     width: 100%;
-    padding: 100px 0;
+    padding: 50px 0;
 
     .boxOfficeBox {
       /* border: 1px solid red; */
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       padding: 20px;
       .textBox {
         h3 {
           font-weight: 600;
+          font-size: 1.6rem;
         }
         hr {
           width: 130px;
-          margin-bottom: 30px;
         }
       }
       .cardSwiper {
+        width: 70%;
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .container {
+      .boxOfficeBox {
+        .textBox {
+          h3 {
+            font-weight: 600;
+            font-size: 1.4rem;
+          }
+          hr {
+            width: 120px;
+          }
+        }
+        .cardSwiper {
+        }
       }
     }
   }

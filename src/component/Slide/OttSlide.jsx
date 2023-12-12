@@ -8,7 +8,7 @@ import styled from "styled-components";
 import MovieCard from "../MovieSearch/MovieCard";
 
 const OttSlideStyle = styled.div`
-  padding: 50px 0;
+  padding-top: 50px;
   width: 100%;
   .swiper-button-prev,
   .swiper-button-next {
@@ -22,9 +22,11 @@ const OttSlideStyle = styled.div`
     cursor: pointer;
     /* z-index: 10; */
   }
-  .swiper-wrapper {
+  .swiper .swiper-wrapper {
+    align-items: center;
     .slide {
       width: 30%;
+
       /* margin: 0 5px; */
     }
   }
@@ -34,34 +36,9 @@ const OttSlideStyle = styled.div`
     font-size: 1.1rem;
     font-weight: 600;
   }
-
-  /* @media only screen and (max-width: 768px) {
-    padding: 20px 0;
-    .swiper-wrapper {
-      .slide {
-        width: 50%;
-      }
-    }
-  } */
 `;
 
 const OttSlide = () => {
-  const [slidesPerView, setSlidesPerView] = useState(
-    window.innerWidth > 768 ? 5 : 2
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSlidesPerView(window.innerWidth > 768 ? 5 : 2);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   const generateMovieCards = () => {
     const movieData = [
       { id: 1, imgUrl: "url1" },
@@ -93,9 +70,27 @@ const OttSlide = () => {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        slidesPerView={slidesPerView}
         allowTouchMove={true}
         initialSlide={0}
+        spaceBetween={10}
+        breakpoints={{
+          992: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          // 576: {
+          //   slidesPerView: 2,
+          //   spaceBetween: 20,
+          // },
+          300: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+        }}
       >
         {generateMovieCards()}
         <div className="swiper-button-prev"></div>
