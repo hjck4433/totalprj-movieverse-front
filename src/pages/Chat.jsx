@@ -1,7 +1,9 @@
+import ChatRoom from "../component/Chat/ChatRoom";
+
 const Chat = () => {
   return (
     <>
-      <div>Chat</div>
+      <ChatRoom/> 
     </>
   );
 };
