@@ -9,12 +9,15 @@ import Modal from "../util/Modal";
 import { Input, InputButton, Address } from "../component/Join/JoinInput";
 import Button from "../util/Button";
 import MemberApi from "../api/MemberApi";
+import Common from "../util/Common";
 
-const Join = () => {
+const Join = ({ email, profile, kakaoId }) => {
   const navigate = useNavigate();
 
   // 프로필 관련 ////////////////////////////////////////////////////
-  const [imgSrc, setImgSrc] = useState(basicProfile);
+  const [imgSrc, setImgSrc] = useState(
+    profile && profile ? profile : basicProfile
+  );
   const [file, setFile] = useState("");
   const [url, setUrl] = useState("");
 
@@ -30,6 +33,12 @@ const Join = () => {
       setFile(selectedFile);
     }
   };
+
+  // 이미지 변경 확인 용
+  // useEffect(() => {
+  //   console.log("imgSrc : " + imgSrc);
+  //   console.log("file : " + file.name);
+  // }, [file]);
   ////////////////////////////////////////////////////////////////
 
   //모달/////////////////////////////////////////////////////////
@@ -208,6 +217,7 @@ const Join = () => {
     }
   };
 
+  // input값 변경 확인 용
   // useEffect(() => {
   //   console.log("email!");
   //   console.log("email : " + inputEmail);
@@ -227,11 +237,6 @@ const Join = () => {
     setInputAddr(addr);
     setIsAddr(true);
   };
-
-  // useEffect(() => {
-  //   console.log("imgSrc : " + imgSrc);
-  //   console.log("file : " + file.name);
-  // }, [file]);
   //////////////////////////////////////////////////////////
 
   // 약관 동의 //////////////////////////////////////////////////
@@ -265,7 +270,7 @@ const Join = () => {
   /////////////////////////////////////////////////////////////////
   // 회원가입 /////////////////////////////////////////////////////
   const onSubmit = () => {
-    if (imgSrc !== basicProfile) {
+    if (imgSrc !== basicProfile && imgSrc !== profile) {
       const storageRef = storage.ref();
       const fileRef = storageRef.child(file.name);
       fileRef.put(file).then(() => {
@@ -277,7 +282,11 @@ const Join = () => {
         });
       });
     } else {
-      addNewMember();
+      if (imgSrc === profile) {
+        addNewMember(profile);
+      } else {
+        addNewMember();
+      }
     }
   };
 
@@ -303,6 +312,31 @@ const Join = () => {
       console.log("회원가입 : " + err);
     }
   };
+  // 카카오 로그인 처리
+  useEffect(() => {
+    if (email) {
+      setInputEmail(email);
+      setIsCode(true);
+      setInputPw2(kakaoId);
+      setIsPw2(true);
+    }
+  }, []);
+  const kakaoLogin = async () => {
+    console.log("카카오 로그인!");
+    try {
+      const res = await MemberApi.login(email, kakaoId);
+      console.log(res.data);
+      if (res.data.grantType === "Bearer") {
+        console.log("KL accessToken : " + res.data.accessToken);
+        console.log("KL refreshToken : " + res.data.refreshToken);
+        Common.setAccessToken(res.data.accessToken);
+        Common.setRefreshToken(res.data.refreshToken);
+        navigate("/");
+      }
+    } catch (err) {
+      console.log("로그인 에러 : " + err);
+    }
+  };
 
   return (
     <>
@@ -321,42 +355,48 @@ const Join = () => {
           </div>
           {/* 인풋 영역 */}
           <div className="inputArea">
-            <InputButton
-              holder="이메일 입력"
-              value={inputEmail}
-              changeEvt={onChangeEmail}
-              btnChild="인증하기"
-              active={isEmail}
-              clickEvt={authorizeMail}
-              msg={emailMessage}
-              msgType={isEmail}
-            />
-            <InputButton
-              holder="인증번호를 입력하세요"
-              value={inputCode}
-              changeEvt={onChangeEmailCode}
-              btnChild="확인"
-              active={isEmail}
-              clickEvt={checkCode}
-              msg={codeMessage}
-              msgType={isCode}
-            />
-            <Input
-              holder="비밀번호"
-              value={inputPw}
-              type="password"
-              msg={pwMessage}
-              msgType={isPw}
-              changeEvt={onChangePw}
-            />
-            <Input
-              holder="비밀번호 다시 입력"
-              value={inputPw2}
-              type="password"
-              msg={pw2Message}
-              msgType={isPw2}
-              changeEvt={onChangePw2}
-            />
+            {email ? (
+              <Input value={email} disabled={true} />
+            ) : (
+              <>
+                <InputButton
+                  holder="이메일 입력"
+                  value={inputEmail}
+                  changeEvt={onChangeEmail}
+                  btnChild="인증하기"
+                  active={isEmail}
+                  clickEvt={authorizeMail}
+                  msg={emailMessage}
+                  msgType={isEmail}
+                />
+                <InputButton
+                  holder="인증번호를 입력하세요"
+                  value={inputCode}
+                  changeEvt={onChangeEmailCode}
+                  btnChild="확인"
+                  active={isEmail}
+                  clickEvt={checkCode}
+                  msg={codeMessage}
+                  msgType={isCode}
+                />
+                <Input
+                  holder="비밀번호"
+                  value={inputPw}
+                  type="password"
+                  msg={pwMessage}
+                  msgType={isPw}
+                  changeEvt={onChangePw}
+                />
+                <Input
+                  holder="비밀번호 다시 입력"
+                  value={inputPw2}
+                  type="password"
+                  msg={pw2Message}
+                  msgType={isPw2}
+                  changeEvt={onChangePw2}
+                />
+              </>
+            )}
             <Input
               holder="이름"
               value={inputName}
@@ -436,7 +476,11 @@ const Join = () => {
         children={modalMsg}
         type={modalType}
         confirm={() => {
-          navigate("/login");
+          if (email) {
+            kakaoLogin();
+          } else {
+            navigate("/login");
+          }
         }}
       />
     </>

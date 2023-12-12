@@ -43,6 +43,7 @@ export const InputButton = (props) => {
     clickEvt,
     msg,
     msgType,
+    disabled,
   } = props;
 
   return (
@@ -53,6 +54,7 @@ export const InputButton = (props) => {
           defaultValue={value}
           placeholder={holder}
           onChange={(e) => changeEvt(e)}
+          disabled={disabled}
         />
         <Button
           children={btnChild}
@@ -80,6 +82,10 @@ const InputComp = styled.div`
     outline: none;
     border-radius: 5px;
     font-size: 1em;
+    &:disabled {
+      opacity: 1;
+      background-color: white;
+    }
   }
   .msg {
     position: absolute;
@@ -95,7 +101,7 @@ const InputComp = styled.div`
   }
 `;
 export const Input = (props) => {
-  const { value, holder, changeEvt, type, msg, msgType } = props;
+  const { value, holder, changeEvt, type, msg, msgType, disabled } = props;
   return (
     <InputComp>
       <input
@@ -103,6 +109,7 @@ export const Input = (props) => {
         value={value}
         placeholder={holder}
         onChange={(e) => changeEvt(e)}
+        disabled={disabled}
       />
       <div className={`msg ${msgType ? "" : "fail"}`}>{msg}</div>
     </InputComp>

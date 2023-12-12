@@ -52,6 +52,14 @@ const LoginComp = styled.section`
         }
         button {
           margin-bottom: 30px;
+          &.kakaoBtn {
+            background-color: #fee500;
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            border: none;
+          }
         }
       }
     }
@@ -136,6 +144,13 @@ const Login = () => {
     navigate("/join");
   };
 
+  const kakaoLogin = () => {
+    const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
+    const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+    const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    window.location.href = KAKAO_URL;
+  };
+
   return (
     <>
       <LoginComp>
@@ -165,11 +180,14 @@ const Login = () => {
                 clickEvt={loginClick}
               />
               <Button
+                className="kakaoBtn"
                 children="카카오 간편 로그인"
                 active={true}
                 width="100%"
                 height="50px"
-                clickEvt={loginClick}
+                front="#fee500"
+                color="#333"
+                clickEvt={kakaoLogin}
               />
               <Button
                 children="회원가입"

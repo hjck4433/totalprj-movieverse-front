@@ -5,6 +5,7 @@ import UserStore from "./context/UserStore";
 import Layout from "./pages/Layout";
 import MainPage from "./pages/MainPage";
 import Login from "./pages/Login";
+import Kakao from "./pages/Kakao";
 import Join from "./pages/Join";
 import MyPage from "./pages/MyPage";
 import MemberInfoChg from "./pages/MemberInfoChg";
@@ -31,6 +32,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<MainPage />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/oauth/kakao/callback" element={<Kakao />} />
               <Route path="/join" element={<Join />} />
               <Route path="/mypage" element={<MyPage />} />
               <Route path="/mypage/infochange" element={<MemberInfoChg />} />

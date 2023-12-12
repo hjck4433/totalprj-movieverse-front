@@ -4,7 +4,7 @@ const ButtonComp = styled.button`
   text-align: center;
   width: ${(props) => props.width || "200px"};
   height: ${(props) => props.height || "40px"};
-  color: white;
+  color: ${(props) => props.color || "white"};
   font-weight: 600;
   font-size: ${(props) => props.fontSize || "16px"};
   border: none;
@@ -21,16 +21,27 @@ const ButtonComp = styled.button`
   }
   &:hover {
     background-color: ${(props) => props.$back || "var(--VIOLET)"};
+    color: white;
   }
 `;
 
 // 활성/비활성 버튼
 const Button = (props) => {
-  const { children, width, height, fontSize, active, clickEvt, front, back } =
-    props;
+  const {
+    children,
+    width,
+    height,
+    fontSize,
+    active,
+    clickEvt,
+    front,
+    back,
+    color,
+  } = props;
   return (
     <>
       <ButtonComp
+        color={color}
         $front={front}
         $back={back}
         width={width}
