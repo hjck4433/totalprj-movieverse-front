@@ -58,6 +58,7 @@ const Kakao = () => {
   useEffect(() => {
     kakaoToken();
   }, []);
+  // 카카오 정보 확인
   useEffect(() => {
     console.log("isMember : " + isMember);
     console.log("email : " + email);

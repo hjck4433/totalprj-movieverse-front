@@ -355,6 +355,7 @@ const Join = ({ email, profile, kakaoId }) => {
           </div>
           {/* 인풋 영역 */}
           <div className="inputArea">
+            {/* 첫 카카오 로그인 회원가입 : 일반 회원 가입 */}
             {email ? (
               <Input value={email} disabled={true} />
             ) : (
