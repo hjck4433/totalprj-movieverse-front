@@ -68,49 +68,68 @@ const InfoSection1Style = styled.section`
 `;
 
 const MovieInfoSection1 = () => {
+  const movieData = [
+    {
+      poster:
+        "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0JTIwJUVDJTgzJTg4JUVCJTgxJUJDfGVufDB8fDB8fHwy",
+      title: "프로젝트는 힘들어",
+      subTitle: "subtitle:",
+      releaseDate: "2023-12-08",
+      genre: "",
+      nation: "",
+      grade: "",
+      runtime: "",
+      audience: "20,231,208명",
+    },
+  ];
   return (
-    <InfoSection1Style>
-      <section>
-        <div className="container">
-          <div className="moviePoster">
-            <img
-              src="https://images.unsplash.com/photo-1611267254323-4db7b39c732c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0JTIwJUVDJTgzJTg4JUVCJTgxJUJDfGVufDB8fDB8fHwy"
-              alt="PosterImg"
-            />
-          </div>
-          <div className="movieOtherInfo">
-            <div className="infoTitle">
-              <h3 className="titleMain">프로젝트는 힘들어</h3>
-              <p></p>
+    <>
+      {movieData.map((movie, index) => (
+        <InfoSection1Style key={index}>
+          <section>
+            <div className="container">
+              <div className="moviePoster">
+                <img src={movie.poster} alt="PosterImg" />
+              </div>
+              <div className="movieOtherInfo">
+                <div className="infoTitle">
+                  <h3 className="titleMain">{movie.title}</h3>
+                  <p></p>
+                </div>
+                <div className="infoSubTitle">
+                  <p className="titleSub">{movie.subTitle}</p>
+                  <p></p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">개봉</p>
+                  <p>{movie.releaseDate}</p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">장르</p>
+                  <p>{movie.genre}</p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">국가</p>
+                  <p>{movie.nation}</p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">등급</p>
+                  <p>{movie.grade}</p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">상영시간</p>
+                  <p>{movie.runtime}</p>
+                </div>
+                <div className="infoBox">
+                  <p className="movieInfo">누적관객수</p>
+                  <p>{movie.audience}</p>
+                </div>
+              </div>
             </div>
-            <div className="infoSubTitle">
-              <p className="titleSub">subtitle:</p>
-              <p></p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">개봉</p>
-              <p>2023.12.08</p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">장르</p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">국가</p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">등급</p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">상영시간</p>
-            </div>
-            <div className="infoBox">
-              <p className="movieInfo">누적관객수</p>
-              <p>20,231,208명</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </InfoSection1Style>
+          </section>
+        </InfoSection1Style>
+      ))}
+    </>
   );
 };
 

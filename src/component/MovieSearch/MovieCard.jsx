@@ -22,7 +22,7 @@ const MovieCardComp = styled.div`
   .overlay {
     position: absolute;
     border-radius: 5px;
-    padding: 8% 10%;
+    padding: 10% 12%;
     top: 0;
     left: 0;
     width: 100%;
@@ -49,10 +49,7 @@ const MovieCardComp = styled.div`
         overflow: hidden;
         text-align: left;
       }
-      .divider {
-        outline: 1px solid red;
-        border-bottom: 1px solid var(--GREY);
-      }
+
       .score {
         position: absolute;
         width: 80%;
@@ -66,7 +63,11 @@ const MovieCardComp = styled.div`
         border-top: 1px solid var(--GREY);
         padding-top: 10px;
       }
+      .scoreText {
+        padding: 2%;
+      }
       .scoreNum {
+        padding: 0% 2%;
         font-size: 1.8rem;
         font-weight: 600;
         color: var(--LIGHTVIO);
@@ -85,13 +86,17 @@ const MovieCardComp = styled.div`
     }
     .overlay {
       .hoverInfo {
+        margin: 2%;
+
         .title {
-          font-size: 1.5rem;
+          font-size: 1.1rem;
         }
         .contents {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
         }
         .score {
+          width: 80%;
+          margin-bottom: 1%;
           .scoreText {
             font-size: 1rem;
           }

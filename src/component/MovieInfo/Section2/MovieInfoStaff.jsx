@@ -48,29 +48,37 @@ const MovieStaffStyle = styled.section`
 `;
 
 const MovieInfoStaff = () => {
+  const movieData = [
+    {
+      director: "김현지",
+      actor: "김현지, 박소현, 유현주, 이재원, 이세웅",
+    },
+  ];
   return (
-    <MovieStaffStyle>
-      <section>
-        <div className="container">
-          <div className="content">
-            <h2 className="bigText">감독 및 출연진</h2>
-            <div className="divider"></div>
-          </div>
-          <div className="smallText">
-            <div className="staff">
-              <p className="movieStaff">감독</p>
-              <p className="movieDirector">김현지</p>
+    <>
+      {movieData.map((movie, index) => (
+        <MovieStaffStyle key={index}>
+          <section>
+            <div className="container">
+              <div className="content">
+                <h2 className="bigText">감독 및 출연진</h2>
+                <div className="divider"></div>
+              </div>
+              <div className="smallText">
+                <div className="staff">
+                  <p className="movieStaff">감독</p>
+                  <p className="movieDirector">{movie.director}</p>
+                </div>
+                <div className="staff">
+                  <p className="movieStaff">출연 배우</p>
+                  <p className="movieActor">{movie.actor}</p>
+                </div>
+              </div>
             </div>
-            <div className="staff">
-              <p className="movieStaff">출연 배우</p>
-              <p className="movieActor">
-                김현지, 박소현, 유현주, 이재원, 이세웅
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </MovieStaffStyle>
+          </section>
+        </MovieStaffStyle>
+      ))}
+    </>
   );
 };
 

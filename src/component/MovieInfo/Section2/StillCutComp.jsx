@@ -18,15 +18,22 @@ const StillCompStyle = styled.div`
 `;
 
 const StillCutComp = () => {
+  const movieData = [
+    {
+      stillCut:
+        "https://t1.daumcdn.net/movie/f93e7e4923c0091d0a290264fcec8153df19a11d",
+    },
+  ];
   return (
-    <StillCompStyle>
-      <div className="still">
-        <img
-          src="https://t1.daumcdn.net/movie/f93e7e4923c0091d0a290264fcec8153df19a11d"
-          alt=""
-        />
-      </div>
-    </StillCompStyle>
+    <>
+      {movieData.map((movie, index) => (
+        <StillCompStyle key={index}>
+          <div className="still">
+            <img src={movie.stillCut} alt="" />
+          </div>
+        </StillCompStyle>
+      ))}
+    </>
   );
 };
 
