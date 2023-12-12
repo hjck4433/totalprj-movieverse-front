@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import BookMark from "../MyPage/BookMark";
 
 const MovieCardComp = styled.div`
   position: relative;
@@ -12,7 +11,7 @@ const MovieCardComp = styled.div`
 
   .overlay {
     position: absolute;
-    /* outline: 1px solid red; */
+    outline: 1px solid red;
     border-radius: 5px;
     padding: 8% 10%;
     top: 0;
@@ -25,7 +24,6 @@ const MovieCardComp = styled.div`
     .hoverInfo {
       width: 100%;
       height: 100%;
-      text-align: left;
       .title {
         font-size: 1.2em;
         font-weight: 600;
@@ -48,10 +46,9 @@ const MovieCardComp = styled.div`
         font-weight: 300;
         font-size: 1em;
         border-top: 1px solid var(--GREY);
-        padding-top: 10px;
         display: flex;
         justify-content: space-between;
-        /* text-align: left; */
+        align-items: center;
         .scoreText {
         }
         .scoreNum {
@@ -111,7 +108,6 @@ const MovieCard = () => {
                 <span className="scoreText">관람평</span>
                 <span className="scoreNum">{movie.scoreNum}</span>
               </p>
-              <BookMark />
             </div>
           </div>
         </MovieCardComp>
