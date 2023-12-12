@@ -15,16 +15,20 @@ const FAQComp = styled.section`
     padding-bottom: 130px;
     .faqHeader {
       margin-bottom: 80px;
+      h3 {
+        font-size: 1.6rem;
+      }
     }
     .faqMap {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
+      font-size: 1.4rem;
       li {
         position: relative;
         border-radius: 5px;
         background-color: rgba(42, 33, 71, 0.9);
         padding: 15px;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 500;
 
         .faqBox {
