@@ -13,22 +13,23 @@ const BoxOfficeSlideStyle = styled.div`
   align-items: center;
   .boxOfficeRank-slider {
     width: 100%;
+    position: relative;
     .swiper-button-prev,
     .swiper-button-next {
-      color: white;
-      background-color: black;
+      color: #494949;
+      background-color: white;
       opacity: 0.5;
       padding: 15px 15px;
       height: 15px;
       width: 15px;
       border-radius: 50%;
       cursor: pointer;
-      /* z-index: 10; */
+      z-index: 10;
     }
+
     .swiper-wrapper {
       .slide {
         width: 30%;
-        /* margin: 0 5px; */
       }
     }
     .swiper-button-next::after,
