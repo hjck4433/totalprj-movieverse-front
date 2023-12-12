@@ -10,25 +10,32 @@ import MovieCard from "../MovieSearch/MovieCard";
 const BoxOfficeSlideStyle = styled.div`
   padding: 50px 0;
   width: 100%;
+  align-items: center;
   .boxOfficeRank-slider {
     width: 100%;
-    position: relative;
     .swiper-button-prev,
     .swiper-button-next {
       color: white;
-      background-size: 90% auto;
-      background-position: center;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      background-color: black;
+      opacity: 0.5;
+      padding: 15px 15px;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
       cursor: pointer;
-      z-index: 10;
+      /* z-index: 10; */
     }
     .swiper-wrapper {
       .slide {
         width: 30%;
         /* margin: 0 5px; */
       }
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      /* display: none; */
+      font-size: 1.1rem;
+      font-weight: 600;
     }
   }
   @media only screen and (max-width: 768px) {

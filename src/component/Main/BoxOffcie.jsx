@@ -15,7 +15,7 @@ const BoxOfficeComp = styled.section`
     padding: 100px 0;
 
     .boxOfficeBox {
-      border: 1px solid red;
+      /* border: 1px solid red; */
       text-align: center;
       align-items: center;
       padding: 20px;
