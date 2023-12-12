@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/UserStore";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../api/firebase";
 import basicProfile from "../images/faceIcon/faceIcon1.png";
@@ -13,6 +14,8 @@ import Common from "../util/Common";
 
 const Join = ({ email, profile, kakaoId }) => {
   const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { setLoginStatus, loginStatus } = context;
 
   // 프로필 관련 ////////////////////////////////////////////////////
   const [imgSrc, setImgSrc] = useState(
@@ -137,7 +140,12 @@ const Join = ({ email, profile, kakaoId }) => {
     try {
       const res = await MemberApi.sendEmailCode(inputEmail);
       console.log("이메일전송 결과 : " + res.data);
-      if (res.data !== null) setSentCode(res.data);
+      if (res.data !== null) {
+        setSentCode(res.data);
+        setModalOpen(true);
+        setModalMsg("인증번호가 발송되었습니다.");
+        setModalHeader("확인");
+      }
     } catch (e) {
       console.log("이메일 err : " + e);
     }
@@ -312,8 +320,11 @@ const Join = ({ email, profile, kakaoId }) => {
       console.log("회원가입 : " + err);
     }
   };
-  // 카카오 로그인 처리
+  // 로그인 상태 체크 + 첫 카카오 로그인 관련 처리
   useEffect(() => {
+    if (loginStatus) {
+      navigate("/");
+    }
     if (email) {
       setInputEmail(email);
       setIsCode(true);
@@ -331,6 +342,7 @@ const Join = ({ email, profile, kakaoId }) => {
         console.log("KL refreshToken : " + res.data.refreshToken);
         Common.setAccessToken(res.data.accessToken);
         Common.setRefreshToken(res.data.refreshToken);
+        setLoginStatus(true);
         navigate("/");
       }
     } catch (err) {

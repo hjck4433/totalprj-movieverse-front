@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/UserStore";
 import loginBgPc from "../images/login_bg_pc.jpg";
 import loginBgMo from "../images/login_bg_mo.jpg";
 import Button from "../util/Button";
@@ -81,6 +82,8 @@ const LoginComp = styled.section`
 
 const Login = () => {
   const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { setLoginStatus, loginStatus } = context;
 
   //키보드 입력
   const [inputEmail, setInputEmail] = useState("");
@@ -122,6 +125,7 @@ const Login = () => {
         console.log("refreshToken : " + res.data.refreshToken);
         Common.setAccessToken(res.data.accessToken);
         Common.setRefreshToken(res.data.refreshToken);
+        setLoginStatus(true);
         navigate("/");
       } else {
         setModalOpen(true);
@@ -150,6 +154,11 @@ const Login = () => {
     const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = KAKAO_URL;
   };
+  useEffect(() => {
+    if (loginStatus) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

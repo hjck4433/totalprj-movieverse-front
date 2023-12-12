@@ -1,12 +1,17 @@
 import KakaoApi from "../api/KakaoApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Join from "./Join";
 import MemberApi from "../api/MemberApi";
 import Common from "../util/Common";
+import { UserContext } from "../context/UserStore";
 
 const Kakao = () => {
   const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { setLoginStatus } = context;
+
+  //카카오 엑세스 토큰 요청을 위한 코드
   const code = new URL(window.location.href).searchParams.get("code");
   console.log(code);
 
@@ -48,6 +53,7 @@ const Kakao = () => {
         console.log("KL refreshToken : " + res.data.refreshToken);
         Common.setAccessToken(res.data.accessToken);
         Common.setRefreshToken(res.data.refreshToken);
+        setLoginStatus(true);
         navigate("/");
       }
     } catch (err) {
