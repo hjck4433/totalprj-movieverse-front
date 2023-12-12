@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 const BookMarkListComp = styled.section`
-  width: 100%;
+  
   .container {
     h2 {
       font-size: 1.8rem;

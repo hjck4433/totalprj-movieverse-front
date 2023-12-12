@@ -65,7 +65,7 @@ const ChatRoom = () => {
     return(
         <ChatRoomComp>
             <div className="container">
-                <div className="chatBg">
+                <div className="chatChat">
                     <div className="chatTitle">
                     <p>마블스는 몇 엄복동인가?</p>
                     </div>
