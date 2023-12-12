@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const BookMarkComp = styled.section`
+const BookMarkListComp = styled.section`
   width: 100%;
   .container {
     h2 {
@@ -23,17 +23,17 @@ const BookMarkComp = styled.section`
   }
 `;
 
-const BookMark = () => {
+const BookMarkList = () => {
   return (
     <>
-      <BookMarkComp>
+      <BookMarkListComp>
         <div className="container">
-          <h2>BOOKMARK</h2>
+          <h2>BOOKMARKLIST</h2>
           <div className="movielist"></div>
         </div>
-      </BookMarkComp>
+      </BookMarkListComp>
     </>
   );
 };
 
-export default BookMark;
+export default BookMarkList;
