@@ -5,8 +5,16 @@ import { styled } from "styled-components";
 
 const BookmarkComp = styled.div`
   .BookmarkHeart {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 22%;
+    z-index: 1;
     &:hover {
       cursor: pointer;
+    }
+    img {
+      padding: 5%;
     }
   }
 `;

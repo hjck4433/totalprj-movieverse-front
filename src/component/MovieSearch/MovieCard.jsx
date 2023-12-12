@@ -61,8 +61,9 @@ const MovieCardComp = styled.div`
     }
   }
   &:hover .overlay {
-    opacity: 1; // 호버 시 오버레이
+    opacity: 1;
   }
+
   @media only screen and (max-width: 768px) {
     .overlay {
       .hoverInfo {
