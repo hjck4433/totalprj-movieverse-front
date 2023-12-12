@@ -1,38 +1,73 @@
-import React, { useState } from "react";
-import filled_heart from "../../images/Bookmark/filled_heart.png";
-import empty_heart from "../../images/Bookmark/empty_heart.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 
 const BookmarkComp = styled.div`
-  .BookmarkHeart {
+  .BookmarkBox {
     position: absolute;
     right: 0;
     top: 0;
-    width: 22%;
-    z-index: 1;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    z-index: 10;
     &:hover {
       cursor: pointer;
     }
-    img {
-      padding: 5%;
+    .BookmarkAround {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .heart {
+        font-size: 1.3rem;
+        color: var(--LIGHTVIO);
+        opacity: 0.2;
+        &.marked {
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        .heart {
+          opacity: 1;
+          &.marked {
+            opacity: 1;
+          }
+        }
+      }
     }
+  }
+
+  @media only screen and (max-width: 768px) {
   }
 `;
 
 const Bookmark = () => {
-  const [filled, setFilled] = useState(false);
-  const ChangeHeart = () => {
-    setFilled(!filled);
+  const [marked, setMarked] = useState(false);
+  const changeHeart = () => {
+    marked ? setMarked(false) : setMarked(true);
   };
+
+  useEffect(() => {
+    console.log("marked : " + marked);
+  }, [marked]);
 
   return (
     <BookmarkComp>
-      <div className="BookmarkHeart" onClick={ChangeHeart}>
-        {filled ? (
-          <img src={filled_heart} alt="Filled Heart" />
-        ) : (
-          <img src={empty_heart} alt="Empty Heart" />
-        )}
+      <div className="BookmarkBox">
+        <div className="BookmarkAround" onClick={changeHeart}>
+          <FontAwesomeIcon
+            icon={faHeart}
+            className={`heart ${marked ? "" : "marked"}`}
+            // className="heart marked"
+          />
+        </div>
       </div>
     </BookmarkComp>
   );
