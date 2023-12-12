@@ -111,7 +111,7 @@ const MyInfo = () => {
     navigate("/mypage/memberpost");
   };
   const toinfochange = () => {
-    navigate("/infochange");
+    navigate("/mypage/infochange");
   };
   // const [userInfo, setUserInfo] = useState(null);
   const userInfo = {
