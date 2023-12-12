@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import Bookmark from "./Bookmark";
 
 const MovieCardComp = styled.div`
   position: relative;
@@ -110,6 +111,7 @@ const MovieCard = () => {
               </p>
             </div>
           </div>
+          <Bookmark />
         </MovieCardComp>
       ))}
     </>

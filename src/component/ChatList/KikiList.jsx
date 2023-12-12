@@ -19,7 +19,7 @@ const KikiListComp = styled.section`
     }
     .kikiBox {
       height: 120px;
-      outline: 1px solid white;
+      /* outline: 1px solid white; */
       background-color: var(--LIGHTVIO);
       border-radius: 5px;
       margin-bottom: 50px;
@@ -35,12 +35,12 @@ const KikiListComp = styled.section`
     .p1{
       color:#000;
       font-weight: 800;
-      font-size: 1.5rem;
+      font-size: 1.5em;
       /* outline: 1px solid red; */
       margin-right: 65%;
 
       @media (max-width: 767px){
-        font-size: 1.2rem;
+        font-size: 1.2em;
         margin-right: 50px;
         
       }
@@ -51,11 +51,11 @@ const KikiListComp = styled.section`
     .p2{
       color:#000;
       font-weight: 800;
-      font-size: 1.3rem;
+      font-size: 1.3em;
       /* outline: 1px solid lightgreen; */
 
       @media (max-width:767px){
-        font-size: 1rem;
+        font-size: 1em;
         
       }
 

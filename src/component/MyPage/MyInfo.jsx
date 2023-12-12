@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import profileimg from "../../images/faceIcon/faceIcon1.png";
 import profileimg2 from "../../images/faceIcon/faceIcon2.png";
-import { useState, useEffect } from "react";
 import Button from "../../util/Button";
 
 /*마이페이지 myinfo */
