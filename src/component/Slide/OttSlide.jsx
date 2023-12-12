@@ -11,30 +11,30 @@ const OttSlideStyle = styled.div`
   padding: 50px 0;
   width: 100%;
   .swiper-button-prev,
-    .swiper-button-next {
-      color: white;
-      background-color: black;
-      opacity: 0.5;
-      padding: 15px 15px;
-      height: 15px;
-      width: 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      /* z-index: 10; */
-    }
-    .swiper-wrapper {
-      .slide {
-        width: 30%;
-        /* margin: 0 5px; */
-      }
-    }
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      /* display: none; */
-      font-size: 1.1rem;
-      font-weight: 600;
+  .swiper-button-next {
+    color: white;
+    background-color: black;
+    opacity: 0.5;
+    padding: 15px 15px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    /* z-index: 10; */
+  }
+  .swiper-wrapper {
+    .slide {
+      width: 30%;
+      /* margin: 0 5px; */
     }
   }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    /* display: none; */
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
   /* @media only screen and (max-width: 768px) {
     padding: 20px 0;
     .swiper-wrapper {
