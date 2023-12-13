@@ -8,13 +8,13 @@ const Common = {
     localStorage.setItem("accessToken", token);
   },
   getAccessToken: () => {
-    return localStorage.getItme("accessToken");
+    return localStorage.getItem("accessToken");
   },
   setRefreshToken: (token) => {
     localStorage.setItem("refreshToken", token);
   },
   getRefreshToken: () => {
-    return localStorage.getItme("refreshToken");
+    return localStorage.getItem("refreshToken");
   },
   // 헤더
   tokenHeader: () => {
