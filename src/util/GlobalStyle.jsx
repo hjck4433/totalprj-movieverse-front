@@ -35,6 +35,25 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     color: #fff;
   }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--GREY); 
+  }
+ 
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--LIGHTVIO); 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
   h2 {
     font-size: 2.2em;
   }

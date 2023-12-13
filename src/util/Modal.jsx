@@ -50,6 +50,8 @@ const ModalStyle = styled.div`
       border-bottom: 2px solid #dee2e6;
       text-align: center;
       color: #333;
+      white-space: pre-line;
+      line-height: 1.4;
     }
     footer {
       padding: 12px 16px;
@@ -104,7 +106,7 @@ const Modal = (props) => {
             <div>{children}</div>
             <footer>
               {type && <Button onClick={confirm}>확인</Button>}
-              <Button onClick={close}>취소</Button>
+              <Button onClick={close}>{type ? "취소" : "확인"}</Button>
             </footer>
           </section>
         )}

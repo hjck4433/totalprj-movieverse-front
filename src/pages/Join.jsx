@@ -143,7 +143,9 @@ const Join = ({ email, profile, kakaoId }) => {
       if (res.data !== null) {
         setSentCode(res.data);
         setModalOpen(true);
-        setModalMsg("인증번호가 발송되었습니다.");
+        setModalMsg(
+          "인증번호가 발송되었습니다.\n받은 메일함에 없는 경우 스팸메일함을 확인해주세요."
+        );
         setModalHeader("확인");
       }
     } catch (e) {
