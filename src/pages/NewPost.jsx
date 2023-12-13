@@ -1,9 +1,41 @@
+import React, { useState } from "react";
+import { storage } from "../api/firebase";
 import Button from "../util/Button";
 import { useNavigate } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
+import basicImg from "../images/congrats.png";
 
+// 현재 날짜를 받아오기 위함
+const getCurrentDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}${month}${day}`;
+};
 const NewPost = () => {
+  //현재날짜
+  const currentDate = getCurrentDate();
+
+  // 이미지 업로드
+  const [imgSrc, setImgSrc] = useState(basicImg);
+  const [file, setFile] = useState("");
+  const [url, setUrl] = useState("");
+
+  // 입력받은 이미지 파일 주소
+  const handleFileInputChange = (e) => {
+    const selectedFile = e.target.files?.[0];
+
+    // 선택된 파일이 있다면
+    if (selectedFile) {
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setImgSrc(objectUrl);
+      // 파이어베이스에 보내기위해 변수에 저장
+      setFile(selectedFile);
+    }
+  };
+
   return (
     <>
       <NewPostComp>
@@ -62,14 +94,29 @@ const NewPost = () => {
             </div>
             <div className="uploadDate">
               <h3>작성일</h3>
-              <p>20231214</p>
+              <p>{currentDate}</p>
             </div>
             <div className="postTitle">
               <h3>제 목</h3>
-              <p> 제목 자리만 입력</p>
+              <textarea
+                type="text"
+                placeholder="모임 제목을 입력해주세요"
+              ></textarea>
             </div>
             <div className="uploadImg">
               <h3>이미지</h3>
+              <div className="boardImg">
+                <div className="imgBox">
+                  <img src={imgSrc} alt="게시글 내용 이미지" />
+                </div>
+                <label>
+                  <input
+                    type="file"
+                    onChange={(e) => handleFileInputChange(e)}
+                  />
+                  파일 선택
+                </label>
+              </div>
             </div>
             <div className="contents">
               <h3>내 용</h3>

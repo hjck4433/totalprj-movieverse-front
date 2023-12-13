@@ -1,15 +1,9 @@
 import styled from "styled-components";
-// 새 글 작성 전체
+// 새 글 작성 전체////////////////////////////
 export const NewPostComp = styled.section`
-  width: 100%;
-  padding: 5% 0;
   background-color: white;
-
   .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 5%;
     // 말풍선
     .bubbleArea {
       /* border: 1px solid red; */
@@ -62,7 +56,7 @@ export const NewPostComp = styled.section`
       border: 1px solid var(--GREY);
       border-radius: 10px;
       margin-top: 10px;
-      padding: 30px;
+      padding: 40px;
       .selectBoard {
         h3 {
           color: var(--VIOLET);
@@ -78,77 +72,88 @@ export const NewPostComp = styled.section`
           letter-spacing: 8px; // 자간 조정
         }
       }
-      .writer {
-        display: flex;
-        margin-bottom: 20px;
-        h3 {
-          color: var(--VIOLET);
-          font-weight: 600;
-          font-size: 1.4rem;
-          margin-right: 20px;
-        }
-        p {
-          color: black;
-        }
-      }
-      .uploadDate {
-        display: flex;
-        margin-bottom: 20px;
-        h3 {
-          color: var(--VIOLET);
-          font-weight: 600;
-          font-size: 1.4rem;
-          margin-right: 20px;
-        }
-        p {
-          color: black;
-        }
-      }
-      .postTitle {
-        display: flex;
-        margin-bottom: 20px;
-        h3 {
-          color: var(--VIOLET);
-          font-weight: 600;
-          font-size: 1.4rem;
-          margin-right: 20px;
-          letter-spacing: 8px;
-        }
-        p {
-          color: black;
-        }
-      }
-      .uploadImg {
-        margin-bottom: 20px;
-        h3 {
-          color: var(--VIOLET);
-          font-weight: 600;
-          font-size: 1.4rem;
-          margin-right: 20px;
-        }
-        p {
-          color: black;
-        }
-      }
+      .writer,
+      .uploadDate,
+      .postTitle,
+      .uploadImg,
       .contents {
         display: flex;
         margin-bottom: 20px;
+
         h3 {
           color: var(--VIOLET);
           font-weight: 600;
           font-size: 1.4rem;
-          margin-right: 20px;
-          letter-spacing: 8px; // 자간 조정
+          width: 100px;
         }
         p {
           color: black;
+          font-size: 1.2rem;
         }
+      }
+      .postTitle,
+      .contents {
         textarea {
           width: 90%;
-          height: 300px;
           border-radius: 10px;
           padding: 10px;
           font-size: 1.1rem;
+        }
+        h3 {
+          letter-spacing: 8px;
+        }
+      }
+      .boardImg {
+        width: 100%;
+        margin-bottom: 30px;
+
+        .imgBox {
+          position: relative;
+          width: 20%;
+          padding-bottom: 20%;
+          margin-bottom: 15px;
+          border-radius: 5%;
+          background-color: var(--GREY);
+          overflow: hidden;
+          img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+          }
+          @media only screen and (max-width: 768px) {
+            width: 30%;
+            padding-bottom: 30%;
+          }
+        }
+        label {
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 0.8em;
+          font-weight: 600;
+          cursor: pointer;
+          background-color: var(--LIGHTVIO);
+          transition: 0.3s ease-out;
+          &:hover {
+            background-color: var(--VIOLET);
+            color: white;
+          }
+        }
+        input {
+          display: none;
+        }
+      }
+      .contents {
+        /* display: flex; */
+        flex-direction: column;
+        width: 100%;
+
+        textarea {
+          width: 100%;
+          height: 400px;
+          border-radius: 10px;
+          padding: 10px;
+          font-size: 1.1rem;
+          margin-top: 15px;
         }
       }
       .buttonBox {
@@ -157,23 +162,108 @@ export const NewPostComp = styled.section`
         align-items: center;
         margin-top: 20px;
         Button {
-          margin-right: 10px;
+          margin: 20px 20px 0 20px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .container {
+      padding: 2%;
+      // 말풍선
+      .bubbleArea {
+        margin-bottom: 10px;
+        img {
+          width: 100px;
+          height: 100px;
+          margin-right: 30px;
+        }
+        .bubbleText {
+          padding: 15px;
+          width: 100%;
+          h2 {
+            font-size: 1.2rem;
+          }
+          p {
+            font-size: 0.9rem;
+          }
+          :after {
+            margin-left: -20px;
+          }
+        }
+      }
+      // 새 글 작성
+      .postBox {
+        padding: 20px;
+        .selectBoard {
+          h3 {
+            font-size: 1.1rem;
+          }
+        }
+        .meetingMethod {
+          h3 {
+            font-size: 1.1rem;
+            letter-spacing: 6px; // 자간 조정
+          }
+        }
+        .writer,
+        .uploadDate,
+        .postTitle,
+        .uploadImg,
+        .contents {
+          margin-bottom: 15px;
+          h3 {
+            font-size: 1.1rem;
+            width: 80px;
+          }
+          p {
+            font-size: 0.9rem;
+          }
+        }
+        .postTitle,
+        .contents {
+          textarea {
+            width: 80%;
+            padding: 8px;
+            font-size: 0.9rem;
+          }
+          h3 {
+            letter-spacing: 6px;
+          }
+        }
+        .boardImg {
+          width: 80%;
+          margin-bottom: 10px;
+
+          .imgBox {
+            width: 30%;
+            padding-bottom: 30%;
+          }
+        }
+        .contents {
+          textarea {
+            width: 100%;
+            height: 300px;
+            padding: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+          }
+        }
+        .buttonBox {
+          Button {
+            margin: 0 20px;
+          }
         }
       }
     }
   }
 `;
-// 라디오 버튼 스타일
+// 라디오 버튼 스타일 ////////////////////////
 export const RadioBox = styled.div`
-  padding: 10px;
-  margin: 10px;
-  height: 60px;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-evenly; */
+  padding: 20px 0;
+
   .boardSelectBtn {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     .boardLable1 {
       background-color: var(--LIGHTVIO);
@@ -185,30 +275,26 @@ export const RadioBox = styled.div`
       background-color: var(--BLUE);
     }
     label {
-      padding: 18px;
-      height: 2rem;
+      padding: 10px 15px;
       cursor: pointer;
       border-radius: 2rem;
-
-      font-size: 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
       color: white;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       word-break: keep-all;
-      text-align: center;
-      margin-right: 3px;
+      margin-right: 20px;
+      accent-color: var(--LIGHTVIO);
 
-      /* 체크박스를 라벨 내에 숨깁니다. */
+      /* 체크박스를 라벨 내에 위치 */
       input[type="radio"] {
-        margin-right: 10px;
+        margin: 0 8px 0 0;
       }
     }
   }
   .placeSelectBtn {
     display: flex;
-    justify-content: space-between;
-    width: 58%;
+    width: 100%;
     .placeLable1 {
       background-color: var(--BLUE);
     }
@@ -217,23 +303,32 @@ export const RadioBox = styled.div`
       background-color: var(--MIDBLUE);
     }
     label {
-      padding: 18px;
-      height: 2rem;
+      padding: 10px 15px;
       cursor: pointer;
       border-radius: 2rem;
-
-      font-size: 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
       color: white;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       word-break: keep-all;
-      text-align: center;
-      margin-right: 3px;
+      margin-right: 20px;
+      accent-color: var(--LIGHTVIO);
 
-      /* 체크박스를 라벨 내에 숨깁니다. */
+      /* 체크박스를 라벨 내에 위치 */
       input[type="radio"] {
-        margin-right: 10px;
+        margin: 0 8px 0 0;
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .boardSelectBtn {
+      label {
+        font-size: 0.8rem;
+      }
+    }
+    .placeSelectBtn {
+      label {
+        font-size: 0.8rem;
       }
     }
   }
