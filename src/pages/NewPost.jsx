@@ -1,84 +1,7 @@
-import styled from "styled-components";
 import Button from "../util/Button";
 import { useNavigate } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
-
-const NewPostComp = styled.section`
-  width: 100%;
-  padding: 5% 0;
-  background-color: white;
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .bubbleArea {
-      border: 1px solid red;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-
-      img {
-        width: 120px;
-        height: 120px;
-        margin-right: 50px;
-      }
-      .bubbleText {
-        position: relative;
-        background: var(--GREY);
-        border-radius: 20px;
-        padding: 20px 30px;
-        width: 100%;
-        height: 120px;
-        h2 {
-          font-size: 1.6rem;
-          font-weight: 600;
-          color: var(--VIOLET);
-          margin-bottom: 10px;
-        }
-        p {
-          font-size: 1.1rem;
-          color: black;
-          margin-bottom: 5px;
-        }
-        :after {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 50%;
-          width: 0;
-          height: 0;
-          border: 27px solid transparent;
-          border-right-color: var(--GREY);
-          border-left: 0;
-          border-top: 0;
-          margin-top: -13.5px;
-          margin-left: -27px;
-        }
-      }
-    }
-    .postBox {
-      width: 100%;
-      border: 1px solid blue;
-      border-radius: 10px;
-      margin-top: 10px;
-      padding: 20px;
-      h3 {
-        color: var(--VIOLET);
-      }
-      .buttonBox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-        Button {
-          margin-right: 10px;
-        }
-      }
-    }
-  }
-`;
+import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 
 const NewPost = () => {
   return (
@@ -100,24 +23,60 @@ const NewPost = () => {
           <div className="postBox">
             <div className="selectBoard">
               <h3>게시판 선택</h3>
+              <RadioBox>
+                {/* name 부분이 같아야 함 */}
+                <div className="boardSelectBtn">
+                  <label class="boardLable1" htmlFor="btn1">
+                    <input type="radio" id="option1" name="bordBtn" />
+                    무비모임
+                  </label>
+                  <label class="boardLable2" htmlFor="btn2">
+                    <input type="radio" id="option2" name="bordBtn" />
+                    모임후기
+                  </label>
+                  <label class="boardLable3" htmlFor="btn3">
+                    <input type="radio" id="option3" name="bordBtn" />
+                    영화추천
+                  </label>
+                </div>
+              </RadioBox>
             </div>
             <div className="meetingMethod">
-              <h3>장소</h3>
+              <h3>장 소</h3>
+              <RadioBox>
+                <div className="placeSelectBtn">
+                  <label class="placeLable1" htmlFor="btn1">
+                    <input type="radio" id="option1" name="placeBtn" />
+                    온라인
+                  </label>
+                  <label class="placeLable2" htmlFor="btn2">
+                    <input type="radio" id="option2" name="placeBtn" />
+                    오프라인
+                  </label>
+                </div>
+              </RadioBox>
             </div>
             <div className="writer">
               <h3>작성자</h3>
+              <p>gogohamster</p>
             </div>
             <div className="uploadDate">
               <h3>작성일</h3>
+              <p>20231214</p>
             </div>
             <div className="postTitle">
-              <h3>제목</h3>
+              <h3>제 목</h3>
+              <p> 제목 자리만 입력</p>
             </div>
             <div className="uploadImg">
               <h3>이미지</h3>
             </div>
             <div className="contents">
-              <h3>내용</h3>
+              <h3>내 용</h3>
+              <textarea
+                type="text"
+                placeholder="모임내용을 입력해주세요"
+              ></textarea>
             </div>
             <div className="buttonBox">
               <Button children="등록하기" active={true} back="var(--BLUE)" />
