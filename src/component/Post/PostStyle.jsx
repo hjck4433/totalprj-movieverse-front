@@ -205,4 +205,97 @@ export const PostComp = styled.section`
       justify-content: center;
     }
   }
+  @media only screen and (max-width: 768px) {
+    .container {
+      padding: 6%;
+
+      .titleBox {
+        padding-bottom: 30px;
+
+        .memIconArea {
+          width: 15%;
+          text-align: center;
+        }
+        p {
+          color: black;
+          font-size: 0.7rem;
+        }
+      }
+      .titleElements {
+        .topElements {
+          .selectedBox {
+            .boardType,
+            .placeType {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              p {
+                color: white;
+              }
+            }
+          }
+        }
+
+        h3 {
+          font-size: 1.1rem;
+        }
+      }
+      .contentsBox {
+        padding: 3%;
+        margin-top: 30px;
+        .introduce {
+          width: 95%;
+        }
+        .contentsText {
+          width: 100%;
+          margin: 30px 0;
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+      .commentArea {
+        h3 {
+          margin-top: 30px;
+        }
+        .commentList {
+          .commentBox {
+            .iconArea {
+              width: 13%;
+            }
+            .textArea {
+              width: 55%;
+              padding: 2%;
+              .nickName {
+                font-size: 1rem;
+                margin-bottom: 10px;
+              }
+              .commentText {
+                color: black;
+                font-size: 0.9rem;
+              }
+            }
+            .rightArea {
+              width: 30%;
+              .writeDate {
+                margin-bottom: 10px;
+              }
+              .editBtnBox {
+                Button {
+                  font-size: 0.8rem;
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+        .textInputBox {
+          margin-top: 20px;
+        }
+      }
+      .listBtnBox {
+        margin-top: 30px;
+      }
+    }
+  }
 `;
