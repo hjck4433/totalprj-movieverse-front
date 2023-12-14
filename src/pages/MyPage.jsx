@@ -1,14 +1,24 @@
 import MyInfo from "../component/MyPage/MyInfo";
 import MembershipJoin from "../component/MyPage/MembershipJoin";
 import BookMarkList from "../component/MyPage/BookMarkList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import MemberApi from "../api/MemberApi";
 import Common from "../util/Common";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserStore";
 
 const MyPage = () => {
   const navigate = useNavigate();
   const [memberInfo, setMemberInfo] = useState();
+  const context = useContext(UserContext);
+  const { loginStatus } = context;
+
+  useEffect(() => {
+    if (!loginStatus) {
+      //로그인 하지 않았다면 로그인 페이지로 이동
+      navigate("/login");
+    }
+  }, []); // []<-화면 마운트시 최초 한번 실행
 
   const memberDetail = async () => {
     const accessToken = Common.getAccessToken();

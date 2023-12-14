@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+// import { useEffect, useContext } from "react";
 import profileimg from "../../images/faceIcon/faceIcon1.png";
 import profileimg2 from "../../images/faceIcon/faceIcon2.png";
 import Button from "../../util/Button";
@@ -8,7 +9,7 @@ import Button from "../../util/Button";
 const MyInfoComp = styled.section`
   width: 100%; /* 보통 높이값은 따로 주지 않음!(배너를 잡을 경우에는 높이값을 줌) */
   padding-top: 80px;
-  outline: 1px solid yellow;
+  /* outline: 1px solid yellow; */
   margin-bottom: 100px;
 
   .container {
@@ -18,7 +19,7 @@ const MyInfoComp = styled.section`
       font-size: 3rem;
     }
     .wrapper {
-      outline: 1px solid yellow;
+      /* outline: 1px solid yellow; */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,7 +27,7 @@ const MyInfoComp = styled.section`
         width: 250px;
         margin-right: 5%;
         padding-bottom: 5%;
-        outline: 1px solid red;
+        /* outline: 1px solid red; */
         .profileImg {
           width: 250px;
           padding-bottom: 250px;
@@ -43,15 +44,13 @@ const MyInfoComp = styled.section`
         }
       }
       .userContent {
-        width: 30%;
+        width: 50%;
         letter-spacing: -0.8px;
-        outline: 1px solid pink;
+        /* outline: 1px solid pink; */
         .userBox {
-          width: 100%;
           margin-bottom: 20px;
-          /* display: flex; */
           display: grid;
-          grid-template-columns: 30% 60%;
+          grid-template-columns: 20% 70%; //밑줄 길이 조절
           p {
             padding: 10px 0;
             letter-spacing: 0.8px;
@@ -75,7 +74,7 @@ const MyInfoComp = styled.section`
       /* outline: 1px solid blue; */
       display: flex;
       justify-content: end;
-      padding-right: 40px;
+      padding-right: 10%;
       button {
         &:first-child {
           margin-right: 12px;
@@ -86,20 +85,23 @@ const MyInfoComp = styled.section`
       .wrapper {
         flex-direction: column; /* 모바일에서 세로로 배치 */
         align-items: center; /* 가운데 정렬 */
+        width: 100%;
 
         .userProfile {
           order: -1; /* .userContent보다 위로 이동 */
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
 
         .userContent {
-          width: 80%; /* 모바일에서 전체 너비로 */
+          width: 100%; /* 모바일에서 전체 너비로 */
+          justify-content: center;
+          /* align-items: center; */
+          text-align: center;
         }
-
-        .buttonBox {
-          padding-right: 0; /* 모바일에서 오른쪽 패딩 제거 */
-          justify-content: center; /* 가운데 정렬 */
-        }
+      }
+      .buttonBox {
+        padding-right: 0; /* 모바일에서 오른쪽 패딩 제거 */
+        justify-content: center; /* 가운데 정렬 */
       }
     }
   }
@@ -107,6 +109,7 @@ const MyInfoComp = styled.section`
 
 const MyInfo = ({ memberInfo }) => {
   const navigate = useNavigate();
+
   const tomemberpost = () => {
     navigate("/mypage/memberpost");
   };
