@@ -8,7 +8,7 @@ import Button from "../../util/Button";
 const MyInfoComp = styled.section`
   width: 100%; /* 보통 높이값은 따로 주지 않음!(배너를 잡을 경우에는 높이값을 줌) */
   padding-top: 80px;
-  /* outline: 1px solid yellow; */
+  outline: 1px solid yellow;
   margin-bottom: 100px;
 
   .container {
@@ -18,7 +18,7 @@ const MyInfoComp = styled.section`
       font-size: 3rem;
     }
     .wrapper {
-      /* outline: 1px solid yellow; */
+      outline: 1px solid yellow;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,7 +26,7 @@ const MyInfoComp = styled.section`
         width: 250px;
         margin-right: 5%;
         padding-bottom: 5%;
-        /* outline: 1px solid red; */
+        outline: 1px solid red;
         .profileImg {
           width: 250px;
           padding-bottom: 250px;
@@ -45,7 +45,7 @@ const MyInfoComp = styled.section`
       .userContent {
         width: 30%;
         letter-spacing: -0.8px;
-        /* outline: 1px solid pink; */
+        outline: 1px solid pink;
         .userBox {
           width: 100%;
           margin-bottom: 20px;

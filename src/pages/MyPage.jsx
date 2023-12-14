@@ -4,8 +4,10 @@ import BookMarkList from "../component/MyPage/BookMarkList";
 import { useState, useEffect } from "react";
 import MemberApi from "../api/MemberApi";
 import Common from "../util/Common";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const [memberInfo, setMemberInfo] = useState();
 
   const memberDetail = async () => {
@@ -19,23 +21,29 @@ const MyPage = () => {
         await Common.handleUnathorized();
         const newToken = Common.getAccessToken();
         if (newToken !== accessToken) {
-          const res = await MemberApi.getMemberDetail();
-          if (res.status === 200) {
-            console.log("토큰 재발행 회원정보 : " + res.data);
-            setMemberInfo(res.data);
+          try {
+            const res = await MemberApi.getMemberDetail();
+            if (res.status === 200) {
+              console.log("토큰 재발행 회원정보 : " + res.data);
+              setMemberInfo(res.data);
+            }
+          } catch (err) {
+            console.log(err);
           }
         }
       }
+      console.log(err);
     }
   };
   useEffect(() => {
     memberDetail();
   }, []);
 
+  // 멤버십 여부 back 실행 시켜야 오류 안뜸!
   return (
     <>
       <MyInfo memberInfo={memberInfo} />
-      <MembershipJoin />
+      {memberInfo && !memberInfo.isMembership && <MembershipJoin />}
       <BookMarkList />
     </>
   );
