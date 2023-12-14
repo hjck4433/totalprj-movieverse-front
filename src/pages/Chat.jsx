@@ -1,280 +1,48 @@
-import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
-import Button from "../util/Button";
+import ChatBox from "../component/Chat/ChatBox";
 import Common from "../util/Common";
-import ChatApi from "../api/ChatApi";
-import basicProfile from "../images/faceIcon/faceIcon1.png";
-import { Sender, User } from "../component/Chat/ChatElement";
-
-const ChatRoomComp = styled.section`
-  width: 100%;
-
-  .container {
-    align-items: center;
-    padding: 100px 0;
-    .chatBg {
-      width: 400px;
-      margin: 0 auto;
-      background-color: var(--VIOLET);
-      border-radius: 5px;
-      padding: 40px 30px;
-      .chatTitle {
-        font-size: 1.4em;
-        font-weight: 600;
-        margin-bottom: 30px;
-        text-align: center;
-      }
-      .chatPrint {
-        height: 360px;
-        overflow-y: auto;
-        background-color: white;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        padding: 15px 20px;
-        padding-top: 30px;
-        /* .sender {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 20px;
-          .profileWrap {
-            width: 15%;
-            .profileBox {
-              display: inline-block;
-              width: 100%;
-              padding-bottom: 100%;
-              margin-right: 5%;
-              border-radius: 50%;
-              background-color: var(--GREY);
-              position: relative;
-              .profile {
-                position: absolute;
-                width: 100%;
-              }
-            }
-          }
-          .msgWrapper {
-            display: inline-block;
-            width: 80%;
-            .senderName {
-              margin-bottom: 5px;
-              font-size: 0.8em;
-              color: #333;
-            }
-            .msg {
-              display: inline-block;
-              max-width: 90%;
-              background-color: var(--GREY);
-              padding: 10px;
-              border-radius: 5px;
-              font-size: 0.9em;
-              line-height: 1.2;
-              color: #333;
-            }
-          }
-        } */
-        /* .user {
-          display: flex;
-          justify-content: end;
-          margin-bottom: 20px;
-          .msg {
-            display: inline-block;
-            max-width: 70%;
-            background-color: var(--GREY);
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            line-height: 1.2;
-            color: #333;
-          }
-        } */
-      }
-      .chatInput {
-        background-color: white;
-        border-radius: 5px;
-        padding: 15px 20px;
-        margin-bottom: 30px;
-        input {
-          display: block;
-          outline: none;
-          width: 100%;
-          height: 40px;
-          margin: 0 auto;
-          margin-bottom: 10px;
-          padding: 10px;
-          border-radius: 5px;
-          border: 1px solid var(--GREY);
-        }
-        .sendBox {
-          display: flex;
-          justify-content: end;
-          Button {
-          }
-        }
-      }
-    }
-  }
-`;
+import MemberApi from "../api/MemberApi";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const Chat = () => {
-  const navigate = useNavigate();
-  const ws = useRef(null);
-  const SOCKET_URL = Common.MV_SOCKET_URL;
-
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [inputMsg, setInputMsg] = useState("");
-  const [chatList, setChatList] = useState([]);
+  const [memberInfo, setMemberInfo] = useState("");
   const { roomId } = useParams();
-  const [chatName, setChatName] = useState("마블스는 몇 엄복동 인가?");
 
-  const toChatList = () => {
-    navigate("/kikilist");
-  };
-
-  // 채팅방 제목 받아오기
-  const fetchChatName = async () => {
+  const memberDetail = async () => {
+    const accessToken = Common.getAccessToken();
     try {
-      const res = await ChatApi.getChatName(roomId);
-      console.log("결과결과:" + res.data.name);
+      const res = await MemberApi.getMemberDetail();
+      console.log("상세회원정보 : " + res.data);
       if (res.data !== null) {
-        setChatName(res.data.name);
+        setMemberInfo(res.data);
       }
     } catch (err) {
+      if (err.response.status === 401) {
+        await Common.handleUnathorized();
+        const newToken = Common.getAccessToken();
+        if (newToken !== accessToken) {
+          try {
+            const res = await MemberApi.getMemberDetail();
+            console.log("토큰 재발행 회원정보 : " + res.data);
+            if (res.data !== null) {
+              setMemberInfo(res.data);
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
       console.log(err);
     }
   };
 
-  const onChangeMsg = (e) => {
-    setInputMsg(e.target.value);
-  };
-  const onEnterKey = (e) => {
-    if (e.key === "Enter") sendMsg(e);
-  };
-
-  // 채팅 전송
-  const sendMsg = (e) => {
-    ws.current.send(
-      JSON.stringify({
-        type: "TALK",
-        roomId: roomId,
-        // sender: sender,
-        // senderName: userName,
-        message: inputMsg,
-      })
-    );
-    setInputMsg("");
-  };
-  // 채팅 종료
-  const closeMsg = () => {
-    ws.current.send(
-      JSON.stringify({
-        type: "CLOSE",
-        roomId: roomId,
-        // sender: sender,
-        // senderName: userName,
-        message: "종료 합니다.",
-      })
-    );
-    ws.current.close();
-    navigate("/Chat");
-  };
-
-  // useEffect(() => {
-  //   console.log("방번호 : " + roomId);
-  //   if (!ws.current) {
-  //     ws.current = new WebSocket(SOCKET_URL);
-  //     ws.current.onopen = () => {
-  //       console.log("connected to " + SOCKET_URL);
-  //       setSocketConnected(true);
-  //     };
-  //   }
-  //   if (socketConnected) {
-  //     ws.current.send(
-  //       JSON.stringify({
-  //         type: "ENTER",
-  //         roomId: roomId,
-  //         // sender: sender,
-  //         // senderName: userName,
-  //         message: "처음으로 접속 합니다.",
-  //       })
-  //     );
-  //   }
-  //   ws.current.onmessage = (evt) => {
-  //     const data = JSON.parse(evt.data);
-  //     console.log(data.message);
-  //     setChatList((prevItems) => [...prevItems, data]);
-  //   };
-
-  //   return () => {
-  //     if (socketConnected) {
-  //       ws.current.send(
-  //         JSON.stringify({
-  //           type: "CLOSE",
-  //           roomId: roomId,
-  //           // sender: sender,
-  //           // senderName: userName,
-  //           message: "종료 합니다.",
-  //         })
-  //       );
-  //       ws.current.close();
-  //     }
-  //   };
-  // }, [socketConnected]);
-
-  // 채팅 하단으로 자동 스크롤
-  const chatPrintRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (chatPrintRef.current) {
-  //     chatPrintRef.current.scrollTop = chatPrintRef.current.scrollHeight;
-  //   }
-  // }, [chatList]);
+  useEffect(() => {
+    memberDetail();
+    console.log("roomId chat : " + roomId);
+  }, []);
 
   return (
-    <ChatRoomComp>
-      <div className="container">
-        <div className="chatBg">
-          <div className="chatTitle">
-            <p>{chatName}</p>
-          </div>
-          <div className="chatPrint" ref={chatPrintRef}>
-            <Sender
-              profile={basicProfile}
-              alias={"햄스터"}
-              msg={"안녕하세요!"}
-            />
-            <User msg={"안녕하세요!"} />
-          </div>
-          <div className="chatInput">
-            <input
-              type="text"
-              placeholder="메시지를 입력하세요!"
-              value={inputMsg}
-              onChange={onChangeMsg}
-              onKeyUp={onEnterKey}
-            />
-            <div className="sendBox">
-              <Button
-                children="전송"
-                active={true}
-                width="60px"
-                height="34px"
-                fontSize="14px"
-                back="var(--BLUE)"
-              />
-            </div>
-          </div>
-          <Button
-            children="키키 나가기"
-            active={true}
-            clickEvt={toChatList}
-            width="100%"
-            front="var(--BLUE)"
-            back="var(--MIDBLUE)"
-          />
-        </div>
-      </div>
-    </ChatRoomComp>
+    <>{memberInfo && <ChatBox memberInfo={memberInfo} roomId={roomId} />}</>
   );
 };
 export default Chat;

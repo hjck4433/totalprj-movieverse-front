@@ -44,7 +44,7 @@ function App() {
               <Route path="/board/post/:id" element={<Post />} />
               <Route path="/board/revise/:id" element={<PostRevise />} />
               <Route path="/kikilist" element={<ChatList />} />
-              <Route path="/kikilist/:id" element={<Chat />} />
+              <Route path="/kikilist/:roomId" element={<Chat />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment/result" element={<PaymentRst />} />
               <Route path="/utiltest" element={<UtilTest />}></Route>

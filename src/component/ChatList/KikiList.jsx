@@ -1,6 +1,10 @@
 import Button from "../../util/Button";
 import { styled } from "styled-components";
 import Kiki from "./Kiki";
+import { useEffect, useState } from "react";
+import ChatApi from "../../api/ChatApi";
+import Common from "../../util/Common";
+import { useNavigate } from "react-router-dom";
 
 const KikiListComp = styled.section`
   width: 100%;
@@ -28,6 +32,16 @@ const KikiListComp = styled.section`
         display: flex;
         justify-content: space-between;
         padding: 45px;
+        margin-bottom: 30px;
+        cursor: pointer;
+        transition: 0.3s ease-out;
+        &:hover {
+          background-color: var(--MIDBLUE);
+          .title,
+          .createdAt {
+            color: white;
+          }
+        }
         /* outline: 1px solid red; */
         .title {
           color: #000;
@@ -39,6 +53,14 @@ const KikiListComp = styled.section`
           font-weight: 600;
           font-size: 1.3em;
           text-align: right;
+        }
+      }
+      .txtBox {
+        padding-top: 40px;
+        text-align: center;
+        p {
+          font-size: 1.6em;
+          line-height: 2.3;
         }
       }
     }
@@ -59,12 +81,53 @@ const KikiListComp = styled.section`
   }
 `;
 
-const KikiList = () => {
-  const data = {
-    roomName: "더 마블스는 몇 엄복동인가?",
-    createdAt: "2023.12.02",
+const KikiList = ({ newKiki }) => {
+  const navigate = useNavigate();
+  const [kikiList, setKikiList] = useState("");
+
+  const fetchKikiList = async () => {
+    const accessToken = Common.getAccessToken();
+    console.log("채팅방 목록 불러오기 진입");
+    try {
+      const res = await ChatApi.getChatList();
+      if (res.data !== null) {
+        console.log("채팅방 목록 : " + res.data);
+        setKikiList(res.data);
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        await Common.handleUnathorized();
+        const newToken = Common.getAccessToken();
+        if (newToken !== accessToken) {
+          try {
+            const res = await ChatApi.getChatList();
+            if (res.data) {
+              console.log("채팅방 목록 : " + res.data);
+              setKikiList(res.data);
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
+    }
   };
-  //   const data = "";
+
+  const enterKiki = (roomId) => {
+    console.log("kiki 진입 중 : " + roomId);
+    navigate(`/kikilist/${roomId}`);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchKikiList, 3000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+  useEffect(() => {
+    console.log("kikiList : " + typeof kikiList);
+  }, [kikiList]);
+
   return (
     <>
       <KikiListComp>
@@ -75,10 +138,23 @@ const KikiList = () => {
               active={true}
               front="var(--VIOLET)"
               back="var(--LIGHTVIO)"
+              clickEvt={newKiki}
             />
           </div>
           <div className="chatListBox">
-            {data ? <Kiki data={data} /> : <div>data없음!</div>}
+            {kikiList &&
+              kikiList !== null &&
+              kikiList.map((room) => (
+                <Kiki
+                  key={room.roomId}
+                  data={room}
+                  onClick={() => enterKiki(room.roomId)}
+                />
+              ))}
+            {/* <div className="txtBox">
+                <p>진행중인 키키가 없습니다</p>
+                <p>키키를 오픈하고 새로운 영화친구를 기다려보세요!</p>
+              </div> */}
           </div>
         </div>
       </KikiListComp>

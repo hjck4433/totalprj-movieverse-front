@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import basicProfile from "../../images/faceIcon/faceIcon1.png";
 
 const SenderComp = styled.div`
   display: flex;
@@ -14,6 +15,8 @@ const SenderComp = styled.div`
       border-radius: 50%;
       background-color: var(--GREY);
       position: relative;
+      border-radius: 50%;
+      overflow: hidden;
       .profile {
         position: absolute;
         width: 100%;
@@ -77,5 +80,21 @@ export const User = ({ msg }) => {
     <UserComp>
       <div className="msg">{msg}</div>
     </UserComp>
+  );
+};
+
+export const Message = ({ isSender, msg, profile, alias }) => {
+  return (
+    <>
+      {isSender ? (
+        <User msg={msg} />
+      ) : (
+        <Sender
+          msg={msg}
+          profile={profile ? profile : basicProfile}
+          alias={alias}
+        />
+      )}
+    </>
   );
 };
