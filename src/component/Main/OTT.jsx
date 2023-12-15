@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import tiving from "../../images/logo_tiving.svg";
-import wavve from "../../images/logo_wavve.png";
+import netflex from "../../images/logo_netflex.png";
 import watcha from "../../images/logo_watcha.svg";
 import OttSlide from "../Slide/OttSlide";
 
@@ -74,7 +74,7 @@ const OTTComp = styled.section`
           width: 80%;
         }
       }
-      .wavveBtn {
+      .netflexBtn {
         ${MovBtnStyle}
         margin-right: 10px;
         img {
@@ -141,10 +141,12 @@ const OTT = () => {
               <img src={tiving} alt="tiving" />
             </div>
             <div
-              className={`wavveBtn ${activeButton === "wavve" ? "active" : ""}`}
-              onClick={() => handleButtonClick("wavve")}
+              className={`netflexBtn ${
+                activeButton === "netflex" ? "active" : ""
+              }`}
+              onClick={() => handleButtonClick("netflex")}
             >
-              <img src={wavve} alt="wavve" />
+              <img src={netflex} alt="netflex" />
             </div>
             <div
               className={`watchaBtn ${
