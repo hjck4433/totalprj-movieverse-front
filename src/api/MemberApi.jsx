@@ -17,7 +17,16 @@ const MemberApi = {
     return await axios.post(Common.MV_DOMAIN + "/auth/isunique", dataMap);
   },
   //회원가입
-  joinMember: async (email, password, name, alias, phone, addr, image) => {
+  joinMember: async (
+    email,
+    password,
+    name,
+    alias,
+    phone,
+    addr,
+    image,
+    isKakao
+  ) => {
     console.log("회원가입 진입 : " + email);
     const data = {
       email: email,
@@ -27,6 +36,7 @@ const MemberApi = {
       phone: phone,
       addr: addr,
       image: image,
+      isKakao: isKakao,
     };
     return await axios.post(Common.MV_DOMAIN + "/auth/join", data);
   },

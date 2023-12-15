@@ -81,6 +81,7 @@ const Join = ({ email, profile, kakaoId }) => {
   const [isAlias, setIsAlias] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isAddr, setIsAddr] = useState(false);
+  const [isKakao, setIsKakao] = useState(false);
 
   // 정규식
   const regexList = [
@@ -309,7 +310,8 @@ const Join = ({ email, profile, kakaoId }) => {
         inputAlias,
         inputPhone,
         inputAddr,
-        url
+        url,
+        isKakao
       );
       if (res.data !== null) {
         console.log("회원가입 성공!");
@@ -332,8 +334,10 @@ const Join = ({ email, profile, kakaoId }) => {
       setIsCode(true);
       setInputPw2(kakaoId);
       setIsPw2(true);
+      setIsKakao(true);
     }
   }, []);
+  // 로그인 처리
   const kakaoLogin = async () => {
     console.log("카카오 로그인!");
     try {
