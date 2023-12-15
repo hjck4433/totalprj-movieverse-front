@@ -50,8 +50,8 @@ const MovieStaffStyle = styled.section`
 const MovieInfoStaff = () => {
   const movieData = [
     {
-      director: "김현지",
-      actor: "김현지, 박소현, 유현주, 이재원, 이세웅",
+      directorNm: "김현지",
+      actorNm: "김현지, 박소현, 유현주, 이재원, 이세웅",
     },
   ];
   return (
@@ -67,11 +67,11 @@ const MovieInfoStaff = () => {
               <div className="smallText">
                 <div className="staff">
                   <p className="movieStaff">감독</p>
-                  <p className="movieDirector">{movie.director}</p>
+                  <p className="movieDirector">{movie.directorNm}</p>
                 </div>
                 <div className="staff">
                   <p className="movieStaff">출연 배우</p>
-                  <p className="movieActor">{movie.actor}</p>
+                  <p className="movieActor">{movie.actorNm}</p>
                 </div>
               </div>
             </div>

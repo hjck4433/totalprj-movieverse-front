@@ -70,16 +70,16 @@ const InfoSection1Style = styled.section`
 const MovieInfoSection1 = () => {
   const movieData = [
     {
-      poster:
+      posters:
         "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0JTIwJUVDJTgzJTg4JUVCJTgxJUJDfGVufDB8fDB8fHwy",
       title: "프로젝트는 힘들어",
-      subTitle: "subtitle:",
-      releaseDate: "2023-12-08",
+      titleEng: "subtitle:",
+      reprlsDate: "2023-12-08",
       genre: "",
       nation: "",
       grade: "",
       runtime: "",
-      audience: "20,231,208명",
+      audiAcc: "20,231,208명",
     },
   ];
   return (
@@ -89,7 +89,7 @@ const MovieInfoSection1 = () => {
           <section>
             <div className="container">
               <div className="moviePoster">
-                <img src={movie.poster} alt="PosterImg" />
+                <img src={movie.posters} alt="PosterImg" />
               </div>
               <div className="movieOtherInfo">
                 <div className="infoTitle">
@@ -97,12 +97,12 @@ const MovieInfoSection1 = () => {
                   <p></p>
                 </div>
                 <div className="infoSubTitle">
-                  <p className="titleSub">{movie.subTitle}</p>
+                  <p className="titleSub">{movie.titleEng}</p>
                   <p></p>
                 </div>
                 <div className="infoBox">
                   <p className="movieInfo">개봉</p>
-                  <p>{movie.releaseDate}</p>
+                  <p>{movie.reprlsDate}</p>
                 </div>
                 <div className="infoBox">
                   <p className="movieInfo">장르</p>
@@ -122,7 +122,7 @@ const MovieInfoSection1 = () => {
                 </div>
                 <div className="infoBox">
                   <p className="movieInfo">누적관객수</p>
-                  <p>{movie.audience}</p>
+                  <p>{movie.audiAcc}</p>
                 </div>
               </div>
             </div>

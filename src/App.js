@@ -43,11 +43,11 @@ function App() {
               <Route path="/mypage/infochange" element={<MemberInfoChg />} />
               <Route path="/mypage/memberpost" element={<MemberPost />} />
               <Route path="/moviesearch" element={<MovieSearch />} />
-              <Route path="/moviesearch/:id" element={<MovieInfo />} />
+              <Route path="/moviesearch/:title" element={<MovieInfo />} />
               <Route path="/board/:id" element={<Board />} />
               <Route path="/board/new" element={<NewPost />} />
-              <Route path="/board/post/:id" element={<Post />} />
-              <Route path="/board/revise/:id" element={<PostRevise />} />
+              <Route path="/board/post/:postId" element={<Post />} />
+              <Route path="/board/revise/:postId" element={<PostRevise />} />
               <Route path="/kikilist" element={<ChatList />} />
               <Route path="/kikilist/:roomId" element={<Chat />} />
               <Route path="/payment" element={<Payment />} />
