@@ -21,6 +21,11 @@ import Chat from "./pages/Chat";
 import Payment from "./pages/Payment";
 import PaymentRst from "./pages/PaymentRst";
 import UtilTest from "./pages/UtilTest";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminMember from "./pages/Admin/AdminMember";
+import AdminFaq from "./pages/Admin/AdminFaq";
+import AdminBoard from "./pages/Admin/AdminBoard";
+import AdminLayout from "./pages/Admin/AdminLayout";
 
 function App() {
   return (
@@ -48,6 +53,12 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment/result" element={<PaymentRst />} />
               <Route path="/utiltest" element={<UtilTest />}></Route>
+            </Route>
+            <Route path="/login/admin" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="/admin" element={<AdminMember />} />
+              <Route path="/admin/faq" element={<AdminFaq />} />
+              <Route path="/admin/board" element={<AdminBoard />} />
             </Route>
           </Routes>
         </Router>

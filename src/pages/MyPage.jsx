@@ -9,7 +9,7 @@ import { UserContext } from "../context/UserStore";
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const [memberInfo, setMemberInfo] = useState();
+  const [memberInfo, setMemberInfo] = useState([]);
   const context = useContext(UserContext);
   const { loginStatus } = context;
 
@@ -29,8 +29,7 @@ const MyPage = () => {
         setMemberInfo(res.data);
       }
     } catch (err) {
-      console.log(err);
-      if (err.response.status === 401) {
+      if (err.response && err.response.status === 401) {
         await Common.handleUnathorized();
         const newToken = Common.getAccessToken();
         if (newToken !== accessToken) {
@@ -44,6 +43,8 @@ const MyPage = () => {
             console.log(err);
           }
         }
+      } else {
+        console.log(err);
       }
     }
   };
@@ -56,7 +57,7 @@ const MyPage = () => {
   // 멤버십 여부 back 실행 시켜야 오류 안뜸!
   return (
     <>
-      <MyInfo memberInfo={memberInfo} />
+      <MyInfo memberInfo={memberInfo && memberInfo} />
       {memberInfo && !memberInfo.isMembership && <MembershipJoin />}
       <BookMarkList />
     </>
