@@ -50,6 +50,27 @@ const Common = {
       return false;
     }
   },
+  handleTokenAxios: async (axiosEvt) => {
+    const accessToken = Common.getAccessToken();
+    try {
+      await axiosEvt();
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        console.log("AccessToken 만료");
+        await Common.handleUnathorized();
+        const newToken = Common.getAccessToken();
+        if (newToken !== accessToken) {
+          try {
+            await axiosEvt();
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          console.log(err);
+        }
+      }
+    }
+  },
 };
 
 export default Common;

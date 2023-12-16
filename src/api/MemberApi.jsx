@@ -56,5 +56,51 @@ const MemberApi = {
       Common.tokenHeader()
     );
   },
+  //회원 정보 수정
+  changeMemberInfo: async (
+    email,
+    password,
+    name,
+    alias,
+    phone,
+    addr,
+    image,
+    isKakao
+  ) => {
+    console.log("회원정보 수정 : " + email);
+    const data = {
+      email: email,
+      password: password,
+      name: name,
+      alias: alias,
+      phone: phone,
+      addr: addr,
+      image: image,
+      isKakao: isKakao,
+    };
+    return await axios.post(
+      Common.MV_DOMAIN + "/member/update",
+      data,
+      Common.tokenHeader()
+    );
+  },
+  //비밀번호 체크
+  isPassword: async (password) => {
+    const data = {
+      password: password,
+    };
+    return await axios.post(
+      Common.MV_DOMAIN + "/member/ispassword",
+      data,
+      Common.tokenHeader()
+    );
+  },
+  // 회원 탈퇴
+  widthdrawMember: async () => {
+    return await axios.post(
+      Common.MV_DOMAIN + "/member/withdraw",
+      Common.tokenHeader()
+    );
+  },
 };
 export default MemberApi;

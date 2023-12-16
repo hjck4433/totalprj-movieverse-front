@@ -15,17 +15,10 @@ const MemberInfoChg = () => {
   const navigate = useNavigate();
 
   // 회원정보
-  const [memberInfo, setMemberInfo] = useState({
-    email: "hjck0326@naver.com",
-    isKakao: false,
-    name: "테스트",
-    alias: "햄스터",
-    phone: "010-1234-1234",
-    addr: "강남구 역삼동",
-  });
+  const [memberInfo, setMemberInfo] = useState(null);
 
   // 프로필 관련 ////////////////////////////////////////////////////
-  const [imgSrc, setImgSrc] = useState(basicProfile);
+  const [imgSrc, setImgSrc] = useState("");
   const [file, setFile] = useState("");
   const [url, setUrl] = useState("");
 
@@ -55,17 +48,26 @@ const MemberInfoChg = () => {
   const [modalMsg, setModalMsg] = useState("");
   const [modalHeader, setModalHeader] = useState("");
   const [modalType, setModalType] = useState(null);
+  const [modalConfirm, setModalConfirm] = useState(null);
+
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+    setModalConfirm(num);
+  };
   /////////////////////////////////////////////////////////////
 
   // 키보드 입력
   const [inputOriginPw, setInputOriginPw] = useState("");
+  const [oringinBtn, setOriginBtn] = useState(false);
   const [inputPw, setInputPw] = useState("");
   const [inputPw2, setInputPw2] = useState("");
   const [inputAlias, setInputAlias] = useState("");
   const [inputPhone, setInputPhone] = useState("");
 
   //오류 메세지
-  const [originPwMessage, setOriginPwMessage] = useState("");
   const [pwMessage, setPwMessage] = useState("");
   const [pw2Message, setPw2Message] = useState("");
   const [aliasMessage, setAliasMessage] = useState("");
@@ -75,7 +77,6 @@ const MemberInfoChg = () => {
   const [isOriginPw, setIsOriginPw] = useState(false);
   const [isPw, setIsPw] = useState(false);
   const [isPw2, setIsPw2] = useState(false);
-  const [isName, setIsName] = useState(true);
   const [isAlias, setIsAlias] = useState(true);
   const [isPhone, setIsPhone] = useState(true);
   const [isAddr, setIsAddr] = useState(true);
@@ -92,34 +93,55 @@ const MemberInfoChg = () => {
   const isUnique = async (num, checkVal) => {
     const msgList = ["", setAliasMessage, setPhoneMessage];
     const validList = ["", setIsAlias, setIsPhone];
-    try {
-      const res = await MemberApi.checkUnique(num, checkVal);
-      console.log("중복여부 : " + !res.data);
-      if (!res.data) {
-        if (num === 0) {
-          msgList[num]("사용 가능합니다. 인증을 해주세요.");
-        } else msgList[num]("사용 가능합니다.");
-        validList[num](true);
-      } else {
-        msgList[num]("이미 사용중입니다.");
-        validList[num](false);
+    const originVal = ["", memberInfo.alias, memberInfo.phone];
+    if (checkVal !== originVal[num]) {
+      try {
+        const res = await MemberApi.checkUnique(num, checkVal);
+        console.log("중복여부 : " + !res.data);
+        if (!res.data) {
+          msgList[num]("사용 가능합니다.");
+          validList[num](true);
+        } else {
+          msgList[num]("이미 사용중입니다.");
+          validList[num](false);
+        }
+      } catch (err) {
+        console.log("중복오류 : " + err);
       }
-    } catch (err) {
-      console.log("중복오류 : " + err);
+    } else {
+      // 기존 내용일 경우
+      msgList[num]("");
+      validList[num](true);
     }
   };
   // 비밀번호 확인
   const onChangeOriginPw = (e) => {
-    const currPw = e.target.value;
+    const currInput = e.target.value;
+    setInputOriginPw(e.target.value);
+    currInput.length > 0 ? setOriginBtn(true) : setOriginBtn(false);
   };
 
-  const checkPw = () => {};
+  const fetchIsOriginPw = async () => {
+    const res = await MemberApi.isPassword(inputOriginPw);
+    console.log("비밀번호 확인 : " + res.data);
+    if (res.data) {
+      handleModal("확인", "비밀번호가 일치합니다. \n새 비밀번호를 입력하세요.");
+      setIsOriginPw(true);
+    } else {
+      handleModal("오류", "비밀번호를 확인해주세요");
+      setIsOriginPw(false);
+    }
+  };
+
+  const checkPw = () => {
+    Common.handleTokenAxios(fetchIsOriginPw);
+  };
 
   // 새 비밀번호
   const onChangePw = (e) => {
     const currPw = e.target.value;
     setInputPw(currPw);
-    if (!regexList[1].test(currPw)) {
+    if (!regexList[0].test(currPw)) {
       setPwMessage(
         "대소문자, 숫자, 특수기호 포함 8자 이상 15자 이하로 입력 하세요"
       );
@@ -127,8 +149,14 @@ const MemberInfoChg = () => {
       setIsPw2(false);
       setPw2Message("");
     } else {
-      setPwMessage("사용 가능합니다");
-      setIsPw(true);
+      if (currPw === inputOriginPw) {
+        setPwMessage("기존 비밀번호 입니다.");
+        setIsPw(false);
+        setIsPw2(false);
+      } else {
+        setPwMessage("사용 가능합니다");
+        setIsPw(true);
+      }
     }
   };
   // 비밀번호 재 입력
@@ -155,10 +183,11 @@ const MemberInfoChg = () => {
       isUnique(1, currAlias);
     }
   };
+  // 번호
   const onChangePhone = (e) => {
     const currPhone = e.target.value;
     setInputPhone(currPhone);
-    const regex = regexList[2];
+    const regex = regexList[1];
     if (!regex.test(currPhone)) {
       setPhoneMessage("잘못 입력 하셨습니다.");
       setIsPhone(false);
@@ -182,6 +211,66 @@ const MemberInfoChg = () => {
     setIsAddr(true);
   };
 
+  // 회원 정보 가져오기
+  const fetchMemberInfo = async () => {
+    const res = await MemberApi.getMemberDetail();
+    if (res.data !== null) {
+      console.log("상세회원정보 : " + res.data);
+      setMemberInfo(res.data);
+      setInputAlias(res.data.alias);
+      setInputPhone(res.data.phone);
+      setInputAddr(res.data.addr);
+      res.data.image ? setImgSrc(res.data.image) : setImgSrc(basicProfile);
+    }
+  };
+
+  useEffect(() => {
+    Common.handleTokenAxios(fetchMemberInfo);
+  }, []);
+
+  // 회원 정보 수정
+  const onSubmit = () => {
+    if (imgSrc !== basicProfile && imgSrc !== memberInfo.image) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(file.name);
+      fileRef.put(file).then(() => {
+        console.log("저장성공!");
+        fileRef.getDownloadURL().then((url) => {
+          console.log("저장경로 확인 : " + url);
+          setUrl(url);
+          Common.handleTokenAxios(saveMemberInfo);
+        });
+      });
+    } else {
+      Common.handleTokenAxios(saveMemberInfo);
+    }
+  };
+  const saveMemberInfo = async () => {
+    const originImage = imgSrc === basicProfile ? "" : imgSrc;
+    const image = url !== "" ? url : originImage;
+    const res = await MemberApi.changeMemberInfo(
+      memberInfo.email,
+      inputPw2,
+      memberInfo.name,
+      inputAlias,
+      inputPhone,
+      inputAddr,
+      image,
+      memberInfo.isKakao
+    );
+    if (res.data) {
+      console.log("회원정보 수정 성공!");
+      handleModal("성공", "정보가 수정되었습니다.", true, 0);
+    }
+  };
+
+  useEffect(() => {
+    console.log("현재 정보 : " + inputOriginPw);
+  }, [inputOriginPw]);
+  const toMyInfo = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <InfoChgComp>
@@ -198,19 +287,25 @@ const MemberInfoChg = () => {
             </label>
           </div>
           <div className="inputArea">
-            {memberInfo.isKakao ? (
-              <Input value={memberInfo.email} disabled={true} />
+            {memberInfo && memberInfo.isKakao ? (
+              <Input
+                value={memberInfo ? memberInfo.email : ""}
+                disabled={true}
+              />
             ) : (
               <>
-                <Input value={memberInfo.email} disabled={true} />
+                <Input
+                  value={memberInfo ? memberInfo.email : ""}
+                  disabled={true}
+                />
                 <InputButton
                   holder="기존 비밀번호 입력"
                   value={inputOriginPw}
+                  type="password"
                   changeEvt={onChangeOriginPw}
                   btnChild="확인"
-                  active={isOriginPw}
+                  active={oringinBtn}
                   clickEvt={checkPw}
-                  msg={originPwMessage}
                   msgType={isOriginPw}
                 />
                 <Input
@@ -233,7 +328,11 @@ const MemberInfoChg = () => {
                 />
               </>
             )}
-            <Input holder="이름" value={memberInfo.name} disabled={true} />
+            <Input
+              holder="이름"
+              value={memberInfo ? memberInfo.name : ""}
+              disabled={true}
+            />
             <Input
               holder="닉네임"
               value={inputAlias}
@@ -263,16 +362,16 @@ const MemberInfoChg = () => {
               <Button
                 children={"수정하기"}
                 width="45%"
-                height="60px"
-                active={isName && isAlias && isPhone && isAddr}
-                // clickEvt={onSubmit}
+                height="50px"
+                active={isAlias && isPhone && isAddr}
+                clickEvt={onSubmit}
               />
               <Button
                 children={"취소하기"}
                 width="45%"
-                height="60px"
-                active={isName && isAlias && isPhone && isAddr}
-                // clickEvt={onSubmit}
+                height="50px"
+                active={true}
+                clickEvt={toMyInfo}
               />
             </div>
             <div className="withdrawBox">
@@ -295,7 +394,9 @@ const MemberInfoChg = () => {
         children={modalMsg}
         type={modalType}
         confirm={() => {
-          navigate("/mypage");
+          if (modalConfirm === 0) {
+            navigate("/mypage");
+          }
         }}
       />
     </>
