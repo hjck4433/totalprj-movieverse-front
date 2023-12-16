@@ -1,17 +1,17 @@
 import { styled } from "styled-components";
 import Logo from "../../images/movieverse_logo.png";
 import Button from "../../util/Button";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Common from "../../util/Common";
 import { useNavigate } from "react-router-dom";
 
 const AdminLoginComp = styled.section`
   background-image: url(${Logo});
-  background-position: top 6% center;
+  background-position: top 16% center;
   background-repeat: no-repeat;
   background-size: 16%;
   .container {
-    height: calc(100vh - 160px);
+    height: 100vh;
     background-color: rgba(24, 18, 43, 0.6);
     display: flex;
     justify-content: center;

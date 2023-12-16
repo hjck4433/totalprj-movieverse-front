@@ -21,10 +21,14 @@ const Kakao = () => {
   const [isMember, setIsMember] = useState(false);
 
   const kakaoToken = async () => {
-    const res = await KakaoApi.getToken(code);
-    if (res.data) {
-      console.log(res.data.access_token);
-      kakaoUser(res.data.access_token);
+    try {
+      const res = await KakaoApi.getToken(code);
+      if (res.data) {
+        console.log(res.data.access_token);
+        kakaoUser(res.data.access_token);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    padding-top: 80px;
     background-color: var(--DARKBLUE);
   }
   html, body, div, span, applet, object, iframe,
@@ -61,6 +60,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.6em;
   }
   main {
+    padding-top: 80px;
     min-height: 60vh;
   }
   .container {
