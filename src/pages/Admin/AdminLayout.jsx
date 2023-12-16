@@ -4,10 +4,9 @@ import { styled } from "styled-components";
 
 const AdminLayoutComp = styled.div`
   min-height: 100vh;
+  display: flex;
   .wrapper {
     width: 1200px;
-    margin: 0 auto;
-    outline: 1px solid red;
   }
 `;
 
