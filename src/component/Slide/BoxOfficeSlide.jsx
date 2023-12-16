@@ -42,6 +42,8 @@ const BoxOfficeSlideStyle = styled.div`
 `;
 
 const BoxOfficeSlide = () => {
+  const [movieData, setMovieData] = useState([]);
+
   const generateMovieCards = () => {
     const movieData = [
       { id: 1, imgUrl: "url1" },

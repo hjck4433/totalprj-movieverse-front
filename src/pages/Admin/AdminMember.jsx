@@ -65,6 +65,28 @@ const AdminMember = () => {
       joinDate: "2023.12.12",
       addr: "서울시 강남구 역삼동",
     },
+    {
+      profile:
+        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
+      alias: "햄스터는 햄햄",
+      name: "햄토리",
+      email: "hamham1234@gmail.com",
+      phone: "010-8888-8888",
+      membership: "미가입",
+      joinDate: "2023.12.12",
+      addr: "서울시 강남구 역삼동",
+    },
+    {
+      profile:
+        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
+      alias: "햄스터는 햄햄",
+      name: "햄토리",
+      email: "hamham1234@gmail.com",
+      phone: "010-8888-8888",
+      membership: "미가입",
+      joinDate: "2023.12.12",
+      addr: "서울시 강남구 역삼동",
+    },
   ];
   return (
     <>

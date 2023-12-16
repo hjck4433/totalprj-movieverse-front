@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../util/Button";
 import face from "../images/faceIcon/faceIcon4.png";
+import Modal from "../util/Modal";
 
 const PayComp = styled.section`
   width: 100%;
