@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import face from "../../images/faceIcon/faceIcon1.png";
 import { useNavigate } from "react-router-dom";
+
 const AdComp = styled.div`
   width: 100%;
   background-color: var(--VIOLET);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../util/Button";
 import Modal from "../util/Modal";
 import AgreementModal from "../util/Agreement/AgreementModal";
-
+import Chart from "../component/Chart/Chart";
 const UtilTest = () => {
   //Modal
   const [openModal, setModalOpen] = useState(false);
@@ -62,6 +62,7 @@ const UtilTest = () => {
         confirm={modalTest}
       />
       <AgreementModal open={openAgreement} close={closeAgree} type={"use"} />
+      <Chart />
     </>
   );
 };
