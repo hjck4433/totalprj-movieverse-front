@@ -9,7 +9,7 @@ const AdminLoginComp = styled.section`
   background-image: url(${Logo});
   background-position: top 16% center;
   background-repeat: no-repeat;
-  background-size: 16%;
+  background-size: 320px;
   .container {
     height: 100vh;
     background-color: rgba(24, 18, 43, 0.6);

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Button from "../../util/Button";
+import Chart from "../../component/Chart/Chart";
 const AdminMemberComp = styled.div`
   padding-top: 10%;
   .container {
@@ -9,7 +10,9 @@ const AdminMemberComp = styled.div`
     h2 {
       margin-bottom: 30px;
     }
-
+    .chart {
+      margin-bottom: 50px;
+    }
     .tableBox {
       width: 100%;
       padding-bottom: 10px;
@@ -93,6 +96,7 @@ const AdminMember = () => {
       <AdminMemberComp>
         <div className="container">
           <h2>회원 정보 관리</h2>
+          <Chart />
           <div className="tableBox">
             <table>
               <thead className="">

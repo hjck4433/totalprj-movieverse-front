@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import face from "../../images/faceIcon/faceIcon1.png";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../util/Modal";
 
 const AdComp = styled.div`
   width: 100%;
@@ -55,15 +57,36 @@ const AdComp = styled.div`
     }
   }
 `;
-const Advertise = () => {
+const Advertise = ({ isLogin }) => {
   const navigate = useNavigate();
 
   const toPayment = () => {
+    // isLogin true false 에 따라 결제 창 이동 또는 로그인 안내 팝업
     navigate("/Payment");
+  };
+
+  // 팝업 처리
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+  // 팝업으로 이동하는 조건이 하나라면 굳이 필요 없이 아래처럼 직접 입력
+  // const [modalConfirm, setModalConfirm] = useState(null);
+
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+    // setModalConfirm(num);
   };
 
   return (
     <>
+      {/* 클릭이벤트에 모달 팝업 이벤트를 넣고 */}
       <AdComp onClick={toPayment}>
         <div className="container">
           <div className="ad">
@@ -75,6 +98,16 @@ const Advertise = () => {
           </div>
         </div>
       </AdComp>
+      <Modal
+        open={openModal}
+        close={closeModal}
+        header={modalHeader}
+        children={modalMsg}
+        type={modalType}
+        confirm={() => {
+          navigate("/login"); // 모달에서 확인을 누를 경우 로그인 페이지로 이동
+        }}
+      />
     </>
   );
 };

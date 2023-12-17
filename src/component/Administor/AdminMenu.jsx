@@ -2,12 +2,13 @@ import { styled } from "styled-components";
 import Button from "../../util/Button";
 import { useNavigate } from "react-router-dom";
 const AdminMenuComp = styled.div`
-  width: calc((100vw - 1200px) / 2);
+  flex-grow: 3;
+  min-width: 400px;
   .btnBox {
     width: 200px;
     position: sticky;
     top: 13%;
-    left: 5%;
+    left: 150px;
     button {
       margin-bottom: 40px;
       &:last-child {

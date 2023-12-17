@@ -86,30 +86,10 @@ const KikiList = ({ newKiki }) => {
   const [kikiList, setKikiList] = useState("");
 
   const fetchKikiList = async () => {
-    const accessToken = Common.getAccessToken();
-    console.log("채팅방 목록 불러오기 진입");
-    try {
-      const res = await ChatApi.getChatList();
-      if (res.data !== null) {
-        console.log("채팅방 목록 : " + res.data);
-        setKikiList(res.data);
-      }
-    } catch (err) {
-      if (err.response.status === 401) {
-        await Common.handleUnathorized();
-        const newToken = Common.getAccessToken();
-        if (newToken !== accessToken) {
-          try {
-            const res = await ChatApi.getChatList();
-            if (res.data) {
-              console.log("채팅방 목록 : " + res.data);
-              setKikiList(res.data);
-            }
-          } catch (err) {
-            console.log(err);
-          }
-        }
-      }
+    const res = await ChatApi.getChatList();
+    if (res.data !== null) {
+      console.log("채팅방 목록 : " + res.data);
+      setKikiList(res.data);
     }
   };
 
@@ -119,7 +99,10 @@ const KikiList = ({ newKiki }) => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(fetchKikiList, 3000);
+    const intervalId = setInterval(
+      Common.handleTokenAxios(fetchKikiList),
+      3000
+    );
     return () => {
       clearInterval(intervalId);
     };

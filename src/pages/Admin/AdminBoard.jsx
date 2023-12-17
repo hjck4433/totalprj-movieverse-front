@@ -1,11 +1,13 @@
 import { styled } from "styled-components";
 import Button from "../../util/Button";
 const AdminBoardComp = styled.div`
-  padding-top: 10%;
+  padding-top: 8%;
   .container {
-    width: 1200px;
+    min-width: 1200px;
     background-color: var(--VIOLET);
     padding: 40px 30px;
+    margin: 0;
+    margin-left: 50px;
     h2 {
       margin-bottom: 30px;
     }

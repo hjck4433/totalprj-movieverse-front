@@ -13,26 +13,24 @@ const Layout = () => {
   const context = useContext(UserContext);
   const { loginStatus } = context;
 
-  const [showModal, setShowModal] = useState(false);
-
   useEffect(() => {
     // 로그인 상태를 확인, 비로그인 상태라면 모달을 표시하고 로그인 페이지로 이동
     if (!loginStatus) {
-      const accessToken = Common.getAccessToken();
-      if (!accessToken) {
-        setShowModal(true);
-      }
+      // const accessToken = Common.getAccessToken();
+      // if (!accessToken) {
+      //   setModalOpen(true); => 이건 모달 여는 내용이에요
+      //    클릭했을 때 모달이 나와야 해서
+      //    모달에 대한건 클릭이벤트가 있는 위치에서 불러야 해요
+      // }
+      //  이 위치에서는 로그인 상태인 경우 회원 정보를 불러오고 , 멤버쉽 여부를 확인해야 해요
+      // 멤버쉽 여부에 따라 광고가 보여지고 안보여지고만 설정해줄 수 있어요
     }
+    console.log("로그인 여부" + loginStatus);
+    console.log("kiki" + isKikiMember);
   }, [loginStatus]);
 
-  // 모달 닫기 함수
-  const closeModal = () => {
-    setShowModal(false);
-    navigate("/login"); // 모달에서 확인을 누를 경우 로그인 페이지로 이동
-  };
-
   // 키키멤버십 가입여부
-  const [isKikiMember, setKikiMember] = useState(true);
+  const [isKikiMember, setKikiMember] = useState(false);
   // const isKikiMember = context.getKikiStatus();
   return (
     <>
@@ -40,15 +38,8 @@ const Layout = () => {
       <main>
         <Outlet />
       </main>
-      {!isKikiMember && <Advertise />}
-      <Modal
-        open={showModal}
-        close={closeModal}
-        header="로그인 필요"
-        children="로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?"
-        confirm={closeModal}
-      />
-
+      {/* 로그인 여부를 props로 전달 */}
+      {!isKikiMember && <Advertise isLogin={loginStatus} />}
       <Footer />
     </>
   );
