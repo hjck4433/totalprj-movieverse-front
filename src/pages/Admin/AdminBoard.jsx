@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
 import Button from "../../util/Button";
+import { useState, useEffect } from "react";
+import Tr from "../../component/Administor/AdminBoard/TableElement";
+
 const AdminBoardComp = styled.div`
   padding-top: 8%;
   .container {
@@ -39,14 +42,6 @@ const AdminBoardComp = styled.div`
           }
         }
         tbody {
-          tr {
-            td {
-              padding: 10px;
-              &.center {
-                text-align: center;
-              }
-            }
-          }
         }
       }
     }
@@ -54,6 +49,9 @@ const AdminBoardComp = styled.div`
 `;
 
 const AdminBoard = () => {
+  const [categoryActive, setCategoryActive] = useState(true);
+  const [gatherActive, setGatherActive] = useState(true);
+
   const dataList = [
     {
       alias: "햄스터",
@@ -74,7 +72,7 @@ const AdminBoard = () => {
         "햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!",
       count: 120,
       regDate: "2023.12.16",
-      category: "무비모임",
+      category: "영화추천",
       gatherType: "온라인",
     },
     {
@@ -86,7 +84,7 @@ const AdminBoard = () => {
       count: 120,
       regDate: "2023.12.16",
       category: "무비모임",
-      gatherType: "온라인",
+      gatherType: "오프라인",
     },
   ];
   return (
@@ -112,38 +110,7 @@ const AdminBoard = () => {
               {/* map으로 반복할 요소 */}
               {dataList &&
                 dataList.map((data, index) => (
-                  <tr key={data.title}>
-                    {/* 숫자 자동증가 */}
-                    <td className="center">{index + 1}</td>
-                    <td>{data.alias}</td>
-                    <td>{data.title}</td>
-                    <td className="center">{data.count}</td>
-                    <td className="center">{data.regDate}</td>
-                    {/* 셀렉트 들어갈 예정 */}
-                    <td>{data.category}</td>
-                    {/* 셀렉트 들어갈 예정 */}
-                    <td>{data.gatherType}</td>
-                    <td>
-                      <Button
-                        children={"수정"}
-                        fontSize=".8em"
-                        width="80px"
-                        height="30px"
-                        active={true}
-                        clickEvt={() => {}}
-                      />
-                    </td>
-                    <td>
-                      <Button
-                        children={"삭제"}
-                        fontSize=".8em"
-                        width="80px"
-                        height="30px"
-                        active={true}
-                        clickEvt={() => {}}
-                      />
-                    </td>
-                  </tr>
+                  <Tr key={data.title} data={data} index={index} />
                 ))}
             </tbody>
           </table>
