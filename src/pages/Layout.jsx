@@ -15,7 +15,7 @@ const Layout = () => {
 
   useEffect(() => {
     // 로그인 상태를 확인, 비로그인 상태라면 모달을 표시하고 로그인 페이지로 이동
-    if (!loginStatus) {
+    if (loginStatus) {
       // const accessToken = Common.getAccessToken();
       // if (!accessToken) {
       //   setModalOpen(true); => 이건 모달 여는 내용이에요
