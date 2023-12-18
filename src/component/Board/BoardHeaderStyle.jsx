@@ -2,8 +2,7 @@ import { styled } from "styled-components";
 import bgPc from "../../images/board_bg_pc.jpg";
 const BoardComp = styled.section`
   width: 100%;
-  height: 300px;
-  outline: 1px solid yellow;
+  height: 350px;
   background-image: url(${bgPc});
   background-size: cover;
   background-position: center;
@@ -43,6 +42,7 @@ const BoardComp = styled.section`
             outline: none;
             width: 600px;
             height: 40px;
+            text-align: center;
             border-radius: 5px;
           }
         }

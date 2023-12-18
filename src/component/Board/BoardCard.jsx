@@ -15,8 +15,13 @@ const BoardCard = ({ board }) => {
               <p className="regdate">{board.regdate}</p>
             </div>
           </div>
-          <h3>{board.title}</h3>
-          <p className="content">{board.content}</p>
+          <div className="contentBox">
+            <h3>{board.title}</h3>
+            <p className="content">{board.content}</p>
+          </div>
+          <div className="countBox">
+            <p>조회수 {board.count}</p>
+          </div>
         </div>
       </div>
     </>

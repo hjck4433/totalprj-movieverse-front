@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 const BoardCardStyle = styled.section`
   .container {
     .boardCardBox {
-      outline: 1px solid;
       padding-top: 50px;
       margin-bottom: 50px;
       .gatherTypeList {
@@ -11,23 +10,38 @@ const BoardCardStyle = styled.section`
           margin-left: 5px;
         }
       }
-      .boardSort {
+      .sortArea {
         display: flex;
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 20px;
         justify-content: flex-end;
-        margin-bottom: 25px;
-        p {
-          margin-left: 10px;
+        li {
+          position: relative;
+          cursor: pointer;
+          color: var(--GREY);
+          &.active {
+            color: var(--LIGHTVIO);
+          }
+          margin-left: 24px;
+          &::after {
+            content: "";
+            width: 2px;
+            height: 100%;
+            background-color: var(--GREY);
+            position: absolute;
+            top: 1px;
+            left: -11px;
+          }
+          &:first-child {
+            &::after {
+              display: none;
+            }
+          }
         }
       }
-      /* .boardMap {
-        outline: 1px solid red;
-        width: 100%;
-        background-color: #ffffff;
-        padding: 25px;
-        border-radius: 5px; */
       .mapBox {
         display: flex;
-        outline: 1px solid red;
         width: 100%;
         background-color: #ffffff;
         padding: 25px;
@@ -67,17 +81,35 @@ const BoardCardStyle = styled.section`
             color: var(--GREY);
           }
         }
-        h3 {
-          color: black;
-          padding-bottom: 15px;
-          font-weight: 600;
+        .contentBox {
+          padding-bottom: 120px;
+          h3 {
+            color: black;
+            padding-bottom: 15px;
+            font-weight: 600;
+          }
+          .content {
+            padding-right: 50px;
+            color: black;
+            line-height: 1.5;
+          }
         }
-        .content {
-          padding-right: 50px;
-          color: black;
-          line-height: 1.5;
+        .countBox {
+          p {
+            text-align: end;
+            color: var(--GREY);
+          }
         }
-        /* } */
+      }
+      .arrow {
+        display: flex;
+        align-items: center;
+        width: 20%;
+        margin: 0 auto;
+        justify-content: space-between;
+        .icons {
+          cursor: pointer;
+        }
       }
     }
   }
