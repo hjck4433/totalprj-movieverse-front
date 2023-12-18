@@ -44,27 +44,6 @@ const BoxOfficeSlideStyle = styled.div`
 const BoxOfficeSlide = () => {
   const [movieData, setMovieData] = useState([]);
 
-  const generateMovieCards = () => {
-    const movieData = [
-      { id: 1, imgUrl: "url1" },
-      { id: 2, imgUrl: "url2" },
-      { id: 3, imgUrl: "url3" },
-      { id: 4, imgUrl: "url4" },
-      { id: 5, imgUrl: "url5" },
-      { id: 6, imgUrl: "url6" },
-      { id: 7, imgUrl: "url7" },
-      { id: 8, imgUrl: "url8" },
-      { id: 9, imgUrl: "url9" },
-      { id: 10, imgUrl: "url10" },
-    ];
-
-    return movieData.map((data) => (
-      <SwiperSlide className="slide" key={data.id}>
-        <MovieCard imgUrl={data.imgUrl} />
-      </SwiperSlide>
-    ));
-  };
-
   return (
     <BoxOfficeSlideStyle>
       <Swiper
@@ -92,7 +71,12 @@ const BoxOfficeSlide = () => {
           },
         }}
       >
-        {generateMovieCards()}
+        {movieData &&
+          movieData.map((movie) => (
+            <SwiperSlide className="slide" key={movie.id}>
+              <MovieCard movie={movie} />
+            </SwiperSlide>
+          ))}
         <div className="swiper-button-prev"></div>
         <div className="swiper-button-next"></div>
       </Swiper>
