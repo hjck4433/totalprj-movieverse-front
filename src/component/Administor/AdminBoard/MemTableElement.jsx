@@ -64,6 +64,7 @@ const MemTr = ({ data, index }) => {
           width="80px"
           height="30px"
           active={true}
+          back="var(--BLUE)"
           clickEvt={() => {}}
         />
       </td>

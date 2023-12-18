@@ -12,7 +12,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// 스타일 컴포넌트로 안에서 css 불러주고
 const ChartComp = styled.div`
   .chart {
     margin: 20px;
@@ -28,10 +27,6 @@ const ChartComp = styled.div`
       color: #333;
     }
   }
-  /* tooltip에서 사용하는 태그들이 관리자도구로 확인해보니까 p, span 태그여서 안쪽에서 선언해서 색 바꿔줬어요 */
-  /* 전역스타일에서 기본 색을 white로 해뒀는데 이런식으로 어디 내부에 있는 태그다라는게 인식되게 해서 */
-  /* 그쪽에서 바꿔주면 색 바껴용! */
-  /* chart.css는 삭제해주세요 (갑자기 지워져 있으면 당황할까봐 그냥 뒀어용) */
   p {
     color: #333;
   }
@@ -118,8 +113,6 @@ export default function Chart() {
                 // tick 속성을 사용하여 텍스트 스타일 지정
                 tick={{ fontSize: 12, fontWeight: "bold", fill: "var(--GREY)" }}
               />
-              {/* tooltip에 같은 내용 반복으로 나와서 주석처리 했어요 */}
-              {/* <Line type="monotone" dataKey="monthlyUser" /> */}
               {/* Tooltip 컴포넌트에 position 속성 추가 */}
               <Tooltip
                 position={{ y: -20 }}
