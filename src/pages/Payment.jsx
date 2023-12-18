@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Button from "../util/Button";
 import face from "../images/faceIcon/faceIcon4.png";
 import Modal from "../util/Modal";
+import MemberApi from "../api/MemberApi";
+import Common from "../util/Common";
 
 const PayComp = styled.section`
   width: 100%;
@@ -129,10 +131,24 @@ const Payment = () => {
     } = response;
 
     if (success) {
-      // alert("결제 성공");
-      navigate("../payment/result");
+      Common.handleTokenAxios(membershipUpdate);
+
+      console.log("결제 성공");
+      // 토큰
     } else {
       alert(`결제 실패: ${error_msg}`);
+    }
+  };
+
+  // 멤버십 정보 저장
+  const membershipUpdate = async () => {
+    const res = await MemberApi.saveMembership(true);
+    console.log(res.data);
+    if (res.data) {
+      navigate("../payment/result");
+      console.log("멤버십 저장 성공");
+    } else {
+      console.log("멤버십 저장 실패!");
     }
   };
 

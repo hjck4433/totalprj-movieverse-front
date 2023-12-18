@@ -95,6 +95,20 @@ const MemberApi = {
       Common.tokenHeader()
     );
   },
+
+  // 멤버십 여부 업데이트
+  saveMembership: async (isMembership) => {
+    const data = {
+      isMembership: isMembership,
+    };
+    console.log("saveMembership start");
+    return await axios.post(
+      Common.MV_DOMAIN + "/member/membership",
+      data,
+      Common.tokenHeader()
+    );
+  },
+
   // 회원 탈퇴
   widthdrawMember: async () => {
     return await axios.post(
