@@ -7,45 +7,107 @@ import "swiper/css/navigation";
 import "swiper/css/bundle";
 import styled from "styled-components";
 import MovieCard from "../MovieSearch/MovieCard";
-import OttTivingApi from "../../api/OttTivingApi";
-import OttNetflixApi from "../../api/OttNetflixApi";
-import OttWatchaApi from "../../api/OttWatcha";
+import OttBoxApi from "../../api/OttBoxApi";
 
 const OttSlideStyle = styled.div`
-  // ... (기존 코드)
+  padding-top: 50px;
+  width: 100%;
+  align-items: center;
+  .ottRank-slider {
+    width: 100%;
+    position: relative;
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #494949;
+      background-color: white;
+      opacity: 0.5;
+      padding: 15px 15px;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .swiper-wrapper {
+      align-items: center;
+      .slide {
+        width: 30%;
+      }
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      /* display: none; */
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  }
 `;
 
 const OttSlide = ({ activeButton }) => {
   const [movieData, setMovieData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = (() => {
-          switch (activeButton) {
-            case "tiving":
-              return OttTivingApi.getTivingMovies();
-            case "netflix":
-              return OttNetflixApi.getNetflixMovies();
-            case "watcha":
-              return OttWatchaApi.getWatchaMovies();
-            default:
-              return null;
-          }
-        })();
-
-        if (data && data.data !== null) {
-          setMovieData(data.data);
-        } else {
-          console.log("영화 정보가 없습니다.");
+  const fetchMoviesByButton = async () => {
+    try {
+      const data = (() => {
+        switch (activeButton) {
+          case "tiving":
+            return OttBoxApi.getTivingMovies();
+          case "netflix":
+            return OttBoxApi.getNetflixMovies();
+          case "watcha":
+            return OttBoxApi.getWatchaMovies();
+          default:
+            // Default case (if no button is active, fetch OttBoxMovies)
+            return OttBoxApi.getOttBoxMovies();
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
+      })();
 
-    fetchData();
+      const result = await data;
+
+      if (result && result.data !== null) {
+        console.log(result.data);
+        setMovieData(result.data);
+      } else {
+        console.log("영화 정보가 없습니다.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMoviesByButton();
   }, [activeButton]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await (() => {
+  //         switch (activeButton) {
+  //           case "tiving":
+  //             return OttBoxApi.getTivingMovies();
+  //           case "netflix":
+  //             return OttBoxApi.getNetflixMovies();
+  //           case "watcha":
+  //             return OttBoxApi.getWatchaMovies();
+  //           default:
+  //             return null;
+  //         }
+  //       })();
+
+  //       if (data && data.data !== null) {
+  //         setMovieData(data.data);
+  //       } else {
+  //         console.log("영화 정보가 없습니다.");
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [activeButton]);
 
   return (
     <OttSlideStyle>
