@@ -74,7 +74,7 @@ const OTTComp = styled.section`
           width: 80%;
         }
       }
-      .netflexBtn {
+      .netflixBtn {
         ${MovBtnStyle}
         margin-right: 10px;
         img {
@@ -110,7 +110,7 @@ const OTTComp = styled.section`
           width: 70%;
         }
       }
-      .swiperBasic {
+      .ottRank-slider {
         width: 97%;
       }
     }
@@ -141,12 +141,12 @@ const OTT = () => {
               <img src={tiving} alt="tiving" />
             </div>
             <div
-              className={`netflexBtn ${
-                activeButton === "netflex" ? "active" : ""
+              className={`netflixBtn ${
+                activeButton === "netflix" ? "active" : ""
               }`}
-              onClick={() => handleButtonClick("netflex")}
+              onClick={() => handleButtonClick("netflix")}
             >
-              <img src={netflex} alt="netflex" />
+              <img src={netflex} alt="netflix" />
             </div>
             <div
               className={`watchaBtn ${
@@ -157,8 +157,8 @@ const OTT = () => {
               <img src={watcha} alt="watcha" />
             </div>
           </div>
-          <div className="swiperBasic">
-            <OttSlide />
+          <div className="ottRank-slider">
+            <OttSlide activeButton={activeButton} />
           </div>
         </div>
       </div>

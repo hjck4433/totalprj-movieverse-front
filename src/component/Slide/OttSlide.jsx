@@ -1,3 +1,4 @@
+// OttSlide.js
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -6,40 +7,45 @@ import "swiper/css/navigation";
 import "swiper/css/bundle";
 import styled from "styled-components";
 import MovieCard from "../MovieSearch/MovieCard";
+import OttTivingApi from "../../api/OttTivingApi";
+import OttNetflixApi from "../../api/OttNetflixApi";
+import OttWatchaApi from "../../api/OttWatcha";
 
 const OttSlideStyle = styled.div`
-  padding-top: 50px;
-  width: 100%;
-  .swiper-button-prev,
-  .swiper-button-next {
-    color: #494949;
-    background-color: white;
-    opacity: 0.5;
-    padding: 15px 15px;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-  }
-  .swiper .swiper-wrapper {
-    align-items: center;
-    .slide {
-      width: 30%;
-
-      /* margin: 0 5px; */
-    }
-  }
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    /* display: none; */
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
+  // ... (기존 코드)
 `;
 
-const OttSlide = () => {
+const OttSlide = ({ activeButton }) => {
   const [movieData, setMovieData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = (() => {
+          switch (activeButton) {
+            case "tiving":
+              return OttTivingApi.getTivingMovies();
+            case "netflix":
+              return OttNetflixApi.getNetflixMovies();
+            case "watcha":
+              return OttWatchaApi.getWatchaMovies();
+            default:
+              return null;
+          }
+        })();
+
+        if (data && data.data !== null) {
+          setMovieData(data.data);
+        } else {
+          console.log("영화 정보가 없습니다.");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [activeButton]);
 
   return (
     <OttSlideStyle>
@@ -63,10 +69,6 @@ const OttSlide = () => {
             slidesPerView: 3,
             spaceBetween: 20,
           },
-          // 576: {
-          //   slidesPerView: 2,
-          //   spaceBetween: 20,
-          // },
           300: {
             slidesPerView: 2,
             spaceBetween: 20,
