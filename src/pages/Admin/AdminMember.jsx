@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import Button from "../../util/Button";
 import Chart from "../../component/Chart/Chart";
+import MemTr from "../../component/Administor/AdminBoard/MemTableElement";
 const AdminMemberComp = styled.div`
   padding-top: 10%;
   .container {
@@ -22,13 +22,15 @@ const AdminMemberComp = styled.div`
         max-width: 100%;
         white-space: nowrap;
         overflow-x: scroll;
+
         thead {
           tr {
             border-radius: 10px;
             th {
+              /* border: 1px solid blue; */
               color: #333;
               font-weight: 600;
-              font-size: 1.2em;
+              font-size: 1em;
               background-color: var(--GREY);
               padding: 20px;
               &:first-child {
@@ -43,7 +45,10 @@ const AdminMemberComp = styled.div`
         tbody {
           tr {
             td {
+              /* border: 1px solid red; */
               padding: 10px;
+              vertical-align: middle;
+              font-size: 0.9rem;
               &.center {
                 text-align: center;
               }
@@ -64,30 +69,10 @@ const AdminMember = () => {
       name: "햄토리",
       email: "hamham1234@gmail.com",
       phone: "010-8888-8888",
+      iskakao: "연동완료",
       membership: "미가입",
       joinDate: "2023.12.12",
-      addr: "서울시 강남구 역삼동",
-    },
-    {
-      profile:
-        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-      alias: "햄스터는 햄햄",
-      name: "햄토리",
-      email: "hamham1234@gmail.com",
-      phone: "010-8888-8888",
-      membership: "미가입",
-      joinDate: "2023.12.12",
-      addr: "서울시 강남구 역삼동",
-    },
-    {
-      profile:
-        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-      alias: "햄스터는 햄햄",
-      name: "햄토리",
-      email: "hamham1234@gmail.com",
-      phone: "010-8888-8888",
-      membership: "미가입",
-      joinDate: "2023.12.12",
+      withdraw: "회원",
       addr: "서울시 강남구 역삼동",
     },
   ];
@@ -99,15 +84,17 @@ const AdminMember = () => {
           <Chart />
           <div className="tableBox">
             <table>
-              <thead className="">
+              <thead>
                 <tr>
                   <th>No.</th>
                   <th>유저</th>
                   <th>이름</th>
                   <th>이메일</th>
                   <th>전화번호</th>
+                  <th>카카오연동</th>
                   <th>멤버십</th>
                   <th>등록날짜</th>
+                  <th>탈퇴정보</th>
                   <th>주소</th>
                   <th>삭제</th>
                 </tr>
@@ -116,29 +103,7 @@ const AdminMember = () => {
                 {/* map으로 반복할 요소 */}
                 {memData &&
                   memData.map((data, index) => (
-                    <tr key={data.title}>
-                      {/* 숫자 자동증가 */}
-                      <td className="center">{index + 1}</td>
-                      {/* <td>{data.profile}</td> */}
-                      <td>{data.alias}</td>
-                      <td>{data.name}</td>
-                      <td>{data.email}</td>
-                      <td>{data.phone}</td>
-                      <td>{data.membership}</td>
-                      <td>{data.joinDate}</td>
-                      <td>{data.addr}</td>
-
-                      <td>
-                        <Button
-                          children={"삭제"}
-                          fontSize=".8em"
-                          width="80px"
-                          height="30px"
-                          active={true}
-                          clickEvt={() => {}}
-                        />
-                      </td>
-                    </tr>
+                    <MemTr key={data.email} data={data} index={index} />
                   ))}
               </tbody>
             </table>
