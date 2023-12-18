@@ -22,8 +22,7 @@ const AdminFaqComp = styled.div`
         max-width: 100%;
         white-space: nowrap;
         overflow-x: scroll;
-        margin-bottom: 20px;
-
+        margin-bottom: 30px;
         thead {
           tr {
             border-radius: 10px;
@@ -66,6 +65,8 @@ const AdminFaqComp = styled.div`
     .addbutton {
       display: flex;
       justify-content: end;
+      border-top: 1px solid #ccc;
+      padding-top: 30px;
     }
   }
 `;
@@ -126,7 +127,7 @@ const AdminFaq = () => {
                             width="80px"
                             height="30px"
                             active={true}
-                            front="var(--BLUE)"
+                            back="var(--BLUE)"
                             clickEvt={() => {}}
                           />
                         </span>
@@ -142,7 +143,8 @@ const AdminFaq = () => {
                 width="80px"
                 height="30px"
                 active={true}
-                front="var(--MIDBLUE)"
+                front="var(--BLUE)"
+                back="var(--DARKBLUE)"
                 clickEvt={() => {}}
               />
             </div>
