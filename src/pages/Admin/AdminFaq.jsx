@@ -142,6 +142,7 @@ const AdminFaq = () => {
                 width="80px"
                 height="30px"
                 active={true}
+                front="var(--MIDBLUE)"
                 clickEvt={() => {}}
               />
             </div>
