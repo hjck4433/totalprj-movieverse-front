@@ -19,28 +19,55 @@ const SearchMapBoxStyle = styled.div`
 
 const SearchMapBox = () => {
   const [movieSearchData, setMovieSearchData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0); // 무한 스크롤에는 필요하지 않음
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchMovieSearchData = async () => {
       try {
-        const response = await MovieApi.getallmovies();
-        setMovieSearchData(response.data);
+        setLoading(true);
+        const response = await MovieApi.moviePageList(currentPage, 8);
+        setMovieSearchData((prevData) => [...prevData, ...response.data]);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching movieSearchData:", error);
+        console.error("영화 데이터를 불러오는 중 에러 발생:", error);
+        setLoading(false);
       }
     };
 
     fetchMovieSearchData();
-  }, []);
+  }, [currentPage]);
+
+  // 무한 스크롤
+  useEffect(() => {
+    const handleScroll = () => {
+      const isBottom =
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight;
+
+      if (isBottom && !loading) {
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
 
   return (
-    <SearchMapBoxStyle>
-      <div className="container">
-        {movieSearchData &&
-          movieSearchData.map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
-          ))}
-      </div>
-    </SearchMapBoxStyle>
+    <>
+      <SearchMapBoxStyle>
+        <div className="container">
+          {movieSearchData &&
+            movieSearchData.map((movie) => (
+              <MovieCard movie={movie} key={movie.id} />
+            ))}
+        </div>
+      </SearchMapBoxStyle>
+    </>
   );
 };
 

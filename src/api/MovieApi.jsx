@@ -6,6 +6,18 @@ const MovieApi = {
   getallmovies: async () => {
     return await axios.get(Common.MV_DOMAIN + `/movies/movielist`);
   },
+  // 영화 페이지네이션 조회
+  moviePageList: async (page, size) => {
+    return await axios.get(
+      Common.MV_DOMAIN + `/movies/movielist/page?page=${page}&size=${size}`
+    );
+  },
+  // 영화 페이지 수 조회
+  moviePage: async (page, size) => {
+    return await axios.get(
+      Common.MV_DOMAIN + `/movies/movielist/count?page=${page}&size=${size}`
+    );
+  },
 };
 
 export default MovieApi;
