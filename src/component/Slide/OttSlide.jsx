@@ -58,7 +58,7 @@ const OttSlide = ({ activeButton }) => {
           case "watcha":
             return OttBoxApi.getWatchaMovies();
           default:
-            // Default case (if no button is active, fetch OttBoxMovies)
+            //디폴트 값
             return OttBoxApi.getOttBoxMovies();
         }
       })();
@@ -79,35 +79,6 @@ const OttSlide = ({ activeButton }) => {
   useEffect(() => {
     fetchMoviesByButton();
   }, [activeButton]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await (() => {
-  //         switch (activeButton) {
-  //           case "tiving":
-  //             return OttBoxApi.getTivingMovies();
-  //           case "netflix":
-  //             return OttBoxApi.getNetflixMovies();
-  //           case "watcha":
-  //             return OttBoxApi.getWatchaMovies();
-  //           default:
-  //             return null;
-  //         }
-  //       })();
-
-  //       if (data && data.data !== null) {
-  //         setMovieData(data.data);
-  //       } else {
-  //         console.log("영화 정보가 없습니다.");
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [activeButton]);
 
   return (
     <OttSlideStyle>
