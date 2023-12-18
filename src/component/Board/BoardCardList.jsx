@@ -9,6 +9,7 @@ import { fa2 } from "@fortawesome/free-solid-svg-icons";
 import { fa3 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import ToggleButton from "../Board/BoardToggleBtn";
 const BoardCardList = ({ search, nofilter }) => {
   const [sortBy, setSortBy] = useState("highestCount");
   const [sortedData, setSortedData] = useState([]);
@@ -119,8 +120,7 @@ const BoardCardList = ({ search, nofilter }) => {
       <div className="container">
         <div className="boardCardBox">
           <div className="gatherTypeList">
-            <p>온라인</p>
-            <p>오프라인</p>
+            <ToggleButton />
           </div>
           <ul className="sortArea">
             <li

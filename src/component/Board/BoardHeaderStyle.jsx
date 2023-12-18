@@ -5,7 +5,7 @@ const BoardComp = styled.section`
   height: 350px;
   background-image: url(${bgPc});
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
   .wrapper {
     width: 100%;
     height: 100%;
@@ -33,23 +33,33 @@ const BoardComp = styled.section`
         }
       }
       .boardSearch {
+        width: 100%;
         align-items: center;
         justify-content: center;
         display: flex;
         .inputBox {
+          position: relative;
+          width: 50%;
           input {
+            text-align: center;
             border: none;
             outline: none;
-            width: 600px;
+            width: 100%;
             height: 40px;
-            text-align: center;
             border-radius: 5px;
           }
-        }
-        .searchBox {
-          color: black;
-          margin-left: -20px;
-          cursor: pointer;
+          .searchBox {
+            position: absolute;
+            top: 0px;
+            right: 10px;
+            padding: 10px;
+            color: black;
+            margin-left: -20px;
+            cursor: pointer;
+            svg {
+              font-size: 20px;
+            }
+          }
         }
       }
     }

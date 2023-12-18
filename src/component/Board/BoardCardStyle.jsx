@@ -2,10 +2,11 @@ import { styled } from "styled-components";
 const BoardCardStyle = styled.section`
   .container {
     .boardCardBox {
-      padding-top: 50px;
+      padding-top: 90px;
       margin-bottom: 50px;
       .gatherTypeList {
         display: flex;
+        margin-bottom: 20px;
         p {
           margin-left: 5px;
         }
@@ -54,6 +55,7 @@ const BoardCardStyle = styled.section`
         img {
           width: 100%;
           height: 100%;
+          border-radius: 5px;
         }
       }
       .textBox {

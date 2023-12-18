@@ -30,14 +30,14 @@ const BoardHeaderList = ({ category, title, description }) => {
                 placeholder="검색어를 입력해 주세요."
                 onChange={getValue}
               />
-            </div>
-            <div className="searchBox">
-              <FontAwesomeIcon
-                icon={faSearch}
-                onClick={() => {
-                  setSearchTerm(inputSearch);
-                }}
-              />
+              <div className="searchBox">
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  onClick={() => {
+                    setSearchTerm(inputSearch);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
