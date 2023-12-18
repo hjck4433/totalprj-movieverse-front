@@ -10,12 +10,14 @@ import { fa3 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import ToggleButton from "../Board/BoardToggleBtn";
+import { useNavigate, useParams } from "react-router-dom";
 const BoardCardList = ({ search, nofilter }) => {
   const [sortBy, setSortBy] = useState("highestCount");
   const [sortedData, setSortedData] = useState([]);
 
-  const BoardData = [
+  const boardData = [
     {
+      boardId: "123",
       title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄1",
       content:
         "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
@@ -83,7 +85,7 @@ const BoardCardList = ({ search, nofilter }) => {
     },
   ];
   const sortedBy = (sortBy) => {
-    const sortedData = [...BoardData];
+    const sortedData = [...boardData];
     switch (sortBy) {
       case "highestCount":
         sortedData.sort(
@@ -114,13 +116,14 @@ const BoardCardList = ({ search, nofilter }) => {
   const handleSortChange = (criteria) => {
     setSortBy(criteria);
   };
+  const navigate = useNavigate();
 
   return (
     <BoardCardStyle>
       <div className="container">
         <div className="boardCardBox">
           <div className="gatherTypeList">
-            <ToggleButton gatherType={BoardData.gatherType} />
+            <ToggleButton gatherType={boardData.gatherType} />
           </div>
           <ul className="sortArea">
             <li
@@ -150,9 +153,15 @@ const BoardCardList = ({ search, nofilter }) => {
           </ul>
           {/* <div className="boardMap"> */}
           {nofilter !== "nofilter" &&
-            sortedData &&
-            sortedData.map((board) => (
-              <BoardCard key={board.title} board={board} />
+            boardData &&
+            boardData.map((board) => (
+              <BoardCard
+                key={board.title}
+                board={board}
+                onClick={() => {
+                  navigate(`/board/post/${board.postId}`);
+                }}
+              />
             ))}
           {/* </div> */}
           <div className="arrow">

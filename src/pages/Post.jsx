@@ -6,8 +6,16 @@ import Button from "../util/Button";
 import postImg from "../images/main_top_mo.jpg";
 const Post = () => {
   const navigate = useNavigate();
-  const toBoard = () => {
-    navigate("/board/:id");
+  const onClickBoard = (num) => {
+    switch (num) {
+      case 1:
+        navigate("/board/new");
+        break;
+      case 2:
+        navigate("/board/:id");
+        break;
+      default:
+    }
   };
   const commentData = [
     {
@@ -75,7 +83,11 @@ const Post = () => {
                 </p>
               </div>
             </div>
-            <Button children="수정하기" active={true} />
+            <Button
+              children="수정하기"
+              active={true}
+              clickEvt={() => onClickBoard(1)}
+            />
           </div>
 
           {/* 댓글 영역 */}
@@ -143,7 +155,7 @@ const Post = () => {
               active={true}
               front="var(--VIOLET)"
               back="var(--BLUE)"
-              clickEvt={toBoard}
+              clickEvt={() => onClickBoard(2)}
             />
           </div>
         </div>

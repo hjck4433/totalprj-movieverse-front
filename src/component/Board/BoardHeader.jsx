@@ -12,7 +12,7 @@ const BoardHeaderList = ({ active }) => {
   };
 
   const { id } = useParams();
-  const { category, title, description } = (() => {
+  const { category, description } = (() => {
     switch (id) {
       case "gather":
         return {

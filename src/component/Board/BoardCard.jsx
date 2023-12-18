@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 const BoardCard = ({ board }) => {
+  const navigate = useNavigate();
   return (
     <>
-      <div className="mapBox">
+      <div
+        className="mapBox"
+        onClick={() => {
+          navigate(`/board/post/${board.postId}`);
+        }}
+      >
         <div className="imgBox">
           <img src={board.image} alt="이미지" />
         </div>
