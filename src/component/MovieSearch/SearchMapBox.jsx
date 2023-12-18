@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import MovieCard from "./MovieCard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MovieApi from "../../api/MovieApi";
 
 const SearchMapBoxStyle = styled.div`
@@ -22,6 +22,8 @@ const SearchMapBox = () => {
   const [currentPage, setCurrentPage] = useState(0); // 무한 스크롤에는 필요하지 않음
   const [loading, setLoading] = useState(false);
 
+  const containerRef = useRef(null);
+
   useEffect(() => {
     const fetchMovieSearchData = async () => {
       try {
@@ -38,29 +40,57 @@ const SearchMapBox = () => {
     fetchMovieSearchData();
   }, [currentPage]);
 
-  // 무한 스크롤
   useEffect(() => {
     const handleScroll = () => {
-      const isBottom =
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight;
+      const container = containerRef.current;
 
-      if (isBottom && !loading) {
-        setCurrentPage((prevPage) => prevPage + 1);
+      if (container) {
+        const isBottom =
+          container.scrollTop + container.clientHeight ===
+          container.scrollHeight;
+
+        if (isBottom && !loading) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const container = containerRef.current;
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    console.log("useRef : " + containerRef.current?.scrollTop);
+
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, [loading]);
+
+  // // 무한 스크롤
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const isBottom =
+  //       window.innerHeight + document.documentElement.scrollTop ===
+  //       document.documentElement.offsetHeight;
+
+  //     if (isBottom && !loading) {
+  //       setCurrentPage((prevPage) => prevPage + 1);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [loading]);
 
   return (
     <>
       <SearchMapBoxStyle>
-        <div className="container">
+        <div className="container" ref={containerRef}>
           {movieSearchData &&
             movieSearchData.map((movie) => (
               <MovieCard movie={movie} key={movie.id} />
