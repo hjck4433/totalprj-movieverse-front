@@ -39,7 +39,7 @@ const MovieCardComp = styled.div`
         margin-bottom: 10%;
         text-align: left;
       }
-      .contents {
+      .plotText {
         font-size: 0.8em;
         line-height: 1.4em;
         margin-bottom: 10px;
@@ -91,7 +91,7 @@ const MovieCardComp = styled.div`
         .title {
           font-size: 1.1rem;
         }
-        .contents {
+        .plotText {
           font-size: 0.8rem;
         }
         .score {
@@ -109,39 +109,27 @@ const MovieCardComp = styled.div`
   }
 `;
 
-const MovieCard = () => {
-  const movieData = [
-    {
-      poster: "https://img.movist.com/?img=/x00/05/96/41_p1.jpg",
-      title: "서울의 봄",
-      contents:
-        "《서울의 봄》은 2023년 11월 22일 개봉한 대한민국의 역사 영화로, 12.12 사태를 다루었다. 감독은 김성수이고, 황정민, 정우성 등이 출연하였다. 군사 반란이 일어난 1979년 12월 12일 저녁 7시부터 이튿날 새벽 4시까지의 9시간을, 영화 141분에 담았다.",
-      scoreNum: "9.0",
-      rank: "1",
-    },
-  ];
-
+const MovieCard = ({ movie }) => {
+  console.log(movie);
   return (
     <>
-      {movieData.map((movie, index) => (
-        <MovieCardComp key={index}>
-          <img src={movie.poster} alt="" />
-          <div className="rankInfo">
-            <p className="rank">{movie.rank}</p>
+      <MovieCardComp>
+        <img src={movie.posters} alt="" />
+        <div className="rankInfo">
+          <p className="rank">{movie.rank}</p>
+        </div>
+        <div className="overlay">
+          <div className="hoverInfo">
+            <p className="title">{movie.title}</p>
+            <p className="plotText">{movie.plotText}</p>
+            <p className="score">
+              <span className="scoreText">평점</span>
+              <span className="scoreNum">{movie.score}</span>
+            </p>
           </div>
-          <div className="overlay">
-            <div className="hoverInfo">
-              <p className="title">{movie.title}</p>
-              <p className="contents">{movie.contents}</p>
-              <p className="score">
-                <span className="scoreText">관람평</span>
-                <span className="scoreNum">{movie.scoreNum}</span>
-              </p>
-            </div>
-          </div>
-          <Bookmark />
-        </MovieCardComp>
-      ))}
+        </div>
+        <Bookmark />
+      </MovieCardComp>
     </>
   );
 };

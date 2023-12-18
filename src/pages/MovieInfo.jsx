@@ -27,8 +27,9 @@ const MovieInfo = () => {
 
   useEffect(() => {
     // 화면이 처음 렌더링 된 상태에서 한번만 호출!
-    // fetchMovieDetail();
-  }, []);
+    //    fetchMovieDetail();
+    fetchMovieDetail();
+  }, [title]);
 
   return (
     <>

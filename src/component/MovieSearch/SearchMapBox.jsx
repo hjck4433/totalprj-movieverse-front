@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import MovieCard from "./MovieCard";
+import React, { useEffect, useState } from "react";
+import MovieApi from "../../api/MovieApi";
 
 const SearchMapBoxStyle = styled.div`
   .container {
@@ -16,10 +18,27 @@ const SearchMapBoxStyle = styled.div`
 `;
 
 const SearchMapBox = () => {
+  const [movieSearchData, setMovieSearchData] = useState([]);
+  useEffect(() => {
+    const fetchMovieSearchData = async () => {
+      try {
+        const response = await MovieApi.getallmovies();
+        setMovieSearchData(response.data);
+      } catch (error) {
+        console.error("Error fetching movieSearchData:", error);
+      }
+    };
+
+    fetchMovieSearchData();
+  }, []);
+
   return (
     <SearchMapBoxStyle>
       <div className="container">
-        <MovieCard />
+        {movieSearchData &&
+          movieSearchData.map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
       </div>
     </SearchMapBoxStyle>
   );
