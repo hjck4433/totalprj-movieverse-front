@@ -120,7 +120,7 @@ const BoardCardList = ({ search, nofilter }) => {
       <div className="container">
         <div className="boardCardBox">
           <div className="gatherTypeList">
-            <ToggleButton />
+            <ToggleButton gatherType={BoardData.gatherType} />
           </div>
           <ul className="sortArea">
             <li

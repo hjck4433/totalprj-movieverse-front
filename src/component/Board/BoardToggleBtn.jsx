@@ -47,15 +47,19 @@ const BtnText = styled.div`
   transition: all 0.5s ease;
 `;
 
-const ToggleButton = ({ onselect, onselect3 }) => {
+const ToggleButton = ({ onselect, onselect3, gatherType }) => {
   const [toggle, setToggle] = useState(false);
 
   const clickedToggle = () => {
     setToggle((prev) => !prev);
     if (toggle === true) {
-      onselect("온라인");
-    } else onselect("sss");
-    onselect3("오프라인");
+      onselect(gatherType);
+      onselect3(gatherType === "온라인" ? "온라인" : "오프라인");
+    } else {
+      onselect(gatherType);
+      onselect3(gatherType === "온라인" ? "온라인" : "오프라인");
+    }
+    console.log(gatherType);
   };
 
   return (

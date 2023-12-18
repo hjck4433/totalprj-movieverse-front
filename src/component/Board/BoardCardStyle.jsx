@@ -34,11 +34,6 @@ const BoardCardStyle = styled.section`
             top: 1px;
             left: -11px;
           }
-          &:first-child {
-            &::after {
-              display: none;
-            }
-          }
         }
       }
       .mapBox {

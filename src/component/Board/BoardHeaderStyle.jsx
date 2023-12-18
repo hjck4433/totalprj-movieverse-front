@@ -5,7 +5,7 @@ const BoardComp = styled.section`
   height: 350px;
   background-image: url(${bgPc});
   background-size: cover;
-  background-position: bottom;
+  background-position: center -55%;
   .wrapper {
     width: 100%;
     height: 100%;
@@ -16,9 +16,27 @@ const BoardComp = styled.section`
         display: flex;
         padding-top: 20px;
         margin-bottom: 50px;
-        p {
+        li {
+          position: relative;
           cursor: pointer;
-          margin-right: 5px;
+          margin-left: 10px;
+          color: var(--GREY);
+          &::after {
+            background-color: var(--GREY);
+          }
+
+          &:first-child {
+            &::after {
+              display: none;
+            }
+          }
+
+          &:hover {
+            color: var(--LIGHTVIO);
+          }
+          &.active {
+            color: var(--LIGHTVIO);
+          }
         }
       }
       .boardText {
