@@ -16,11 +16,14 @@ const AdminFaqComp = styled.div`
       width: 100%;
       padding-bottom: 10px;
       overflow-x: auto;
+
       table {
         width: 100%;
         max-width: 100%;
         white-space: nowrap;
         overflow-x: scroll;
+        margin-bottom: 20px;
+
         thead {
           tr {
             border-radius: 10px;
@@ -42,17 +45,27 @@ const AdminFaqComp = styled.div`
         }
         tbody {
           tr {
+            vertical-align: middle;
             td {
               padding: 10px;
-              Button {
-              }
+              /* outline: 1px solid red; */
               &.center {
                 text-align: center;
+              }
+              &.btn {
+                span {
+                  display: flex;
+                  justify-content: center;
+                }
               }
             }
           }
         }
       }
+    }
+    .addbutton {
+      display: flex;
+      justify-content: end;
     }
   }
 `;
@@ -60,13 +73,13 @@ const AdminFaqComp = styled.div`
 const AdminFaq = () => {
   const faqData = [
     {
-      title: "무비버스는 무엇인가요?",
+      title: "무비버스는 무엇인가요?-----------------------------------",
     },
     {
-      title: "무비버스는 무엇인가요?",
+      title: "무비버스는 무엇인가요------------------------------------",
     },
     {
-      title: "무비버스는 무엇인가요?",
+      title: "무비버스는 무엇인가요------------------------------------",
     },
   ];
   return (
@@ -91,41 +104,47 @@ const AdminFaq = () => {
                     <tr key={data.title}>
                       <td className="center">{index + 1}</td>
                       <td>{data.title}</td>
-                      <td>
-                        <Button
-                          children={"수정"}
-                          back="var(--BLUE)"
-                          fontSize=".8em"
-                          width="80px"
-                          height="30px"
-                          active={true}
-                          clickEvt={() => {}}
-                        />
+                      <td className="btn">
+                        <span>
+                          <Button
+                            children={"수정"}
+                            back="var(--BLUE)"
+                            fontSize=".8em"
+                            width="80px"
+                            height="30px"
+                            active={true}
+                            clickEvt={() => {}}
+                          />
+                        </span>
                       </td>
 
-                      <td>
-                        <Button
-                          children={"삭제"}
-                          fontSize=".8em"
-                          width="80px"
-                          height="30px"
-                          active={true}
-                          front="var(--BLUE)"
-                          clickEvt={() => {}}
-                        />
+                      <td className="btn">
+                        <span>
+                          <Button
+                            children={"삭제"}
+                            fontSize=".8em"
+                            width="80px"
+                            height="30px"
+                            active={true}
+                            front="var(--BLUE)"
+                            clickEvt={() => {}}
+                          />
+                        </span>
                       </td>
                     </tr>
                   ))}
               </tbody>
             </table>
-            <Button
-              children={"추가"}
-              fontSize=".8em"
-              width="80px"
-              height="30px"
-              active={true}
-              clickEvt={() => {}}
-            />
+            <div className="addbutton">
+              <Button
+                children={"추가"}
+                fontSize=".8em"
+                width="80px"
+                height="30px"
+                active={true}
+                clickEvt={() => {}}
+              />
+            </div>
           </div>
         </div>
       </AdminFaqComp>
