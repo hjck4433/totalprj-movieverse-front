@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/bundle";
 import styled from "styled-components";
 import MovieCard from "../MovieSearch/MovieCard";
+import OttBoxApi from "../../api/OttBoxApi";
 
 const BoxOfficeSlideStyle = styled.div`
   padding: 50px 0;
@@ -43,6 +44,26 @@ const BoxOfficeSlideStyle = styled.div`
 
 const BoxOfficeSlide = () => {
   const [movieData, setMovieData] = useState([]);
+
+  //박스오피스 영화정보 리스트 가져오기
+  const fetchBoxOfficeList = async () => {
+    try {
+      const res = await OttBoxApi.getBoxOfficeMovies();
+      if (res.data !== null) {
+        console.log(res.data);
+        setMovieData(res.data);
+      } else {
+        console.log("영화 정보가 없습니다.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // useEffect [] => 빈 배열은 처음 마운트되고 한번만 실행
+  useEffect(() => {
+    fetchBoxOfficeList();
+  }, []);
 
   return (
     <BoxOfficeSlideStyle>
