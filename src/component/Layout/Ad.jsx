@@ -61,8 +61,17 @@ const Advertise = ({ isLogin }) => {
   const navigate = useNavigate();
 
   const toPayment = () => {
-    // isLogin true false 에 따라 결제 창 이동 또는 로그인 안내 팝업
-    navigate("/Payment");
+    if (isLogin) {
+      navigate("/Payment");
+    } else {
+      handleModal(
+        "로그인",
+        "로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.",
+        () => {
+          navigate("/login"); // 모달 확인버튼 -> 로그인 페이지로
+        }
+      );
+    }
   };
 
   // 팝업 처리
@@ -71,7 +80,7 @@ const Advertise = ({ isLogin }) => {
   const [modalHeader, setModalHeader] = useState("");
   const [modalType, setModalType] = useState(null);
   // 팝업으로 이동하는 조건이 하나라면 굳이 필요 없이 아래처럼 직접 입력
-  // const [modalConfirm, setModalConfirm] = useState(null);
+  const [modalConfirm, setModalConfirm] = useState(null);
 
   const closeModal = (num) => {
     setModalOpen(false);
@@ -81,13 +90,19 @@ const Advertise = ({ isLogin }) => {
     setModalHeader(header);
     setModalMsg(msg);
     setModalType(type);
-    // setModalConfirm(num);
   };
 
   return (
     <>
       {/* 클릭이벤트에 모달 팝업 이벤트를 넣고 */}
-      <AdComp onClick={toPayment}>
+      <AdComp
+        onClick={() => {
+          toPayment();
+          if (modalConfirm) {
+            modalConfirm();
+          }
+        }}
+      >
         <div className="container">
           <div className="ad">
             <p>지금 멤버십에 가입하고 광고 없는</p>
@@ -105,7 +120,9 @@ const Advertise = ({ isLogin }) => {
         children={modalMsg}
         type={modalType}
         confirm={() => {
-          navigate("/login"); // 모달에서 확인을 누를 경우 로그인 페이지로 이동
+          if (modalConfirm) {
+            modalConfirm();
+          }
         }}
       />
     </>
