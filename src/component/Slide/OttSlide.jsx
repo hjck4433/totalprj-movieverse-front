@@ -139,7 +139,7 @@ const OttSlide = ({ activeButton }) => {
       >
         {movieData &&
           movieData.map((movie) => (
-            <SwiperSlide className="slide" key={movie.id}>
+            <SwiperSlide className="slide" key={movie.title}>
               <MovieCard movie={movie} />
             </SwiperSlide>
           ))}

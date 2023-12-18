@@ -66,30 +66,30 @@ const OTTComp = styled.section`
         justify-content: space-between;
         align-items: center;
         width: 50%;
-      }
-      .tivingBtn {
-        ${MovBtnStyle}
-        margin-right: 10px;
-        img {
-          width: 80%;
+        .tivingBtn {
+          ${MovBtnStyle}
+          margin-right: 10px;
+          img {
+            width: 80%;
+          }
+        }
+        .netflixBtn {
+          ${MovBtnStyle}
+          margin-right: 10px;
+          img {
+            width: 90%;
+          }
+        }
+        .watchaBtn {
+          ${MovBtnStyle}
+          img {
+            width: 120%;
+          }
         }
       }
-      .netflixBtn {
-        ${MovBtnStyle}
-        margin-right: 10px;
-        img {
-          width: 90%;
-        }
+      .ottRank-slider {
+        width: 100%;
       }
-      .watchaBtn {
-        ${MovBtnStyle}
-        img {
-          width: 120%;
-        }
-      }
-    }
-    .swiperBasic {
-      width: 100%;
     }
   }
   @media only screen and (max-width: 768px) {
