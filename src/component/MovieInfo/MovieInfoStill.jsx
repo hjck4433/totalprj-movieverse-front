@@ -28,6 +28,9 @@ const MovieInfoStillStyle = styled.section`
 `;
 
 const MovieInfoStill = ({ movieDetail }) => {
+  // stils 처리 리스트로 뽑아내기 단 정보가 있을때
+  const stills = movieDetail.stlls ? movieDetail.stlls.split("|") : [];
+
   return (
     <>
       <MovieInfoStillStyle>
@@ -38,7 +41,10 @@ const MovieInfoStill = ({ movieDetail }) => {
               <div className="divider"></div>
             </div>
             <div className="movieStill">
-              <StillCutComp />
+              {stills &&
+                stills.map((still, index) => (
+                  <StillCutComp key={index} still={still} />
+                ))}
             </div>
           </div>
         </section>

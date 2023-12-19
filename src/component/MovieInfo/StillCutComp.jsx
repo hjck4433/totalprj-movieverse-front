@@ -6,6 +6,7 @@ const StillCompStyle = styled.div`
   gap: 30px;
 
   .still {
+    outline: 1px solid red;
     img {
       width: 100%;
       border-radius: 5px;
@@ -17,12 +18,12 @@ const StillCompStyle = styled.div`
   }
 `;
 
-const StillCutComp = ({ movieDetail }) => {
+const StillCutComp = ({ still }) => {
   return (
     <>
       <StillCompStyle>
         <div className="still">
-          {/* <img src={movieDetail.stlls} alt="stllsImg" /> */}
+          <img src={still} alt="stllsImg" />
         </div>
       </StillCompStyle>
     </>
