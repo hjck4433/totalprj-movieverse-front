@@ -10,7 +10,8 @@ import { fa3 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import ToggleButton from "../Board/BoardToggleBtn";
-import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../util/Button";
+import { useNavigate } from "react-router-dom";
 const BoardCardList = ({ search, nofilter }) => {
   const [sortBy, setSortBy] = useState("highestCount");
   const [sortedData, setSortedData] = useState([]);
@@ -151,19 +152,13 @@ const BoardCardList = ({ search, nofilter }) => {
               과거순
             </li>
           </ul>
-          {/* <div className="boardMap"> */}
-          {nofilter !== "nofilter" &&
-            boardData &&
-            boardData.map((board) => (
-              <BoardCard
-                key={board.title}
-                board={board}
-                onClick={() => {
-                  navigate(`/board/post/${board.postId}`);
-                }}
-              />
-            ))}
-          {/* </div> */}
+          <div className="boardMap">
+            {nofilter !== "nofilter" &&
+              boardData &&
+              boardData.map((board) => (
+                <BoardCard key={board.title} board={board} />
+              ))}
+          </div>
           <div className="arrow">
             <FontAwesomeIcon className="icons" icon={faAngleDoubleLeft} />
             <FontAwesomeIcon className="icons" icon={faAngleLeft} />
@@ -172,6 +167,15 @@ const BoardCardList = ({ search, nofilter }) => {
             <FontAwesomeIcon className="icons" icon={fa3} />
             <FontAwesomeIcon className="icons" icon={faAngleRight} />
             <FontAwesomeIcon className="icons" icon={faAngleDoubleRight} />
+          </div>
+          <div className="newPostBtn">
+            <Button
+              children="새 글 작성"
+              active={true}
+              clickEvt={() => {
+                navigate("/board/new");
+              }}
+            />
           </div>
         </div>
       </div>

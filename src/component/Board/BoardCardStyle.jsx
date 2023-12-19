@@ -36,66 +36,69 @@ const BoardCardStyle = styled.section`
           }
         }
       }
-      .mapBox {
-        display: flex;
-        width: 100%;
-        background-color: #ffffff;
-        padding: 25px;
-        border-radius: 5px;
-        margin-bottom: 30px;
-        cursor: pointer;
-      }
-
-      .imgBox {
-        width: 60%;
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 5px;
-        }
-      }
-      .textBox {
-        padding-left: 20px;
-        .categoryGatherBox {
+      .boardMap {
+        margin-bottom: 80px;
+        .mapBox {
           display: flex;
-          padding-bottom: 15px;
-          justify-content: space-between;
-          .categoryGather {
-            display: flex;
-          }
-          p {
-            margin-left: 10px;
-            color: white;
-            padding: 5px;
+          width: 100%;
+          background-color: #ffffff;
+          padding: 25px;
+          border-radius: 5px;
+          margin-bottom: 30px;
+          cursor: pointer;
+        }
+
+        .imgBox {
+          width: 60%;
+          img {
+            width: 100%;
+            height: 100%;
             border-radius: 5px;
           }
-          .category {
-            background-color: var(--LIGHTVIO);
-          }
-          .gather {
-            background-color: var(--BLUE);
-          }
-          .regdate {
-            color: var(--GREY);
-          }
         }
-        .contentBox {
-          padding-bottom: 120px;
-          h3 {
-            color: black;
+        .textBox {
+          padding-left: 20px;
+          .categoryGatherBox {
+            display: flex;
             padding-bottom: 15px;
-            font-weight: 600;
+            justify-content: space-between;
+            .categoryGather {
+              display: flex;
+            }
+            p {
+              margin-left: 10px;
+              color: white;
+              padding: 5px;
+              border-radius: 5px;
+            }
+            .category {
+              background-color: var(--LIGHTVIO);
+            }
+            .gather {
+              background-color: var(--BLUE);
+            }
+            .regdate {
+              color: var(--GREY);
+            }
           }
-          .content {
-            padding-right: 50px;
-            color: black;
-            line-height: 1.5;
+          .contentBox {
+            padding-bottom: 120px;
+            h3 {
+              color: black;
+              padding-bottom: 15px;
+              font-weight: 600;
+            }
+            .content {
+              padding-right: 50px;
+              color: black;
+              line-height: 1.5;
+            }
           }
-        }
-        .countBox {
-          p {
-            text-align: end;
-            color: var(--GREY);
+          .countBox {
+            p {
+              text-align: end;
+              color: var(--GREY);
+            }
           }
         }
       }
@@ -105,9 +108,17 @@ const BoardCardStyle = styled.section`
         width: 20%;
         margin: 0 auto;
         justify-content: space-between;
+        margin-bottom: 80px;
+
         .icons {
           cursor: pointer;
         }
+      }
+      .newPostBtn {
+        margin-bottom: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
