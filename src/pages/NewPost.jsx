@@ -5,23 +5,20 @@ import { useNavigate } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 import basicImg from "../images/congrats.png";
+import Modal from "../util/Modal";
 
-// 현재 날짜를 받아오기 위함
-const getCurrentDate = () => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}${month}${day}`;
-};
 const NewPost = () => {
-  //현재날짜
-  const currentDate = getCurrentDate();
+  // 게시판 리스트로 이동
+  const navigate = useNavigate();
+  const toGatherList = () => {
+    navigate("/board/gather");
+  };
 
   // 이미지 업로드
   const [imgSrc, setImgSrc] = useState(basicImg);
   const [file, setFile] = useState("");
   const [url, setUrl] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   // 입력받은 이미지 파일 주소
   const handleFileInputChange = (e) => {
@@ -36,6 +33,19 @@ const NewPost = () => {
     }
   };
 
+  // 파일을 백에 저장
+  const submitPost = async () => {
+    try {
+      //등록 처리 추가해야함
+    } catch (err) {
+      console.log("게시글 등록 실패!", err);
+    }
+  };
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   return (
     <>
       <NewPostComp>
@@ -43,12 +53,12 @@ const NewPost = () => {
           <div className="bubbleArea">
             <img className="faceIcon" src={face} alt="Icon" />
             <div className="bubbleText">
-              <h2>게시글을 등록해볼까요?</h2>
+              <h2>게시글을 등록해 볼까요?</h2>
               <p>
                 무비 모임을 열어서 함께 영화도 보고, 모임 후기도 남겨보세요!
               </p>
               <p>
-                나의 인생 영화, 추천영화도 공유하며 새로운 취향도 찾아보아요~
+                나의 인생 영화, 추천 영화도 공유하며 새로운 취향도 찾아보아요~
               </p>
             </div>
           </div>
@@ -94,7 +104,7 @@ const NewPost = () => {
             </div>
             <div className="uploadDate">
               <h3>작성일</h3>
-              <p>{currentDate}</p>
+              <p>20231219</p>
             </div>
             <div className="postTitle">
               <h3>제 목</h3>
@@ -126,12 +136,18 @@ const NewPost = () => {
               ></textarea>
             </div>
             <div className="buttonBox">
-              <Button children="등록하기" active={true} back="var(--BLUE)" />
+              <Button
+                children="등록하기"
+                active={true}
+                back="var(--BLUE)"
+                clickEvt={submitPost}
+              />
               <Button
                 children="목록보기"
                 active={true}
                 front="var(--VIOLET)"
                 back="var(--BLUE)"
+                clickEvt={toGatherList}
               />
             </div>
           </div>
