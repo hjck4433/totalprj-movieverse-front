@@ -19,7 +19,7 @@ const SearchMapBoxStyle = styled.section`
 
 const SearchMapBox = () => {
   const [movieSearchData, setMovieSearchData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0); // 무한 스크롤에는 필요하지 않음
+  const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [lastPage, setLastPage] = useState(false);
 

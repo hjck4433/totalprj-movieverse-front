@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserStore";
 import Common from "../util/Common";
+import ScrollToTop from "../component/Layout/ScrollToTop";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -21,9 +22,10 @@ const Layout = () => {
 
   // 키키멤버십 가입여부
   const [isKikiMember, setKikiMember] = useState(false);
-  // const isKikiMember = context.getKikiStatus();
+
   return (
     <>
+      <ScrollToTop />
       <Header />
       <main>
         <Outlet />

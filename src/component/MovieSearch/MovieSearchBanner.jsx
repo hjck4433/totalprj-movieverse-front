@@ -10,6 +10,7 @@ const SearchBannerStyle = styled.section`
   background-size: cover;
   background-position: center;
   margin-bottom: 100px;
+  height: 350px;
   .wrapper {
     width: 100%;
     height: 100%;

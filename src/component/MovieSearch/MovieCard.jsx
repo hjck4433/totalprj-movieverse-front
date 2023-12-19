@@ -7,6 +7,7 @@ const MovieCardComp = styled.div`
 
   img {
     width: 100%;
+    height: 100%;
     border-radius: 5px;
   }
   .rankInfo {
@@ -114,10 +115,7 @@ const MovieCard = ({ movie }) => {
   return (
     <>
       <MovieCardComp>
-        <img src={movie.posters} alt="" />
-        <div className="rankInfo">
-          <p className="rank">{movie.rank}</p>
-        </div>
+        <img src={movie.posters} alt={movie.title} />
         <div className="overlay">
           <div className="hoverInfo">
             <p className="title">{movie.title}</p>
@@ -128,7 +126,7 @@ const MovieCard = ({ movie }) => {
             </p>
           </div>
         </div>
-        <Bookmark />
+        <Bookmark movieId={movie.id} />
       </MovieCardComp>
     </>
   );

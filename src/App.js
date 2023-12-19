@@ -26,6 +26,7 @@ import AdminMember from "./pages/Admin/AdminMember";
 import AdminFaq from "./pages/Admin/AdminFaq";
 import AdminBoard from "./pages/Admin/AdminBoard";
 import AdminLayout from "./pages/Admin/AdminLayout";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment/result" element={<PaymentRst />} />
               <Route path="/utiltest" element={<UtilTest />}></Route>
+              <Route path="/*" element={<NotFound />} />
             </Route>
             <Route path="/login/admin" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>

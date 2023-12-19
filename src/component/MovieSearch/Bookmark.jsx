@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { styled } from "styled-components";
+import { UserContext } from "../../context/UserStore";
 
 const BookmarkComp = styled.div`
   .BookmarkBox {
@@ -48,7 +49,10 @@ const BookmarkComp = styled.div`
   }
 `;
 
-const Bookmark = () => {
+const Bookmark = ({ movieId }) => {
+  const context = useContext(UserContext);
+  const { loginStatus } = context;
+
   const [marked, setMarked] = useState(false);
   const changeHeart = () => {
     marked ? setMarked(false) : setMarked(true);
@@ -58,14 +62,18 @@ const Bookmark = () => {
     console.log("marked : " + marked);
   }, [marked]);
 
+  useEffect(() => {
+    if (loginStatus) {
+    }
+  }, []);
+
   return (
     <BookmarkComp>
       <div className="BookmarkBox">
         <div className="BookmarkAround" onClick={changeHeart}>
           <FontAwesomeIcon
             icon={faHeart}
-            className={`heart ${marked ? "" : "marked"}`}
-            // className="heart marked"
+            className={`heart ${marked ? "marked" : ""}`}
           />
         </div>
       </div>
