@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
 const StillCompStyle = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-
   .still {
     outline: 1px solid red;
     img {

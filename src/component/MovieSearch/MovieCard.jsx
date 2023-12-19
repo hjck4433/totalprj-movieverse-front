@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import Bookmark from "./Bookmark";
+import { useNavigate } from "react-router-dom";
 
 const MovieCardComp = styled.div`
   position: relative;
@@ -112,9 +113,15 @@ const MovieCardComp = styled.div`
 
 const MovieCard = ({ movie }) => {
   console.log(movie);
+  const navigate = useNavigate();
+
+  const toMovieDetail = () => {
+    navigate(`/moviesearch/${movie.id}`);
+  };
+
   return (
     <>
-      <MovieCardComp>
+      <MovieCardComp onClick={toMovieDetail}>
         <img src={movie.posters} alt={movie.title} />
         <div className="overlay">
           <div className="hoverInfo">

@@ -17,9 +17,13 @@ const MovieInfoStillStyle = styled.section`
         margin-bottom: 50px;
       }
     }
-    p {
-      color: black;
-      font-size: 1.4em;
+    .movieStill {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      @media only screen and (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   }
   @media only screen and (max-width: 768px) {
@@ -34,20 +38,18 @@ const MovieInfoStill = ({ movieDetail }) => {
   return (
     <>
       <MovieInfoStillStyle>
-        <section>
-          <div className="container">
-            <div className="content">
-              <h2 className="captionText">스틸 컷</h2>
-              <div className="divider"></div>
-            </div>
-            <div className="movieStill">
-              {stills &&
-                stills.map((still, index) => (
-                  <StillCutComp key={index} still={still} />
-                ))}
-            </div>
+        <div className="container">
+          <div className="content">
+            <h2 className="captionText">스틸 컷</h2>
+            <div className="divider"></div>
           </div>
-        </section>
+          <div className="movieStill">
+            {stills &&
+              stills.map((still, index) => (
+                <StillCutComp key={index} still={still} />
+              ))}
+          </div>
+        </div>
       </MovieInfoStillStyle>
     </>
   );
