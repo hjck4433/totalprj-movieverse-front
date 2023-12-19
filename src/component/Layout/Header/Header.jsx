@@ -17,7 +17,7 @@ import Logo from "../../../images/movieverse_logo.png";
 const Header = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
-  const { loginStatus, setLoginStatus } = context;
+  const { loginStatus, setLoginStatus, setIsKikiMember } = context;
 
   const [active, setOpen] = useState("");
   const [icon, setIcon] = useState(active === "" ? faBars : faXmark);
@@ -40,6 +40,7 @@ const Header = () => {
 
   const onLogOutClick = () => {
     setLoginStatus("");
+    setIsKikiMember("");
     console.log(
       "유저로그아웃 확인 상태" + window.localStorage.getItem("loginStatus")
     );

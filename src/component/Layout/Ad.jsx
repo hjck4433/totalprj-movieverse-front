@@ -67,9 +67,7 @@ const Advertise = ({ isLogin }) => {
       handleModal(
         "로그인",
         "로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.",
-        () => {
-          navigate("/login"); // 모달 확인버튼 -> 로그인 페이지로
-        }
+        true
       );
     }
   };
@@ -120,9 +118,8 @@ const Advertise = ({ isLogin }) => {
         children={modalMsg}
         type={modalType}
         confirm={() => {
-          if (modalConfirm) {
-            modalConfirm();
-          }
+          navigate("/login");
+          closeModal();
         }}
       />
     </>

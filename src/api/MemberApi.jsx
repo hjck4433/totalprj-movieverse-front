@@ -108,6 +108,13 @@ const MemberApi = {
       Common.tokenHeader()
     );
   },
+  // 멤버십 여부 가져오기
+  getMembership: async () => {
+    return await axios.get(
+      Common.MV_DOMAIN + "/member/iskiki",
+      Common.tokenHeader()
+    );
+  },
 
   // 회원 탈퇴
   widthdrawMember: async () => {

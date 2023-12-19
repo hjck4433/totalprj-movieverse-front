@@ -7,21 +7,31 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserStore";
 import Common from "../util/Common";
 import ScrollToTop from "../component/Layout/ScrollToTop";
+import MemberApi from "../api/MemberApi";
 
 const Layout = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
-  const { loginStatus } = context;
+  // 로그인 / 멤버쉽 여부
+  const { loginStatus, isKikiMember, setIsKikiMember } = context;
 
   useEffect(() => {
-    if (loginStatus) {
-    }
     console.log("로그인 여부" + loginStatus);
     console.log("kiki" + isKikiMember);
+    if (loginStatus) {
+      Common.handleTokenAxios(fetchIsKikiMember);
+    }
   }, [loginStatus]);
 
-  // 키키멤버십 가입여부
-  const [isKikiMember, setKikiMember] = useState(false);
+  useEffect(() => {}, []);
+
+  const fetchIsKikiMember = async () => {
+    const res = await MemberApi.getMembership();
+    if (res.data) {
+      setIsKikiMember(res.data);
+      console.log("키키 멤버 : " + res.data);
+    }
+  };
 
   return (
     <>
