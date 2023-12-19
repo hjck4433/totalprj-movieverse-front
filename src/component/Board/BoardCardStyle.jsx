@@ -14,7 +14,7 @@ const BoardCardStyle = styled.section`
       .sortArea {
         display: flex;
         font-weight: 600;
-        font-size: 15px;
+        font-size: 0.9rem;
         margin-bottom: 20px;
         justify-content: flex-end;
         li {
@@ -41,8 +41,9 @@ const BoardCardStyle = styled.section`
         .mapBox {
           display: flex;
           width: 100%;
+          height: 100%;
           background-color: #ffffff;
-          padding: 25px;
+          padding: 20px;
           border-radius: 5px;
           margin-bottom: 30px;
           cursor: pointer;
@@ -57,7 +58,7 @@ const BoardCardStyle = styled.section`
           }
         }
         .textBox {
-          padding-left: 20px;
+          padding-left: 15px;
           .categoryGatherBox {
             display: flex;
             padding-bottom: 15px;
@@ -82,7 +83,7 @@ const BoardCardStyle = styled.section`
             }
           }
           .contentBox {
-            padding-bottom: 120px;
+            padding-bottom: 15%;
             h3 {
               color: black;
               padding-bottom: 15px;
@@ -105,13 +106,12 @@ const BoardCardStyle = styled.section`
       .arrow {
         display: flex;
         align-items: center;
-        width: 20%;
-        margin: 0 auto;
-        justify-content: space-between;
+        justify-content: center;
         margin-bottom: 80px;
 
         .icons {
           cursor: pointer;
+          margin-left: 12px;
         }
       }
       .newPostBtn {
@@ -119,6 +119,31 @@ const BoardCardStyle = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .container {
+      .boardCardBox {
+        .gatherTypeList {
+        }
+        .sortArea {
+          font-size: 0.9rem;
+          li {
+          }
+        }
+        .boardMap {
+          .mapBox {
+            .imgBox {
+              width: 110%;
+              img {
+              }
+            }
+          }
+        }
+        .arrow {
+        }
       }
     }
   }

@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import bgPc from "../../images/board_bg_pc.jpg";
+import bgMo from "../../images/board_bg_mo.jpg";
 const BoardComp = styled.section`
   width: 100%;
   height: 350px;
@@ -18,6 +19,7 @@ const BoardComp = styled.section`
         padding-top: 20px;
         margin-bottom: 50px;
         li {
+          font-size: 0.9rem;
           position: relative;
           cursor: pointer;
           margin-left: 10px;
@@ -65,6 +67,7 @@ const BoardComp = styled.section`
             outline: none;
             width: 100%;
             height: 40px;
+            font-size: 0.8rem;
             border-radius: 5px;
           }
           .searchBox {
@@ -78,6 +81,22 @@ const BoardComp = styled.section`
             svg {
               font-size: 20px;
             }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    background-image: url(${bgMo});
+    .wrapper {
+      .container {
+        .boardCategory {
+        }
+        .boardText {
+        }
+        .boardSearch {
+          .inputBox {
+            width: 80%;
           }
         }
       }
