@@ -33,19 +33,6 @@ const NewPost = () => {
     }
   };
 
-  // 파일을 백에 저장
-  const submitPost = async () => {
-    try {
-      //등록 처리 추가해야함
-    } catch (err) {
-      console.log("게시글 등록 실패!", err);
-    }
-  };
-
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   return (
     <>
       <NewPostComp>
@@ -69,15 +56,15 @@ const NewPost = () => {
                 {/* name 부분이 같아야 함 */}
                 <div className="boardSelectBtn">
                   <label class="boardLable1" htmlFor="btn1">
-                    <input type="radio" id="option1" name="bordBtn" />
+                    <input type="radio" id="option1" name="boardBtn" />
                     무비모임
                   </label>
                   <label class="boardLable2" htmlFor="btn2">
-                    <input type="radio" id="option2" name="bordBtn" />
+                    <input type="radio" id="option2" name="boardBtn" />
                     모임후기
                   </label>
                   <label class="boardLable3" htmlFor="btn3">
-                    <input type="radio" id="option3" name="bordBtn" />
+                    <input type="radio" id="option3" name="boardBtn" />
                     영화추천
                   </label>
                 </div>
@@ -136,12 +123,7 @@ const NewPost = () => {
               ></textarea>
             </div>
             <div className="buttonBox">
-              <Button
-                children="등록하기"
-                active={true}
-                back="var(--BLUE)"
-                clickEvt={submitPost}
-              />
+              <Button children="등록하기" active={true} back="var(--BLUE)" />
               <Button
                 children="목록보기"
                 active={true}
