@@ -8,6 +8,7 @@ import basicImg from "../images/congrats.png";
 import Modal from "../util/Modal";
 import MemberApi from "../api/MemberApi";
 import Common from "../util/Common";
+import BoardApi from "../api/BoardApi";
 
 const NewPost = () => {
   const [currentDate, setCurrentDate] = useState("");
@@ -90,6 +91,37 @@ const NewPost = () => {
   };
 
   const [categoryName, setCategoryName] = useState("무비모임");
+
+  const onSubmit = () => {
+    if (imgSrc !== basicImg) {
+      const storageRef = storage.ref();
+      const fileRef = storageRef.child(file.name);
+      fileRef.put(file).then(() => {
+        console.log("저장성공!");
+        fileRef.getDownloadURL().then((url) => {
+          console.log("저장경로 확인 : " + url);
+          setUrl(url);
+          Common.handleTokenAxios(newPost);
+        });
+      });
+    } else {
+      Common.handleTokenAxios(newPost);
+    }
+  };
+
+  const newPost = async () => {
+    const res = await BoardApi.saveNewPost(
+      selCategory,
+      selGather,
+      inputTitle,
+      url,
+      inputContents
+    );
+    if (res.data) {
+      console.log("저장 성공!");
+      navigate("/board/gather");
+    }
+  };
 
   return (
     <>
@@ -217,7 +249,12 @@ const NewPost = () => {
               ></textarea>
             </div>
             <div className="buttonBox">
-              <Button children="등록하기" active={true} back="var(--BLUE)" />
+              <Button
+                children="등록하기"
+                active={true}
+                back="var(--BLUE)"
+                clickEvt={onSubmit}
+              />
               <Button
                 children="목록보기"
                 active={true}
