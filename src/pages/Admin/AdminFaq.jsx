@@ -1,5 +1,10 @@
 import { styled } from "styled-components";
 import Button from "../../util/Button";
+import EditFaqModal from "../../component/Administor/AdmimFaq/EditFaqModal";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import FaqTr from "../../component/Administor/AdmimFaq/FaqElement";
+import Modal from "../../util/Modal";
 
 const AdminFaqComp = styled.div`
   padding-top: 8%;
@@ -43,22 +48,6 @@ const AdminFaqComp = styled.div`
           }
         }
         tbody {
-          tr {
-            vertical-align: middle;
-            td {
-              padding: 10px;
-              /* outline: 1px solid red; */
-              &.center {
-                text-align: center;
-              }
-              &.btn {
-                span {
-                  display: flex;
-                  justify-content: center;
-                }
-              }
-            }
-          }
         }
       }
     }
@@ -72,17 +61,59 @@ const AdminFaqComp = styled.div`
 `;
 
 const AdminFaq = () => {
+  const navigate = useNavigate();
+  const [adminFaq, setAdminFaq] = useState("");
+
+  const [titleVal, setTitleVal] = useState("");
+  const [contentVal, setContentVal] = useState("");
+
+  const [editId, setEditId] = useState("");
+
+  // 새 faq 생성 관련
+  const [openFaqModal, setFaqModalOpen] = useState(false);
+  const [faqType, setFaqType] = useState("");
+
+  const closeModal = () => {
+    setFaqModalOpen(false);
+  };
+
+  const openEdit = () => {
+    setFaqModalOpen(true);
+    setFaqType("edit");
+  };
+
+  const changeTitleInput = (e) => {
+    setTitleVal(e.target.value);
+  };
+
+  const changeContentInput = (e) => {
+    setContentVal(e.target.value);
+  };
+
   const faqData = [
     {
+      id: 1234,
       title: "무비버스는 무엇인가요?-----------------------------------",
+      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
     },
     {
+      id: 122,
       title: "무비버스는 무엇인가요------------------------------------",
+      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
     },
     {
+      id: 22,
       title: "무비버스는 무엇인가요------------------------------------",
+      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
     },
   ];
+
+  // useEffect(() => {
+  //   console.log("titleVal : " + titleVal);
+  //   console.log("contentVal : " + contentVal);
+  //   console.log("editId : " + editId);
+  // }, [titleVal, contentVal, editId]);
+
   return (
     <>
       <AdminFaqComp>
@@ -102,37 +133,15 @@ const AdminFaq = () => {
                 {/* map으로 반복할 요소 */}
                 {faqData &&
                   faqData.map((data, index) => (
-                    <tr key={data.title}>
-                      <td className="center">{index + 1}</td>
-                      <td>{data.title}</td>
-                      <td className="btn">
-                        <span>
-                          <Button
-                            children={"수정"}
-                            back="var(--BLUE)"
-                            fontSize=".8em"
-                            width="80px"
-                            height="30px"
-                            active={true}
-                            clickEvt={() => {}}
-                          />
-                        </span>
-                      </td>
-
-                      <td className="btn">
-                        <span>
-                          <Button
-                            children={"삭제"}
-                            fontSize=".8em"
-                            width="80px"
-                            height="30px"
-                            active={true}
-                            back="var(--BLUE)"
-                            clickEvt={() => {}}
-                          />
-                        </span>
-                      </td>
-                    </tr>
+                    <FaqTr
+                      key={data.id}
+                      data={data}
+                      index={index}
+                      editModal={openEdit}
+                      setTitle={setTitleVal}
+                      setContent={setContentVal}
+                      setId={setEditId}
+                    ></FaqTr>
                   ))}
               </tbody>
             </table>
@@ -145,11 +154,25 @@ const AdminFaq = () => {
                 active={true}
                 front="var(--BLUE)"
                 back="var(--DARKBLUE)"
-                clickEvt={() => {}}
+                clickEvt={() => {
+                  setFaqModalOpen(true);
+                  setFaqType("new");
+                }}
               />
             </div>
           </div>
         </div>
+        <EditFaqModal
+          open={openFaqModal}
+          close={closeModal}
+          type={faqType}
+          titleVal={titleVal}
+          contentVal={contentVal}
+          onChangeTitle={changeTitleInput}
+          onChangeContent={changeContentInput}
+          editId={editId}
+        />
+        <Modal />
       </AdminFaqComp>
     </>
   );
