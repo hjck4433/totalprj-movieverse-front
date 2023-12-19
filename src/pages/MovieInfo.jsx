@@ -7,36 +7,33 @@ import { useParams } from "react-router-dom";
 import MovieApi from "../api/MovieApi";
 
 const MovieInfo = () => {
-  const { title } = useParams();
+  const { id } = useParams();
 
-  const [movieData, setMovieData] = useState({
-    plotText: "줄거리 입니다!",
-  });
+  const [movieData, setMovieData] = useState({});
 
-  const fetchMovieDetail = async () => {
+  const fetchMovieInfoData = async () => {
     try {
-      const res = await MovieApi.fetchMovieDetail(title);
+      const res = await MovieApi.getMoviesDetail(id);
+      // 영화 Api  값이 있으면 setMovieData("값")
       if (res.data !== null) {
         setMovieData(res.data);
       }
     } catch (err) {
-      console.log(err);
+      console.error("영화정보 불러오기 실패 " + err);
     }
-    // 영화 Api  값이 있으면 setMovieData("값")
   };
 
   useEffect(() => {
     // 화면이 처음 렌더링 된 상태에서 한번만 호출!
-    //    fetchMovieDetail();
-    fetchMovieDetail();
-  }, [title]);
+    fetchMovieInfoData();
+  }, [id]);
 
   return (
     <>
-      <MovieInfoSection1 />
+      <MovieInfoSection1 movieDetail={movieData} />
       <MovieInfoContent movieDetail={movieData} />
-      <MovieInfoStaff />
-      <MovieInfoStill />
+      <MovieInfoStaff movieDetail={movieData} />
+      <MovieInfoStill movieDetail={movieData} />
     </>
   );
 };

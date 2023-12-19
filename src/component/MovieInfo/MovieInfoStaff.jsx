@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 const MovieStaffStyle = styled.section`
   background-color: white;
-  outline: 1px solid red;
   padding: 100px 0;
   .container {
-    outline: 1px solid blue;
     .content {
-      .bigText {
+      .captionText {
         color: var(--VIOLET);
         margin-bottom: 20px;
         font-weight: 600;
@@ -22,7 +20,7 @@ const MovieStaffStyle = styled.section`
       font-size: 1.4em;
       margin-bottom: 40px;
     }
-    .smallText {
+    .lodingText {
       .staff {
         width: 100%;
         display: flex;
@@ -47,37 +45,29 @@ const MovieStaffStyle = styled.section`
   }
 `;
 
-const MovieInfoStaff = () => {
-  const movieData = [
-    {
-      directorNm: "김현지",
-      actorNm: "김현지, 박소현, 유현주, 이재원, 이세웅",
-    },
-  ];
+const MovieInfoStaff = ({ movieDetail }) => {
   return (
     <>
-      {movieData.map((movie, index) => (
-        <MovieStaffStyle key={index}>
-          <section>
-            <div className="container">
-              <div className="content">
-                <h2 className="bigText">감독 및 출연진</h2>
-                <div className="divider"></div>
+      <MovieStaffStyle>
+        <section>
+          <div className="container">
+            <div className="content">
+              <h2 className="captionText">감독 및 출연진</h2>
+              <div className="divider"></div>
+            </div>
+            <div className="lodingText">
+              <div className="staff">
+                <p className="movieStaff">감독</p>
+                <p className="movieDirector">{movieDetail.directorNm}</p>
               </div>
-              <div className="smallText">
-                <div className="staff">
-                  <p className="movieStaff">감독</p>
-                  <p className="movieDirector">{movie.directorNm}</p>
-                </div>
-                <div className="staff">
-                  <p className="movieStaff">출연 배우</p>
-                  <p className="movieActor">{movie.actorNm}</p>
-                </div>
+              <div className="staff">
+                <p className="movieStaff">출연 배우</p>
+                <p className="movieActor">{movieDetail.actorNm}</p>
               </div>
             </div>
-          </section>
-        </MovieStaffStyle>
-      ))}
+          </div>
+        </section>
+      </MovieStaffStyle>
     </>
   );
 };

@@ -5,7 +5,7 @@ const MovieInfoContentStyle = styled.section`
   padding: 100px 0;
   .container {
     .content {
-      .bigText {
+      .captionText {
         color: var(--VIOLET);
         padding-top: 100px;
         margin-bottom: 20px;
@@ -19,9 +19,7 @@ const MovieInfoContentStyle = styled.section`
     p {
       color: black;
       font-size: 1.4em;
-    }
-    .smallText {
-      line-height: 2em;
+      line-height: 1.5em;
     }
   }
   @media only screen and (max-width: 768px) {
@@ -30,17 +28,17 @@ const MovieInfoContentStyle = styled.section`
 `;
 
 const MovieInfoContent = ({ movieDetail }) => {
-  console.log(movieDetail.plotText);
+  console.log(movieDetail);
   return (
     <>
       <MovieInfoContentStyle>
         <section>
           <div className="container">
             <div className="content">
-              <h2 className="bigText">주요 정보</h2>
+              <h2 className="captionText">주요 정보</h2>
               <div className="divider"></div>
             </div>
-            <div className="smallText">
+            <div className="loadingText">
               <p className="movieContent">{movieDetail.plotText}</p>
             </div>
           </div>

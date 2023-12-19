@@ -67,68 +67,50 @@ const InfoSection1Style = styled.section`
   }
 `;
 
-const MovieInfoSection1 = () => {
-  const movieData = [
-    {
-      posters:
-        "https://images.unsplash.com/photo-1611267254323-4db7b39c732c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8JUVBJUIzJUEwJUVDJTk2JTkxJUVDJTlEJUI0JTIwJUVDJTgzJTg4JUVCJTgxJUJDfGVufDB8fDB8fHwy",
-      title: "프로젝트는 힘들어",
-      titleEng: "subtitle:",
-      reprlsDate: "2023-12-08",
-      genre: "",
-      nation: "",
-      grade: "",
-      runtime: "",
-      audiAcc: "20,231,208명",
-    },
-  ];
+const MovieInfoSection1 = ({ movieDetail }) => {
   return (
     <>
-      {movieData.map((movie, index) => (
-        <InfoSection1Style key={index}>
-          <section>
-            <div className="container">
-              <div className="moviePoster">
-                <img src={movie.posters} alt="PosterImg" />
+      <InfoSection1Style>
+        <section>
+          <div className="container">
+            <div className="moviePoster">
+              <img src={movieDetail.posters} alt="PosterImg" />
+            </div>
+            <div className="movieOtherInfo">
+              <div className="infoTitle">
+                <h3 className="titleMain">{movieDetail.title}</h3>
               </div>
-              <div className="movieOtherInfo">
-                <div className="infoTitle">
-                  <h3 className="titleMain">{movie.title}</h3>
-                  <p></p>
-                </div>
-                <div className="infoSubTitle">
-                  <p className="titleSub">{movie.titleEng}</p>
-                  <p></p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">개봉</p>
-                  <p>{movie.reprlsDate}</p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">장르</p>
-                  <p>{movie.genre}</p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">국가</p>
-                  <p>{movie.nation}</p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">등급</p>
-                  <p>{movie.grade}</p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">상영시간</p>
-                  <p>{movie.runtime}</p>
-                </div>
-                <div className="infoBox">
-                  <p className="movieInfo">누적관객수</p>
-                  <p>{movie.audiAcc}</p>
-                </div>
+              <div className="infoSubTitle">
+                <p className="titleSub">{movieDetail.titleEng}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">개봉</p>
+                <p>{movieDetail.reprlsDate}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">장르</p>
+                <p>{movieDetail.genre}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">국가</p>
+                <p>{movieDetail.nation}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">등급</p>
+                <p>{movieDetail.rating}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">평점</p>
+                <p>{movieDetail.score}</p>
+              </div>
+              <div className="infoBox">
+                <p className="movieInfo">상영시간</p>
+                <p>{movieDetail.runtime + "분"}</p>
               </div>
             </div>
-          </section>
-        </InfoSection1Style>
-      ))}
+          </div>
+        </section>
+      </InfoSection1Style>
     </>
   );
 };

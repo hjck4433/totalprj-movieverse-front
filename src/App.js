@@ -44,7 +44,7 @@ function App() {
               <Route path="/mypage/infochange" element={<MemberInfoChg />} />
               <Route path="/mypage/memberpost" element={<MemberPost />} />
               <Route path="/moviesearch" element={<MovieSearch />} />
-              <Route path="/moviesearch/:title" element={<MovieInfo />} />
+              <Route path="/moviesearch/:id" element={<MovieInfo />} />
               <Route path="/board/:id" element={<Board />} />
               <Route path="/board/new" element={<NewPost />} />
               <Route path="/board/post/:postId" element={<Post />} />
