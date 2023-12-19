@@ -3,11 +3,9 @@ import Common from "../util/Common";
 
 const CategoryApi = {
   // 카테고리 생성
-  createCategory: async (categoryType) => {
+  createCategory: async (categoryName) => {
     return await axios.post(
-      Common.MV_DOMAIN + "/category/new",
-      { categoryType: categoryType },
-      Common.tokenHeader()
+      Common.MV_DOMAIN + `/category/new?categoryName=${categoryName}`
     );
   },
 };
