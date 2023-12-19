@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { storage } from "../api/firebase";
 import Button from "../util/Button";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +6,64 @@ import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 import basicImg from "../images/congrats.png";
 import Modal from "../util/Modal";
+import MemberApi from "../api/MemberApi";
+import Common from "../util/Common";
 
 const NewPost = () => {
+  const [currentDate, setCurrentDate] = useState("");
+  const [memberInfo, setMemberInfo] = useState(null);
+
+  const fetchMemberDetail = async () => {
+    const res = await MemberApi.getMemberDetail();
+    if (res.data !== null) setMemberInfo(res.data);
+  };
+
+  // 카테고리 및 모임형식 관련
+  const [selCategory, setSelCategory] = useState("");
+  const [selGather, setSelGather] = useState("");
+
+  const onCategoryChange = (e) => {
+    setSelCategory(e.target.value);
+  };
+  const onGatherChange = (e) => {
+    setSelGather(e.target.value);
+  };
+
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputContents, setInputContents] = useState("");
+  const onInputTitleChange = (e) => {
+    setInputTitle(e.target.value);
+  };
+  const onInputContentsChange = (e) => {
+    setInputContents(e.target.value);
+  };
+
+  useEffect(() => {
+    // console.log("Category : " + selCategory);
+    // console.log("Gather : " + selGather);
+    if (selCategory === "무비추천") setSelGather("");
+  }, [selCategory, selGather]);
+
+  useEffect(() => {
+    console.log("title : " + inputTitle);
+    console.log("contents : " + inputContents);
+  }, [inputTitle, inputContents]);
+
+  //날짜
+  useEffect(() => {
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, "0");
+      const day = today.getDate().toString().padStart(2, "0");
+      return `${year}.${month}.${day}`;
+    };
+
+    setCurrentDate(getCurrentDate());
+
+    Common.handleTokenAxios(fetchMemberDetail); // 멤버 정보 가져옴
+  }, []);
+
   // 게시판 리스트로 이동
   const navigate = useNavigate();
   const toGatherList = () => {
@@ -33,6 +89,8 @@ const NewPost = () => {
     }
   };
 
+  const [categoryName, setCategoryName] = useState("무비모임");
+
   return (
     <>
       <NewPostComp>
@@ -56,16 +114,34 @@ const NewPost = () => {
                 {/* name 부분이 같아야 함 */}
                 <div className="boardSelectBtn">
                   <label class="boardLable1" htmlFor="btn1">
-                    <input type="radio" id="option1" name="boardBtn" />
+                    <input
+                      type="radio"
+                      id="무비모임"
+                      value="무비모임"
+                      name="category"
+                      onChange={onCategoryChange}
+                    />
                     무비모임
                   </label>
                   <label class="boardLable2" htmlFor="btn2">
-                    <input type="radio" id="option2" name="boardBtn" />
+                    <input
+                      type="radio"
+                      id="모임후기"
+                      value="모임후기"
+                      name="category"
+                      onChange={onCategoryChange}
+                    />
                     모임후기
                   </label>
                   <label class="boardLable3" htmlFor="btn3">
-                    <input type="radio" id="option3" name="boardBtn" />
-                    영화추천
+                    <input
+                      type="radio"
+                      id="무비추천"
+                      value="무비추천"
+                      name="category"
+                      onChange={onCategoryChange}
+                    />
+                    무비추천
                   </label>
                 </div>
               </RadioBox>
@@ -75,11 +151,25 @@ const NewPost = () => {
               <RadioBox>
                 <div className="placeSelectBtn">
                   <label class="placeLable1" htmlFor="btn1">
-                    <input type="radio" id="option1" name="placeBtn" />
+                    <input
+                      type="radio"
+                      id="온라인"
+                      value="온라인"
+                      name="gather"
+                      onChange={onGatherChange}
+                      disabled={selCategory === "무비추천" ? true : false}
+                    />
                     온라인
                   </label>
                   <label class="placeLable2" htmlFor="btn2">
-                    <input type="radio" id="option2" name="placeBtn" />
+                    <input
+                      type="radio"
+                      id="오프라인"
+                      value="오프라인"
+                      name="gather"
+                      onChange={onGatherChange}
+                      disabled={selCategory === "무비추천" ? true : false}
+                    />
                     오프라인
                   </label>
                 </div>
@@ -87,17 +177,19 @@ const NewPost = () => {
             </div>
             <div className="writer">
               <h3>작성자</h3>
-              <p>gogohamster</p>
+              <p>{memberInfo && memberInfo.alias}</p>
             </div>
             <div className="uploadDate">
               <h3>작성일</h3>
-              <p>20231219</p>
+              <p>{currentDate}</p>
             </div>
             <div className="postTitle">
               <h3>제 목</h3>
               <textarea
                 type="text"
+                value={inputTitle}
                 placeholder="모임 제목을 입력해주세요"
+                onChange={onInputTitleChange}
               ></textarea>
             </div>
             <div className="uploadImg">
@@ -119,7 +211,9 @@ const NewPost = () => {
               <h3>내 용</h3>
               <textarea
                 type="text"
+                value={inputContents}
                 placeholder="모임내용을 입력해주세요"
+                onChange={onInputContentsChange}
               ></textarea>
             </div>
             <div className="buttonBox">
