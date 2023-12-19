@@ -5,7 +5,8 @@ const BoardComp = styled.section`
   height: 350px;
   background-image: url(${bgPc});
   background-size: cover;
-  background-position: center -55%;
+  background-position: center bottom 15%;
+  background-repeat: no-repeat;
   .wrapper {
     width: 100%;
     height: 100%;
