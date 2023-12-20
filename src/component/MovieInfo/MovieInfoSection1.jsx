@@ -101,7 +101,7 @@ const MovieInfoSection1 = ({ movieDetail }) => {
               </div>
               <div className="infoBox">
                 <p className="movieInfo">평점</p>
-                <p>{movieDetail.score}</p>
+                <p>{movieDetail.score ? movieDetail.score : "-"}</p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">상영시간</p>

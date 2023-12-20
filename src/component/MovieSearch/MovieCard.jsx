@@ -112,7 +112,7 @@ const MovieCardComp = styled.div`
 `;
 
 const MovieCard = ({ movie }) => {
-  console.log(movie);
+  // console.log(movie);
   const navigate = useNavigate();
 
   const toMovieDetail = () => {

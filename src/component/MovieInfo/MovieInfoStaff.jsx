@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const MovieStaffStyle = styled.section`
   background-color: white;
-  padding: 100px 0;
+  padding: 5% 0%;
   .container {
     .content {
       .captionText {
@@ -39,9 +39,6 @@ const MovieStaffStyle = styled.section`
         }
       }
     }
-  }
-  @media only screen and (max-width: 768px) {
-    padding: 50px 0;
   }
 `;
 

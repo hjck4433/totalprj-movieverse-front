@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 
 const MovieSortStyle = styled.div`
   .container {
-    margin-bottom: 40px;
+    margin-bottom: 0.5%;
     height: 50px;
     .buttonBox {
       display: flex;
@@ -13,63 +12,47 @@ const MovieSortStyle = styled.div`
         background: none;
         border: none;
         color: white;
-        transition: 0.3s ease-in;
+        transition: 0.3s;
+        font-size: 1.1em;
+        font-weight: 600;
+        vertical-align: text-bottom;
+        text-align: bottom;
+
+        line-height: 1;
 
         &:hover {
           cursor: pointer;
         }
 
         &.recent {
-          margin-right: 10px;
-          vertical-align: text-bottom;
-          font-weight: ${({ selectedButton }) =>
-            selectedButton === "recent" ? "bold" : "normal"};
-          font-size: ${({ selectedButton }) =>
-            selectedButton === "recent" ? "1.3em" : "1.1em"};
-          line-height: 1;
+          padding-right: 10px;
+          margin-right: 5px;
         }
 
-        &.count {
-          vertical-align: text-bottom;
-          font-weight: ${({ selectedButton }) =>
-            selectedButton === "count" ? "bold" : "normal"};
-          font-size: ${({ selectedButton }) =>
-            selectedButton === "count" ? "1.3em" : "1.1em"};
-          line-height: 1;
+        &.selected {
+          color: var(--LIGHTVIO);
         }
       }
     }
   }
 `;
 
-const MovieSort = ({ defaultSelectedButton = "recent" }) => {
-  const [selectedButton, setSelectedButton] = useState(defaultSelectedButton);
-
-  const handleButtonClick = (button) => {
-    setSelectedButton(button);
-  };
-
-  useEffect(() => {
-    setSelectedButton(defaultSelectedButton);
-  }, [defaultSelectedButton]);
-
+const MovieSort = ({ selBtn, setSelBtn }) => {
   return (
-    <MovieSortStyle selectedButton={selectedButton}>
+    <MovieSortStyle>
       <div className="container">
         <div className="buttonBox">
           <button
-            className={`recent ${
-              selectedButton === "recent" ? "selected" : ""
-            }`}
-            onClick={() => handleButtonClick("recent")}
+            className={`recent ${selBtn === "recent" ? "selected" : ""}`}
+            onClick={() => setSelBtn("recent")}
           >
-            최신영화순
+            최신 영화순
           </button>
           <button
-            className={`count ${selectedButton === "count" ? "selected" : ""}`}
-            onClick={() => handleButtonClick("count")}
+            className={`former ${selBtn === "former" ? "selected" : ""}`}
+            onClick={() => setSelBtn("former")}
           >
-            누적관객순
+            오래된 순
           </button>
         </div>
       </div>

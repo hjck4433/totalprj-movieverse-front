@@ -11,12 +11,20 @@ const MovieApi = {
     return await axios.get(Common.MV_DOMAIN + `/movies/movielist/${id}`);
   },
 
-  // 영화 페이지네이션 조회
-  moviePageList: async (page, size) => {
+  // 최신 영화 가져오기 및 페이지네이션
+  getRecentMovies: async (page, size) => {
     return await axios.get(
-      Common.MV_DOMAIN + `/movies/movielist/page?page=${page}&size=${size}`
+      Common.MV_DOMAIN + `/movies/movielist/recent?page=${page}&size=${size}`
     );
   },
+
+  // 오래된 영화 가져오기 및 페이지네이션
+  getFormerMovies: async (page, size) => {
+    return await axios.get(
+      Common.MV_DOMAIN + `/movies/movielist/former?page=${page}&size=${size}`
+    );
+  },
+
   // 영화 페이지 수 조회
   moviePage: async (page, size) => {
     return await axios.get(

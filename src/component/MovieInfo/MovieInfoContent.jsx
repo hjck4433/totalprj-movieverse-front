@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 const MovieInfoContentStyle = styled.section`
   background-color: white;
-  padding: 100px 0;
+  padding: 5% 0%;
   .container {
     .content {
       .captionText {
         color: var(--VIOLET);
-        padding-top: 100px;
         margin-bottom: 20px;
         font-weight: 600;
       }
@@ -21,9 +20,6 @@ const MovieInfoContentStyle = styled.section`
       font-size: 1.4em;
       line-height: 1.5em;
     }
-  }
-  @media only screen and (max-width: 768px) {
-    padding: 50px 0;
   }
 `;
 

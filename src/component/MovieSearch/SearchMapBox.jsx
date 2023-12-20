@@ -17,7 +17,7 @@ const SearchMapBoxStyle = styled.section`
   }
 `;
 
-const SearchMapBox = () => {
+const SearchMapBox = ({ sortType }) => {
   const [movieSearchData, setMovieSearchData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -25,17 +25,24 @@ const SearchMapBox = () => {
 
   const end = useRef(null);
 
-  const fetchMovieSearchData = async () => {
+  const fetchMovieData = async () => {
     try {
       setLoading(true);
-      const response = await MovieApi.moviePageList(currentPage, 8);
+
+      const response =
+        sortType === "recent"
+          ? await MovieApi.getRecentMovies(currentPage, 8)
+          : await MovieApi.getFormerMovies(currentPage, 8);
       if (response.data.length === 0) {
         //값이 없으면 마지막 페이지
         setLastPage(true);
       } else {
         setMovieSearchData((prevData) => [...prevData, ...response.data]);
-        setCurrentPage(currentPage + 1);
+
+        // 현재 타입에 따라 currentPage 갱신
+        setCurrentPage((prevPage) => prevPage + 1);
       }
+
       setLoading(false);
     } catch (error) {
       console.error("영화 데이터를 불러오는 중 에러 발생:", error);
@@ -43,16 +50,43 @@ const SearchMapBox = () => {
     }
   };
 
+  const fetchFirstMovieData = async () => {
+    try {
+      setCurrentPage(0);
+      setMovieSearchData([]);
+      setLastPage(false);
+      setLoading(true);
+      const response =
+        sortType === "recent"
+          ? await MovieApi.getRecentMovies(0, 8)
+          : await MovieApi.getFormerMovies(0, 8);
+      if (response.data !== null) {
+        setMovieSearchData(response.data);
+        setLoading(false);
+        setCurrentPage(1);
+      }
+    } catch (error) {
+      console.error("영화 데이터를 불러오는 중 에러 발생:", error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchMovieSearchData();
-  }, []);
+    fetchFirstMovieData();
+
+    console.log("sortType" + sortType);
+  }, [sortType]);
+
+  useEffect(() => {
+    console.log("currentPage" + currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     if (!loading && !lastPage) {
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            fetchMovieSearchData();
+            fetchMovieData();
           }
         },
         { threshold: 1 }
@@ -64,7 +98,7 @@ const SearchMapBox = () => {
         observer.disconnect();
       };
     }
-  }, [loading, lastPage]);
+  }, [loading, lastPage, currentPage]);
 
   return (
     <>
