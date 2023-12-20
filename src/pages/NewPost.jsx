@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { storage } from "../api/firebase";
 import Button from "../util/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRevalidator } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 import basicImg from "../images/congrats.png";
@@ -101,7 +101,8 @@ const NewPost = () => {
         fileRef.getDownloadURL().then((url) => {
           console.log("저장경로 확인 : " + url);
           setUrl(url);
-          Common.handleTokenAxios(newPost);
+          console.log("url" + url);
+          Common.handleTokenAxios(() => newPost(url));
         });
       });
     } else {
@@ -109,7 +110,7 @@ const NewPost = () => {
     }
   };
 
-  const newPost = async () => {
+  const newPost = async (url) => {
     const res = await BoardApi.saveNewPost(
       selCategory,
       selGather,

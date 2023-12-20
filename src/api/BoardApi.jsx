@@ -4,6 +4,7 @@ import Common from "../util/Common";
 const BoardApi = {
   saveNewPost: async (categoryName, gatherType, title, image, boardContent) => {
     console.log("저장 진입");
+    console.log("저장중 이미지 : " + image);
     const data = {
       categoryName: categoryName,
       gatherType: gatherType,
