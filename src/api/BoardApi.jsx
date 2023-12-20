@@ -18,10 +18,17 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
-  boardList: async () => {
+  boardList: async (id) => {
     console.log("게시판 불러와졌니 ? ");
     return await axios.get(
-      Common.MV_DOMAIN + `/board/gather`,
+      Common.MV_DOMAIN + `/board/${id}`,
+      Common.tokenHeader()
+    );
+  },
+  boardDetail: async (postId) => {
+    console.log("상세 게시판은 불러와졌을까? ");
+    return await axios.get(
+      Common.MV_DOMAIN + `/board/post/${postId}`,
       Common.tokenHeader()
     );
   },
