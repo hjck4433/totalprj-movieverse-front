@@ -3,16 +3,18 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect, useContext } from "react";
 import { styled } from "styled-components";
 import { UserContext } from "../../context/UserStore";
+import BookmarkApi from "../../api/BookmarkApi";
+import Common from "../../util/Common";
 
 const BookmarkComp = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 5px;
+  z-index: 100;
   .BookmarkBox {
-    position: absolute;
-    right: 0;
-    top: 0;
     width: 50px;
     height: 50px;
-    margin: 5px;
-    z-index: 10;
     &:hover {
       cursor: pointer;
     }
@@ -29,6 +31,8 @@ const BookmarkComp = styled.div`
         font-size: 1.3rem;
         color: var(--LIGHTVIO);
         opacity: 0.2;
+        position: relative;
+        z-index: 101;
         &.marked {
           opacity: 1;
         }
@@ -49,13 +53,23 @@ const BookmarkComp = styled.div`
   }
 `;
 
-const Bookmark = ({ movieId }) => {
+const Bookmark = ({ movieId, handleModal }) => {
   const context = useContext(UserContext);
   const { loginStatus } = context;
 
   const [marked, setMarked] = useState(false);
   const changeHeart = () => {
-    marked ? setMarked(false) : setMarked(true);
+    if (loginStatus) {
+      marked
+        ? Common.handleTokenAxios(deleteBookMark)
+        : Common.handleTokenAxios(saveBookMark);
+    } else {
+      handleModal(
+        "로그인",
+        "로그인이 필요한 기능입니다. \n 로그인 하시겠습니까?",
+        true
+      );
+    }
   };
 
   useEffect(() => {
@@ -64,8 +78,38 @@ const Bookmark = ({ movieId }) => {
 
   useEffect(() => {
     if (loginStatus) {
+      setBookMark();
+    } else {
+      setMarked(false);
     }
-  }, []);
+  }, [loginStatus]);
+
+  const setBookMark = () => {
+    Common.handleTokenAxios(fetchBookMark);
+  };
+
+  const fetchBookMark = async () => {
+    const res = await BookmarkApi.isBookmark(movieId);
+    if (res.data) {
+      setMarked(true);
+    } else {
+      setMarked(false);
+    }
+  };
+  const saveBookMark = async () => {
+    const res = await BookmarkApi.saveBookmark(movieId);
+    if (res.data) {
+      console.log("북마크 성공!");
+      setBookMark();
+    }
+  };
+  const deleteBookMark = async () => {
+    const res = await BookmarkApi.removeBookmark(movieId);
+    if (res.data) {
+      console.log("북마크 해제 성공!");
+      setBookMark();
+    }
+  };
 
   return (
     <BookmarkComp>

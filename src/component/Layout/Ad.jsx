@@ -66,7 +66,7 @@ const Advertise = ({ isLogin }) => {
     } else {
       handleModal(
         "로그인",
-        "로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.",
+        "로그인이 필요한 기능입니다. \n 로그인 하시겠습니까?",
         true
       );
     }

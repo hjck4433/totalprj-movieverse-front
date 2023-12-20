@@ -11,16 +11,6 @@ const MovieCardComp = styled.div`
     height: 100%;
     border-radius: 5px;
   }
-  .rankInfo {
-    position: absolute;
-    top: 0;
-    left: 6%;
-    padding: 3%;
-    .rank {
-      font-size: 2.2rem;
-    }
-  }
-
   .overlay {
     position: absolute;
     border-radius: 5px;
@@ -32,6 +22,7 @@ const MovieCardComp = styled.div`
     background-color: rgba(0, 0, 0, 0.8);
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 4;
     .hoverInfo {
       width: 100%;
       height: 100%;
@@ -82,10 +73,6 @@ const MovieCardComp = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
-    .rankInfo {
-      .rank {
-      }
-    }
     .overlay {
       .hoverInfo {
         margin: 2%;
@@ -111,7 +98,7 @@ const MovieCardComp = styled.div`
   }
 `;
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, handleModal }) => {
   // console.log(movie);
   const navigate = useNavigate();
 
@@ -121,9 +108,9 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <MovieCardComp onClick={toMovieDetail}>
+      <MovieCardComp>
         <img src={movie.posters} alt={movie.title} />
-        <div className="overlay">
+        <div className="overlay" onClick={toMovieDetail}>
           <div className="hoverInfo">
             <p className="title">{movie.title}</p>
             <p className="plotText">{movie.plotText}</p>
@@ -133,7 +120,7 @@ const MovieCard = ({ movie }) => {
             </p>
           </div>
         </div>
-        <Bookmark movieId={movie.id} />
+        <Bookmark movieId={movie.id} handleModal={handleModal} />
       </MovieCardComp>
     </>
   );
