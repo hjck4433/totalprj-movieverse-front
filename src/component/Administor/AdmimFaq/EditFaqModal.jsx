@@ -109,6 +109,7 @@ const EditFaqModal = (props) => {
     onChangeContent,
     type,
     editId,
+    bringData,
   } = props;
 
   const newFaq = async () => {
@@ -116,6 +117,17 @@ const EditFaqModal = (props) => {
     if (res.data) {
       console.log("faq 저장 성공");
       close();
+      bringData();
+    }
+  };
+
+  const reviseFaq = async () => {
+    console.log("수정 시도");
+    const res = await FaqApi.reviseFaq(editId, contentVal, titleVal);
+    if (res.data) {
+      console.log("faq 수정 성공");
+      close();
+      bringData();
     }
   };
 
@@ -125,7 +137,7 @@ const EditFaqModal = (props) => {
   };
   const editFaq = () => {
     console.log("faq수정~이건테스트!");
-    // api 넣는곳!
+    Common.handleTokenAxios(reviseFaq);
   };
 
   return (

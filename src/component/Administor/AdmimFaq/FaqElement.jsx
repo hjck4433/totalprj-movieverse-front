@@ -19,12 +19,23 @@ const TrComp = styled.tr`
   }
 `;
 
-const FaqTr = ({ data, index, editModal, setTitle, setContent, setId }) => {
+const FaqTr = ({
+  data,
+  index,
+  editModal,
+  setTitle,
+  setContent,
+  setId,
+  onDelete,
+  deleteModal,
+}) => {
+  console.log(data);
+
   return (
     <>
       <TrComp>
         <td className="center">{index + 1}</td>
-        <td>{data.title}</td>
+        <td>{data.faqQuestion}</td>
         <td className="btn">
           <span>
             <Button
@@ -36,11 +47,11 @@ const FaqTr = ({ data, index, editModal, setTitle, setContent, setId }) => {
               active={true}
               clickEvt={() => {
                 editModal();
-                setTitle(data.title);
-                setContent(data.content);
-                setId(data.id);
+                setTitle(data.faqQuestion);
+                setContent(data.faqAnswer);
+                setId(data.faqId);
               }}
-              faqId={data.id}
+              faqId={data.faqId}
             />
           </span>
         </td>
@@ -55,8 +66,8 @@ const FaqTr = ({ data, index, editModal, setTitle, setContent, setId }) => {
               active={true}
               back="var(--BLUE)"
               clickEvt={() => {
-                // setFaqModalOpen(true);
-                // setFaqType("del");
+                setId(data.faqId);
+                deleteModal();
               }}
             />
           </span>

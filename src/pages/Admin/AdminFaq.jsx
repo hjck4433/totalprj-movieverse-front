@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FaqTr from "../../component/Administor/AdmimFaq/FaqElement";
 import Modal from "../../util/Modal";
+import FaqApi from "../../api/FaqApi";
+import Common from "../../util/Common";
+import axios from "axios";
 
 const AdminFaqComp = styled.div`
   padding-top: 8%;
@@ -62,7 +65,7 @@ const AdminFaqComp = styled.div`
 
 const AdminFaq = () => {
   const navigate = useNavigate();
-  const [adminFaq, setAdminFaq] = useState("");
+  const [faqData, setFaqData] = useState([]);
 
   const [titleVal, setTitleVal] = useState("");
   const [contentVal, setContentVal] = useState("");
@@ -73,7 +76,7 @@ const AdminFaq = () => {
   const [openFaqModal, setFaqModalOpen] = useState(false);
   const [faqType, setFaqType] = useState("");
 
-  const closeModal = () => {
+  const closeFaqModal = () => {
     setFaqModalOpen(false);
   };
 
@@ -90,29 +93,68 @@ const AdminFaq = () => {
     setContentVal(e.target.value);
   };
 
-  const faqData = [
-    {
-      id: 1234,
-      title: "무비버스는 무엇인가요?-----------------------------------",
-      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
-    },
-    {
-      id: 122,
-      title: "무비버스는 무엇인가요------------------------------------",
-      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
-    },
-    {
-      id: 22,
-      title: "무비버스는 무엇인가요------------------------------------",
-      content: "졸려졸려졸려졸려졸려졸려졸려햄스터",
-    },
-  ];
+  // 리스트 불러오기
+  const fetchFaqList = async () => {
+    const res = await FaqApi.getFaqList();
+    if (res.data !== null) {
+      setFaqData(res.data);
+      console.log("Faq리스트 가져옴");
+    }
+  };
 
-  // useEffect(() => {
-  //   console.log("titleVal : " + titleVal);
-  //   console.log("contentVal : " + contentVal);
-  //   console.log("editId : " + editId);
-  // }, [titleVal, contentVal, editId]);
+  const bringData = () => {
+    Common.handleTokenAxios(fetchFaqList);
+  };
+
+  useEffect(() => {
+    console.log("titleVal : " + titleVal);
+    console.log("contentVal : " + contentVal);
+    console.log("editId : " + editId);
+  }, [titleVal, contentVal, editId]);
+
+  useEffect(() => {
+    bringData();
+  }, []);
+
+  useEffect(() => {
+    Common.handleTokenAxios(fetchFaqList);
+  }, []);
+
+  // 삭제 모달
+
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+    // setModalConfirm(num);
+  };
+
+  const deleteFaq = async () => {
+    const res = await FaqApi.deleteFaq(editId);
+    if (res.data) {
+      console.log("faq 삭제 성공");
+      closeModal();
+      bringData();
+    }
+  };
+  const delFaq = () => {
+    console.log("faq삭제!!!테스트입니다!");
+    Common.handleTokenAxios(deleteFaq);
+  };
+
+  useEffect(() => {
+    console.log("ididi: " + editId);
+  }, [editId]);
 
   return (
     <>
@@ -141,6 +183,9 @@ const AdminFaq = () => {
                       setTitle={setTitleVal}
                       setContent={setContentVal}
                       setId={setEditId}
+                      deleteModal={() => {
+                        handleModal("삭제", "삭제하시겠습니까?", true);
+                      }}
                     ></FaqTr>
                   ))}
               </tbody>
@@ -157,6 +202,8 @@ const AdminFaq = () => {
                 clickEvt={() => {
                   setFaqModalOpen(true);
                   setFaqType("new");
+                  setTitleVal("");
+                  setContentVal("");
                 }}
               />
             </div>
@@ -164,15 +211,25 @@ const AdminFaq = () => {
         </div>
         <EditFaqModal
           open={openFaqModal}
-          close={closeModal}
+          close={closeFaqModal}
           type={faqType}
           titleVal={titleVal}
           contentVal={contentVal}
           onChangeTitle={changeTitleInput}
           onChangeContent={changeContentInput}
           editId={editId}
+          bringData={bringData}
         />
-        <Modal />
+        <Modal
+          open={openModal}
+          close={closeModal}
+          header={modalHeader}
+          children={modalMsg}
+          type={modalType}
+          confirm={() => {
+            delFaq();
+          }}
+        />
       </AdminFaqComp>
     </>
   );

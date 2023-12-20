@@ -25,8 +25,26 @@ const FaqApi = {
       faqQuestion: faqQuestion,
     };
     return await axios.post(
-      Common.MV_DOMAIN + "faq/revise",
+      Common.MV_DOMAIN + "/faq/revise",
       data,
+      Common.tokenHeader()
+    );
+  },
+
+  // faq 삭제
+  deleteFaq: async (faqId) => {
+    console.log("FAQ 삭제 :" + faqId);
+    return await axios.delete(
+      Common.MV_DOMAIN + `/faq/delete/${faqId}`,
+      Common.tokenHeader()
+    );
+  },
+
+  // faq 리스트
+  getFaqList: async () => {
+    console.log("faq 리스트 가지러감");
+    return await axios.get(
+      Common.MV_DOMAIN + "/faq/list",
       Common.tokenHeader()
     );
   },
