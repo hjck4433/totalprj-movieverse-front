@@ -31,6 +31,9 @@ const MovieApi = {
       Common.MV_DOMAIN + `/movies/movielist/count?page=${page}&size=${size}`
     );
   },
+  // 영화 제목으로 검색
+  searchMoviesByTitle: (title) =>
+    axios.get(Common.MV_DOMAIN + `/movies/movielist/search?title=${title}`),
 };
 
 export default MovieApi;

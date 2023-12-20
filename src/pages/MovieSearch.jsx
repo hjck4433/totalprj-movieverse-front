@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const MovieSearch = () => {
   const [selBtn, setSelBtn] = useState("recent");
+  const [title, setTitle] = useState("");
 
   const handleButtonClick = (type) => {
     setSelBtn(type);
@@ -12,7 +13,7 @@ const MovieSearch = () => {
 
   return (
     <>
-      <MovieSearchBanner />
+      <MovieSearchBanner title={title} setTitle={setTitle} />
       <MovieSort selBtn={selBtn} setSelBtn={handleButtonClick} />
       <SearchMapBox sortType={selBtn} />
     </>

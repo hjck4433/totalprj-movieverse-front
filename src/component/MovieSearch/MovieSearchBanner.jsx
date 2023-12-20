@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
+import { useState } from "react";
 import { styled } from "styled-components";
 import searchBannerPc from "../../../src/images/moviesearch_pc.jpg";
 
@@ -72,7 +72,8 @@ const SearchBannerStyle = styled.section`
   }
 `;
 
-const MovieSearchBanner = () => {
+const MovieSearchBanner = ({ setTitle }) => {
+  const [searchInput, setSearchInput] = useState("");
   return (
     <SearchBannerStyle>
       <div className="wrapper">
@@ -82,9 +83,19 @@ const MovieSearchBanner = () => {
           </div>
           <div className="movieSearchBar">
             <div className="inputBox">
-              <input type="text" placeholder="찾으시는 영화를 검색하세요." />
+              <input
+                type="text"
+                placeholder="찾으시는 영화를 검색하세요."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
               <div className="searchBox">
-                <FontAwesomeIcon icon={faSearch} />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  onClick={() => {
+                    setTitle(searchInput);
+                  }}
+                />
               </div>
             </div>
           </div>
