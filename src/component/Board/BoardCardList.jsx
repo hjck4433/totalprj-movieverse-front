@@ -12,107 +12,30 @@ import { useEffect, useState } from "react";
 import ToggleButton from "../Board/BoardToggleBtn";
 import Button from "../../util/Button";
 import { useNavigate } from "react-router-dom";
+import BoardApi from "../../api/BoardApi";
 const BoardCardList = ({ search, nofilter }) => {
   const [sortBy, setSortBy] = useState("highestCount");
-  const [sortedData, setSortedData] = useState([]);
+  const [boardData, setBoardData] = useState([]);
 
-  const boardData = [
-    {
-      boardId: "123",
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄1",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-01",
-      count: "10",
-      gatherType: "온라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄2",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-02",
-      count: "11",
-      gatherType: "오프라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄3",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-03",
-      count: "12",
-      gatherType: "온라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄4",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-04",
-      count: "13",
-      gatherType: "오프라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄5",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-05",
-      count: "14",
-      gatherType: "온라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "크리스마스 이브에 케빈과 함께 보낼 사람 모여라🎅🎄6",
-      content:
-        "혼자 하는 크리스마스는 이제 그만! 크리스마스 하면 케빈이죠~뭅뭅 친구들끼리 온라인으로 모여 수다나 떨며 ‘나홀로 집에’ 함께봐요ㅎㅎ 각자 집에서 좋아하는 음식을 준비해서 편하게 모여요 :)",
-      categoryId: "무비모임",
-      regdate: "2023-09-06",
-      count: "15",
-      gatherType: "오프라인",
-      image:
-        "https://images.unsplash.com/photo-1451772741724-d20990422508?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-  ];
-  const sortedBy = (sortBy) => {
-    const sortedData = [...boardData];
-    switch (sortBy) {
-      case "highestCount":
-        sortedData.sort(
-          (a, b) => parseInt(b.count, 10) - parseInt(a.count, 10)
-        );
-        break;
-      case "lowestCount":
-        sortedData.sort(
-          (a, b) => parseInt(a.count, 10) - parseInt(b.count, 10)
-        );
-        break;
-      case "latest":
-        sortedData.sort((a, b) => new Date(b.regdate) - new Date(a.regdate));
-        break;
-      case "oldest":
-        sortedData.sort((a, b) => new Date(a.regdate) - new Date(b.regdate));
-        break;
-      default:
-        break;
-    }
-    return sortedData;
-  };
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const newSortedData = sortedBy(sortBy);
-    setSortedData(newSortedData);
-  }, [sortBy]);
+    const boardData = async () => {
+      try {
+        setLoading(true);
+        const response = await BoardApi.boardList();
+        if (response.data === false) {
+          console.log("게시판에 정보가 없습니다.");
+        } else {
+          setBoardData(response.data);
+        }
+      } catch (error) {
+        console.error("게시판 데이터를 불러오는 중 에러 발생 : ", error);
+        setLoading(false);
+      }
+    };
+
+    boardData();
+  }, []);
 
   const handleSortChange = (criteria) => {
     setSortBy(criteria);
@@ -153,8 +76,7 @@ const BoardCardList = ({ search, nofilter }) => {
             </li>
           </ul>
           <div className="boardMap">
-            {nofilter !== "nofilter" &&
-              boardData &&
+            {boardData &&
               boardData.map((board) => (
                 <BoardCard key={board.title} board={board} />
               ))}

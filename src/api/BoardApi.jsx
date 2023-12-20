@@ -17,5 +17,12 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
+  boardList: async () => {
+    console.log("게시판 불러와졌니 ? ");
+    return await axios.get(
+      Common.MV_DOMAIN + `/board/gather`,
+      Common.tokenHeader()
+    );
+  },
 };
 export default BoardApi;
