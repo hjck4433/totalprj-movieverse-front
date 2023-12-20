@@ -116,6 +116,22 @@ const MemberApi = {
     );
   },
 
+  // admin - 회원 전체 조회
+  memberGet: async () => {
+    return await axios.get(
+      Common.MV_DOMAIN + "/member/admin/list",
+      Common.tokenHeader()
+    );
+  },
+
+  // admin - 회원 조회
+  memberPage: async (page) => {
+    return await axios.get(
+      Common.MV_DOMAIN + `/member/admin/list/page?page=${page}`,
+      Common.tokenHeader()
+    );
+  },
+
   // 회원 탈퇴
   widthdrawMember: async () => {
     return await axios.post(

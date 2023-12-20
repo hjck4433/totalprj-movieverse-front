@@ -36,6 +36,9 @@ const MemTrComp = styled.tr`
 `;
 
 const MemTr = ({ data, index }) => {
+  const toDate = new Date(data.regDate);
+  const regDate = toDate.toISOString().split("T")[0];
+
   return (
     <MemTrComp>
       {/* 숫자 자동증가 */}
@@ -51,10 +54,10 @@ const MemTr = ({ data, index }) => {
       <td className="center">{data.name}</td>
       <td className="center">{data.email}</td>
       <td className="center">{data.phone}</td>
-      <td className="center">{data.iskakao}</td>
-      <td className="center">{data.membership}</td>
-      <td className="center">{data.joinDate}</td>
-      <td className="center">{data.withdraw}</td>
+      <td className="center">{data && data.iskakao ? "O" : "X"}</td>
+      <td className="center">{data && data.isMembership ? "O" : "X"}</td>
+      <td className="center">{regDate}</td>
+      <td className="center">{data.isWithdraw ? "O" : "X"}</td>
       <td className="center">{data.addr}</td>
 
       <td>
