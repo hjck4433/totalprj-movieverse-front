@@ -50,7 +50,7 @@ const Nav = ({ active, togle }) => {
           <ul className="sub-menu">
             <li onClick={() => onClickMenu(2)}>무비모임</li>
             <li onClick={() => onClickMenu(3)}>모임후기</li>
-            <li onClick={() => onClickMenu(4)}>영화추천</li>
+            <li onClick={() => onClickMenu(4)}>무비추천</li>
           </ul>
         </li>
         <li>

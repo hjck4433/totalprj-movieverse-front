@@ -142,7 +142,7 @@ const MemberApi = {
 
   // 회원 탈퇴
   widthdrawMember: async () => {
-    return await axios.post(
+    return await axios.put(
       Common.MV_DOMAIN + "/member/withdraw",
       Common.tokenHeader()
     );

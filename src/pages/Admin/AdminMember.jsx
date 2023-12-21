@@ -111,26 +111,7 @@ const AdminMember = () => {
       Common.handleTokenAxios(adminMemList);
     }
   };
-  // const delMem = () => {
-  //   console.log("삭제 테스트입니다!");
-  //   Common.handleTokenAxios(deleteMem);
-  // };
 
-  // const memData = [
-  //   {
-  //     profile:
-  //       "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-  //     alias: "햄스터는 햄햄",
-  //     name: "햄토리",
-  //     email: "hamham1234@gmail.com",
-  //     phone: "010-8888-8888",
-  //     iskakao: "연동완료",
-  //     membership: "미가입",
-  //     regDate: "2023.12.12",
-  //     withdraw: "회원",
-  //     addr: "서울시 강남구 역삼동",
-  //   },
-  // ];
   return (
     <>
       <AdminMemberComp>
@@ -179,7 +160,8 @@ const AdminMember = () => {
           children={modalMsg}
           type={modalType}
           confirm={() => {
-            deleteMem();
+            Common.handleTokenAxios(deleteMem);
+            // deleteMem();
           }}
         />
       </AdminMemberComp>

@@ -30,7 +30,7 @@ const MovieInfo = () => {
 
   return (
     <>
-      <MovieInfoSection1 movieDetail={movieData} />
+      <MovieInfoSection1 movieDetail={movieData} movieId={id} />
       <MovieInfoContent movieDetail={movieData} />
       <MovieInfoStaff movieDetail={movieData} />
       <MovieInfoStill movieDetail={movieData} />
