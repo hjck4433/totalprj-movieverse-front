@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 import Bookmark from "../MovieSearch/Bookmark";
 
 const InfoSection1Style = styled.section`
@@ -83,6 +84,24 @@ const InfoSection1Style = styled.section`
 `;
 
 const MovieInfoSection1 = ({ movieDetail }) => {
+  const formatDate = (numericDate) => {
+    try {
+      if (numericDate && numericDate.length === 8) {
+        const year = numericDate.slice(0, 4);
+        const month = numericDate.slice(4, 6);
+        const day = numericDate.slice(6, 8);
+        return `${year}.${month}.${day}`;
+      } else {
+        throw new Error("잘못된 날짜");
+      }
+    } catch (error) {
+      if (error.message !== "잘못된 날짜") {
+        // "잘못된 날짜"가 아닌 경우에만 콘솔에 에러 메시지 출력
+        console.error(`날짜 변환 오류: ${error.message}`);
+      }
+      return "날짜 변환 오류";
+    }
+  };
   return (
     <>
       <InfoSection1Style>
@@ -101,7 +120,7 @@ const MovieInfoSection1 = ({ movieDetail }) => {
               </div>
               <div className="infoBox">
                 <p className="movieInfo">개봉</p>
-                <p className="loadInfo">{movieDetail.reprlsDate}</p>
+                <p className="loadInfo">{formatDate(movieDetail.reprlsDate)}</p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">장르</p>
