@@ -2,6 +2,8 @@ import { styled } from "styled-components";
 import MovieCard from "./MovieCard";
 import React, { useEffect, useState, useRef } from "react";
 import MovieApi from "../../api/MovieApi";
+import Modal from "../../util/Modal";
+import { useNavigate } from "react-router-dom";
 
 const SearchMapBoxStyle = styled.section`
   .container {
@@ -102,16 +104,49 @@ const SearchMapBox = ({ sortType, keyword }) => {
     }
   }, [loading, lastPage, currentPage, keyword]);
 
+  //Modal (북마크)
+  const navigate = useNavigate();
+  // 여기서부터
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+  };
+
   return (
     <>
       <SearchMapBoxStyle>
         <div className="container">
           {movieSearchData &&
             movieSearchData.map((movie) => (
-              <MovieCard movie={movie} key={movie.title} />
+              <MovieCard
+                movie={movie}
+                key={movie.title}
+                handleModal={handleModal}
+              />
             ))}
         </div>
         {!loading && <div ref={end}></div>}
+        <Modal
+          open={openModal}
+          close={closeModal}
+          header={modalHeader}
+          children={modalMsg}
+          type={modalType}
+          confirm={() => {
+            navigate("/login");
+          }}
+        />
       </SearchMapBoxStyle>
     </>
   );

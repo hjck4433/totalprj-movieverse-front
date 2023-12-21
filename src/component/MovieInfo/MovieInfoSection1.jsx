@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import React from "react";
 import Bookmark from "../MovieSearch/Bookmark";
+import Modal from "../../util/Modal";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const InfoSection1Style = styled.section`
   background-color: black;
@@ -83,7 +86,26 @@ const InfoSection1Style = styled.section`
   }
 `;
 
-const MovieInfoSection1 = ({ movieDetail }) => {
+const MovieInfoSection1 = ({ movieDetail, movieId }) => {
+  const navigate = useNavigate();
+  //Modal
+  // 여기서부터
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+  };
+
   const formatDate = (numericDate) => {
     try {
       if (numericDate && numericDate.length === 8) {
@@ -109,7 +131,11 @@ const MovieInfoSection1 = ({ movieDetail }) => {
           <div className="container">
             <div className="moviePoster">
               <img src={movieDetail.posters} alt="PosterImg" />
-              <Bookmark className="BookmarkIcon" />
+              <Bookmark
+                className="BookmarkIcon"
+                movieId={movieId}
+                handleModal={handleModal}
+              />
             </div>
             <div className="movieOtherInfo">
               <div className="titleInfo">
@@ -154,6 +180,16 @@ const MovieInfoSection1 = ({ movieDetail }) => {
           </div>
         </section>
       </InfoSection1Style>
+      <Modal
+        open={openModal}
+        close={closeModal}
+        header={modalHeader}
+        children={modalMsg}
+        type={modalType}
+        confirm={() => {
+          navigate("/login");
+        }}
+      />
     </>
   );
 };

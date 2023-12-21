@@ -4,6 +4,7 @@ import MemTr from "../../component/Administor/AdminBoard/MemTableElement";
 import MemberApi from "../../api/MemberApi";
 import { useEffect, useState } from "react";
 import Common from "../../util/Common";
+import Modal from "../../util/Modal";
 const AdminMemberComp = styled.div`
   padding-top: 10%;
   .container {
@@ -66,6 +67,7 @@ const AdminMemberComp = styled.div`
 const AdminMember = () => {
   const [page, setPage] = useState(0);
   const [memData, setMemData] = useState([]);
+  const [editId, setEditId] = useState("");
 
   useEffect(() => {
     Common.handleTokenAxios(adminMemList);
@@ -83,21 +85,33 @@ const AdminMember = () => {
     }
   };
 
-  // const memData = [
-  //   {
-  //     profile:
-  //       "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-  //     alias: "햄스터는 햄햄",
-  //     name: "햄토리",
-  //     email: "hamham1234@gmail.com",
-  //     phone: "010-8888-8888",
-  //     iskakao: "연동완료",
-  //     membership: "미가입",
-  //     regDate: "2023.12.12",
-  //     withdraw: "회원",
-  //     addr: "서울시 강남구 역삼동",
-  //   },
-  // ];
+  // 삭제 모달
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+    // setModalConfirm(num);
+  };
+
+  const deleteMem = async () => {
+    const res = await MemberApi.deleteMem(editId);
+    if (res.data) {
+      console.log("회원 삭제 성공");
+      closeModal();
+      Common.handleTokenAxios(adminMemList);
+    }
+  };
+
   return (
     <>
       <AdminMemberComp>
@@ -125,12 +139,31 @@ const AdminMember = () => {
                 {/* map으로 반복할 요소 */}
                 {memData &&
                   memData.map((data, index) => (
-                    <MemTr key={data.email} data={data} index={index} />
+                    <MemTr
+                      key={data.email}
+                      data={data}
+                      index={index}
+                      setId={setEditId}
+                      deleteModal={() => {
+                        handleModal("삭제", "삭제하시겠습니까?", true);
+                      }}
+                    />
                   ))}
               </tbody>
             </table>
           </div>
         </div>
+        <Modal
+          open={openModal}
+          close={closeModal}
+          header={modalHeader}
+          children={modalMsg}
+          type={modalType}
+          confirm={() => {
+            Common.handleTokenAxios(deleteMem);
+            // deleteMem();
+          }}
+        />
       </AdminMemberComp>
     </>
   );
