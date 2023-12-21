@@ -32,8 +32,21 @@ const MovieApi = {
     );
   },
   // 영화 제목으로 검색
-  searchMoviesByTitle: (title) =>
-    axios.get(Common.MV_DOMAIN + `/movies/movielist/search?title=${title}`),
+  searchMoviesByTitle: (title) => {
+    axios.get(Common.MV_DOMAIN + `/movies/movielist/search?title=${title}`);
+  },
+
+  // 영화리스트 (테스트)
+  getMovieList: async (page, size, sort, keyword) => {
+    return await axios.get(Common.MV_DOMAIN + `/movies/movielist/paged`, {
+      params: {
+        page: page,
+        size: size,
+        sort: sort,
+        keyword: keyword,
+      },
+    });
+  },
 };
 
 export default MovieApi;

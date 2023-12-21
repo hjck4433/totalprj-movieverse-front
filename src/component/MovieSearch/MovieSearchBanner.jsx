@@ -72,7 +72,7 @@ const SearchBannerStyle = styled.section`
   }
 `;
 
-const MovieSearchBanner = ({ setTitle }) => {
+const MovieSearchBanner = ({ setKeyword }) => {
   const [searchInput, setSearchInput] = useState("");
   return (
     <SearchBannerStyle>
@@ -93,7 +93,7 @@ const MovieSearchBanner = ({ setTitle }) => {
                 <FontAwesomeIcon
                   icon={faSearch}
                   onClick={() => {
-                    setTitle(searchInput);
+                    setKeyword(searchInput);
                   }}
                 />
               </div>

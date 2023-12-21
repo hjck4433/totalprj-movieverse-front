@@ -9,7 +9,7 @@ const AdComp = styled.div`
   background-color: var(--VIOLET);
   position: sticky;
   bottom: 0;
-  z-index: 999;
+  z-index: 300;
 
   .container {
     position: relative;

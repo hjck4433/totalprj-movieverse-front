@@ -17,7 +17,7 @@ const SearchMapBoxStyle = styled.section`
   }
 `;
 
-const SearchMapBox = ({ sortType }) => {
+const SearchMapBox = ({ sortType, keyword }) => {
   const [movieSearchData, setMovieSearchData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -29,15 +29,18 @@ const SearchMapBox = ({ sortType }) => {
     try {
       setLoading(true);
 
-      const response =
-        sortType === "recent"
-          ? await MovieApi.getRecentMovies(currentPage, 8)
-          : await MovieApi.getFormerMovies(currentPage, 8);
-      if (response.data.length === 0) {
+      const res = await MovieApi.getMovieList(
+        currentPage,
+        8,
+        sortType,
+        keyword
+      );
+
+      if (res.data.length === 0) {
         //값이 없으면 마지막 페이지
         setLastPage(true);
       } else {
-        setMovieSearchData((prevData) => [...prevData, ...response.data]);
+        setMovieSearchData((prevData) => [...prevData, ...res.data]);
 
         // 현재 타입에 따라 currentPage 갱신
         setCurrentPage((prevPage) => prevPage + 1);
@@ -56,12 +59,10 @@ const SearchMapBox = ({ sortType }) => {
       setMovieSearchData([]);
       setLastPage(false);
       setLoading(true);
-      const response =
-        sortType === "recent"
-          ? await MovieApi.getRecentMovies(0, 8)
-          : await MovieApi.getFormerMovies(0, 8);
-      if (response.data !== null) {
-        setMovieSearchData(response.data);
+      const res = await MovieApi.getMovieList(0, 8, sortType, keyword);
+
+      if (res.data !== null) {
+        setMovieSearchData(res.data);
         setLoading(false);
         setCurrentPage(1);
       }
@@ -75,13 +76,14 @@ const SearchMapBox = ({ sortType }) => {
     fetchFirstMovieData();
 
     console.log("sortType" + sortType);
-  }, [sortType]);
+  }, [sortType, keyword]);
 
   useEffect(() => {
     console.log("currentPage" + currentPage);
   }, [currentPage]);
 
   useEffect(() => {
+    console.log(keyword);
     if (!loading && !lastPage) {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -98,7 +100,7 @@ const SearchMapBox = ({ sortType }) => {
         observer.disconnect();
       };
     }
-  }, [loading, lastPage, currentPage]);
+  }, [loading, lastPage, currentPage, keyword]);
 
   return (
     <>
