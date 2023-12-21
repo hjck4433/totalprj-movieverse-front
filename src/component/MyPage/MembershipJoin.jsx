@@ -23,11 +23,16 @@ const MembershipJoinComp = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     p {
       font-size: 1.9rem;
       font-weight: 600;
-      padding-bottom: 20px;
+      padding-bottom: 50px;
       white-space: nowrap;
+      /* outline: 1px solid white; */
+    }
+    Button {
+      font-size: 22px;
     }
   }
   .imgWrap {

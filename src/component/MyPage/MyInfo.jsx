@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { useEffect, useContext } from "react";
 import profileimg from "../../images/faceIcon/faceIcon1.png";
 import profileimg2 from "../../images/faceIcon/faceIcon2.png";
 import Button from "../../util/Button";
@@ -54,6 +53,7 @@ const MyInfoComp = styled.section`
           p {
             padding: 10px 0;
             letter-spacing: 0.8px;
+            font-size: 18px;
             &.title {
               display: flex;
               align-items: center;
@@ -75,6 +75,7 @@ const MyInfoComp = styled.section`
       display: flex;
       justify-content: end;
       padding-right: 10%;
+      margin-top: 40px;
       button {
         &:first-child {
           margin-right: 12px;
@@ -162,17 +163,17 @@ const MyInfo = ({ memberInfo }) => {
                 <Button
                   children="수정하기"
                   active={true}
-                  height="30px"
-                  width="95px"
-                  fontSize="12px"
+                  height="45px"
+                  width="120px"
+                  fontSize="16px"
                   clickEvt={toinfochange}
                 />
                 <Button
                   children="내 글 관리하기"
                   active={true}
-                  height="30px"
-                  width="95px"
-                  fontSize="12px"
+                  height="45px"
+                  width="120px"
+                  fontSize="16px"
                   clickEvt={tomemberpost}
                 />
               </div>
