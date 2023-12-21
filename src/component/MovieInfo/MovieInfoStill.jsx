@@ -20,8 +20,9 @@ const MovieInfoStillStyle = styled.section`
     .movieStill {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
+      gap: 2%;
       margin-bottom: 15%;
+
       @media only screen and (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -44,7 +45,7 @@ const MovieInfoStill = ({ movieDetail }) => {
           <div className="movieStill">
             {stills &&
               stills.map((still, index) => (
-                <StillCutComp key={index} still={still} />
+                <StillCutComp key={index} still={still} className="StillCut" />
               ))}
           </div>
         </div>

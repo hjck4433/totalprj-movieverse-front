@@ -1,18 +1,26 @@
 import styled from "styled-components";
+import Bookmark from "../MovieSearch/Bookmark";
 
 const InfoSection1Style = styled.section`
   background-color: black;
   padding: 90px 0;
+  position: relative; //
   .container {
     display: flex;
     .moviePoster {
+      position: relative; //
       width: 30%;
       margin: 0 10%;
       img {
         width: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         object-fit: cover;
         height: 91.5%;
+      }
+      .bookmarkIcon {
+        position: absolute;
+        top: 10px; //
+        right: 10px; //
       }
     }
     .movieOtherInfo {
@@ -50,11 +58,10 @@ const InfoSection1Style = styled.section`
     background-color: black;
     padding: 50px 0;
     .container {
-      width: 100%;
-
+      width: 95%;
       .moviePoster {
         width: 40%;
-        margin: 0 5%;
+        margin-left: 5%;
       }
       .movieOtherInfo {
         .infoBox {
@@ -75,6 +82,7 @@ const MovieInfoSection1 = ({ movieDetail }) => {
           <div className="container">
             <div className="moviePoster">
               <img src={movieDetail.posters} alt="PosterImg" />
+              <Bookmark className="BookmarkIcon" />
             </div>
             <div className="movieOtherInfo">
               <div className="infoTitle">
