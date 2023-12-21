@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import FaqApi from "../../api/FaqApi";
+import Common from "../../util/Common";
 
 const FAQComp = styled.section`
   min-height: 40vw;
@@ -81,29 +83,39 @@ const Faq = ({ faqPlus }) => {
     icon === faAngleDown ? setIcon(faAngleUp) : setIcon(faAngleDown);
     active === "" ? setActive("active") : setActive("");
   };
+
   return (
     <>
       <li>
         <div className="faqBox">
-          <div className="title">{faqPlus.title}</div>
+          <div className="title">{faqPlus.faqQuestion}</div>
         </div>
 
         <div className={`toggle ${active}`}>
-          <p>{faqPlus.contents}</p>
+          <p>{faqPlus.faqAnswer}</p>
         </div>
         <FontAwesomeIcon onClick={onClick} icon={icon} />
       </li>
     </>
   );
 };
+
 const FAQList = () => {
-  const faqData = [
-    {
-      title: "무비버스는 무엇인가요?",
-      contents:
-        "온/오프라인에서 함께 영화를 볼 수도 있고, 게시판에서 서로의 영화 취향을 공유하며 소통하는 공간입니다.",
-    },
-  ];
+  const [faqData, setFaqData] = useState([]);
+
+  // faq 리스트 불러오기
+  const fetchFaqList = async () => {
+    const res = await FaqApi.getMainFaq();
+    if (res.data !== null) {
+      setFaqData(res.data);
+      console.log("Faq리스트 가져옴");
+    }
+  };
+
+  useEffect(() => {
+    fetchFaqList();
+  }, []);
+
   return (
     <>
       <FAQComp>
@@ -114,7 +126,7 @@ const FAQList = () => {
           <ul className="faqMap">
             {faqData &&
               faqData.map((faq) => (
-                <Faq key={faq.title} faqPlus={faq} isNotice={false} />
+                <Faq key={faq.faqQuestion} faqPlus={faq} isNotice={false} />
               ))}
           </ul>
         </div>
@@ -122,4 +134,5 @@ const FAQList = () => {
     </>
   );
 };
+
 export default FAQList;
