@@ -7,6 +7,9 @@ import Modal from "../../util/Modal";
 const AdComp = styled.div`
   width: 100%;
   background-color: var(--VIOLET);
+  position: sticky;
+  bottom: 0;
+  z-index: 999;
 
   .container {
     position: relative;
@@ -45,8 +48,8 @@ const AdComp = styled.div`
     }
   }
   .imgWrap {
-    width: 20%;
-    padding-bottom: 20%;
+    width: 16%;
+    padding-bottom: 16%;
     position: relative;
     .faceIcon {
       position: absolute;
@@ -54,6 +57,10 @@ const AdComp = styled.div`
       height: 100%;
       top: 0;
       left: 0;
+    }
+    @media only screen and (max-width: 768px) {
+      width: 20%;
+      padding-bottom: 20%;
     }
   }
 `;

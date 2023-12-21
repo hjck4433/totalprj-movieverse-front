@@ -39,9 +39,9 @@ const Layout = () => {
       <Header />
       <main>
         <Outlet />
+        {/* 로그인 여부를 props로 전달 */}
+        {!isKikiMember && <Advertise isLogin={loginStatus} />}
       </main>
-      {/* 로그인 여부를 props로 전달 */}
-      {!isKikiMember && <Advertise isLogin={loginStatus} />}
       <Footer />
     </>
   );

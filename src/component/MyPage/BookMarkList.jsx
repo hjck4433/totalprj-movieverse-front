@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
+import SearchMapBox from "../MovieSearch/SearchMapBox";
 
 const BookMarkListComp = styled.section`
-  
   .container {
     h2 {
       font-size: 1.8rem;
@@ -29,7 +29,7 @@ const BookMarkList = () => {
       <BookMarkListComp>
         <div className="container">
           <h2>BOOKMARKLIST</h2>
-          <div className="movielist"></div>
+          <SearchMapBox />
         </div>
       </BookMarkListComp>
     </>
