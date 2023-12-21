@@ -22,12 +22,14 @@ export const PostComp = styled.section`
           padding-bottom: 100%;
           position: relative;
           border-radius: 50%;
+          overflow: hidden;
           background-color: var(--VIOLET);
           img {
-            width: 80%;
+            object-fit: cover;
+            left: 0;
+            width: 100%;
+            height: 100%;
             position: absolute;
-            top: 10%;
-            left: 10%;
           }
         }
         p {
@@ -134,12 +136,14 @@ export const PostComp = styled.section`
               padding-bottom: 100%;
               position: relative;
               border-radius: 50%;
+              overflow: hidden;
               background-color: var(--VIOLET);
               img {
-                width: 80%;
+                width: 100%;
+                height: 100%;
                 position: absolute;
-                top: 10%;
-                left: 10%;
+                top: 0;
+                left: 0;
               }
             }
           }
