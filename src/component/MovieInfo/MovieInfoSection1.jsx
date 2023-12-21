@@ -4,12 +4,12 @@ import Bookmark from "../MovieSearch/Bookmark";
 const InfoSection1Style = styled.section`
   background-color: black;
   padding: 90px 0;
-  position: relative; //
+  position: relative;
   .container {
     display: flex;
     .moviePoster {
-      position: relative; //
-      width: 30%;
+      position: relative;
+      width: 28%;
       margin: 0 10%;
       img {
         width: 100%;
@@ -19,18 +19,31 @@ const InfoSection1Style = styled.section`
       }
       .bookmarkIcon {
         position: absolute;
-        top: 10px; //
-        right: 10px; //
+        top: 10px;
+        right: 10px;
       }
     }
     .movieOtherInfo {
       flex: 1;
       font-size: 1.4em;
       letter-spacing: -0.8px;
-      box-sizing: border-box;
+      .titleInfo {
+        .title {
+          word-break: keep-all;
+          white-space: normal;
+          margin-bottom: 5px;
+        }
+      }
+      .titleEngInfo {
+        .titleEng {
+          line-height: 20px;
+          color: var(--GREY);
+          margin-bottom: 12%;
+        }
+      }
       .infoBox {
         display: flex;
-        margin-bottom: 8%;
+        margin-bottom: 5%;
         .movieInfo {
           margin-right: 10px;
           width: 23%;
@@ -38,19 +51,9 @@ const InfoSection1Style = styled.section`
           color: var(--LIGHTVIO);
         }
       }
-      .infoTitle {
-        .titleMain {
-          word-break: keep-all;
-          white-space: normal;
-          margin-bottom: 5px;
-        }
-      }
-      .infoSubTitle {
-        .titleSub {
-          color: var(--GREY);
-          margin-bottom: 50px;
-        }
-      }
+    }
+    p {
+      line-height: 1.5rem;
     }
   }
 
@@ -60,13 +63,18 @@ const InfoSection1Style = styled.section`
     .container {
       width: 95%;
       .moviePoster {
-        width: 40%;
-        margin-left: 5%;
+        width: 45%;
+        margin-left: 1.5%;
       }
       .movieOtherInfo {
         .infoBox {
+          /* margin-bottom: 1.5%; */
           .movieInfo {
-            width: 32%;
+            width: 35%;
+          }
+          .loadInfo {
+            width: 65%;
+            word-break: keep-all;
           }
         }
       }
@@ -85,35 +93,43 @@ const MovieInfoSection1 = ({ movieDetail }) => {
               <Bookmark className="BookmarkIcon" />
             </div>
             <div className="movieOtherInfo">
-              <div className="infoTitle">
-                <h3 className="titleMain">{movieDetail.title}</h3>
+              <div className="titleInfo">
+                <h3 className="title">{movieDetail.title}</h3>
               </div>
-              <div className="infoSubTitle">
-                <p className="titleSub">{movieDetail.titleEng}</p>
+              <div className="titleEngInfo">
+                <p className="titleEng">{movieDetail.titleEng}</p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">개봉</p>
-                <p>{movieDetail.reprlsDate}</p>
+                <p className="loadInfo">{movieDetail.reprlsDate}</p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">장르</p>
-                <p>{movieDetail.genre}</p>
+                <p className="loadInfo">
+                  {movieDetail.genre ? movieDetail.genre : "-"}
+                </p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">국가</p>
-                <p>{movieDetail.nation}</p>
+                <p className="loadInfo">
+                  {movieDetail.nation ? movieDetail.nation : "-"}
+                </p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">등급</p>
-                <p>{movieDetail.rating}</p>
+                <p className="loadInfo">
+                  {movieDetail.rating ? movieDetail.rating : "-"}
+                </p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">평점</p>
-                <p>{movieDetail.score ? movieDetail.score : "-"}</p>
+                <p className="loadInfo">
+                  {movieDetail.score !== " " ? movieDetail.score : "-"}
+                </p>
               </div>
               <div className="infoBox">
                 <p className="movieInfo">상영시간</p>
-                <p>{movieDetail.runtime + "분"}</p>
+                <p className="loadInfo">{movieDetail.runtime + "분"}</p>
               </div>
             </div>
           </div>

@@ -21,11 +21,17 @@ const MovieInfoStillStyle = styled.section`
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2%;
-      margin-bottom: 15%;
+      margin-bottom: 10%;
 
       @media only screen and (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
+        margin-bottom: 15%;
       }
+    }
+    .noStillMsg {
+      color: black;
+      font-size: 1.4em;
+      margin-bottom: 40px;
     }
   }
 `;
@@ -42,12 +48,15 @@ const MovieInfoStill = ({ movieDetail }) => {
             <h2 className="captionText">스틸 컷</h2>
             <div className="divider"></div>
           </div>
-          <div className="movieStill">
-            {stills &&
-              stills.map((still, index) => (
+          {stills.length > 0 ? (
+            <div className="movieStill">
+              {stills.map((still, index) => (
                 <StillCutComp key={index} still={still} className="StillCut" />
               ))}
-          </div>
+            </div>
+          ) : (
+            <p className="noStillMsg">스틸 컷 정보가 없습니다.</p>
+          )}
         </div>
       </MovieInfoStillStyle>
     </>
