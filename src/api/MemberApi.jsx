@@ -132,6 +132,14 @@ const MemberApi = {
     );
   },
 
+  // admin - 회원 삭제
+  deleteMem: async (memId) => {
+    return await axios.delete(
+      Common.MV_DOMAIN + `/member/admin/delete/${memId}`,
+      Common.tokenHeader()
+    );
+  },
+
   // 회원 탈퇴
   widthdrawMember: async () => {
     return await axios.post(

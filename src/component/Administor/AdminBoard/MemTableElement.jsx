@@ -35,7 +35,8 @@ const MemTrComp = styled.tr`
   }
 `;
 
-const MemTr = ({ data, index }) => {
+const MemTr = ({ data, index, setId, deleteModal }) => {
+  console.log(data);
   const toDate = new Date(data.regDate);
   const regDate = toDate.toISOString().split("T")[0];
 
@@ -68,7 +69,10 @@ const MemTr = ({ data, index }) => {
           height="30px"
           active={true}
           back="var(--BLUE)"
-          clickEvt={() => {}}
+          clickEvt={() => {
+            setId(data.id);
+            deleteModal();
+          }}
         />
       </td>
     </MemTrComp>
