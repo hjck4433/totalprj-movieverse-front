@@ -5,32 +5,32 @@ import { useNavigate } from "react-router-dom";
 const NotFoundComp = styled.section`
   width: 100%;
   .container {
+    padding-bottom: 100px;
     .ErrorBox {
-      display: flex;
-      text-align: center;
-      justify-content: center;
       margin-top: 100px;
-      margin-bottom: 100px;
+      margin-bottom: 50px;
+      text-align: center;
       h2 {
-        font-size: 30px;
+        font-size: 2.2em;
         color: white;
         font-weight: 600;
+        margin-bottom: 40px;
         span {
           color: red;
           font-weight: 800;
           margin-right: 5px;
         }
-        p {
-          margin-top: 12px;
-          font-size: 20px;
-        }
+      }
+      p {
+        margin-top: 12px;
+        font-size: 20px;
+        line-height: 1.4;
       }
     }
     .buttonBox {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 100px;
     }
   }
 `;
@@ -48,10 +48,10 @@ const NotFound = () => {
           <div className="ErrorBox">
             <h2>
               <span>404</span>Not Found
-              <p>페이지를 찾을 수 없습니다</p>
-              <p>페이지가 존재하지 않거나, 사용할 수 없는 페이지입니다.</p>
-              <p>입력하신 주소가 정확한지 다시 한 번 확인해주세요.</p>
             </h2>
+            <p>페이지를 찾을 수 없습니다</p>
+            <p>페이지가 존재하지 않거나, 사용할 수 없는 페이지입니다.</p>
+            <p>입력하신 주소가 정확한지 다시 한 번 확인해주세요.</p>
           </div>
           <div className="buttonBox">
             <Button
