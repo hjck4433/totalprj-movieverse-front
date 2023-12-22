@@ -90,8 +90,6 @@ const NewPost = () => {
     }
   };
 
-  const [categoryName, setCategoryName] = useState("무비모임");
-
   const onSubmit = () => {
     if (imgSrc !== basicImg) {
       const storageRef = storage.ref();

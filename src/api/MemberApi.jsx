@@ -127,14 +127,16 @@ const MemberApi = {
   // admin - 회원 조회
   memberPage: async (page) => {
     return await axios.get(
-      Common.MV_DOMAIN + `/member/admin/list/page?page=${page}`,
+      Common.MV_DOMAIN + `/member/admin/list/page?page=${page}&size=10`,
       Common.tokenHeader()
     );
   },
   // admin - 페이지 수 가져오기
   getTotalPage: async () => {
+    const page = 0;
+    const size = 10;
     return await axios.get(
-      Common.MV_DOMAIN + "/member/admin/list/count",
+      Common.MV_DOMAIN + `/member/admin/list/count?size=${size}`,
       Common.tokenHeader()
     );
   },
