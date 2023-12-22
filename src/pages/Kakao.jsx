@@ -5,6 +5,7 @@ import Join from "./Join";
 import MemberApi from "../api/MemberApi";
 import Common from "../util/Common";
 import { UserContext } from "../context/UserStore";
+import Loading from "../component/Kakao/Loading";
 
 const Kakao = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const Kakao = () => {
   return (
     <>
       {isMember && <Join email={email} kakaoId={kakaoId} profile={profile} />}
+      <Loading />
     </>
   );
 };
