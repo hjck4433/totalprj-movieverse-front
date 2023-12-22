@@ -39,8 +39,10 @@ const PostRevise = () => {
   };
 
   useEffect(() => {
-    // console.log("Category : " + selCategory);
-    // console.log("Gather : " + selGather);
+    //선택에 따라 값 변경 확인하는 콘솔
+    console.log("Category : " + selCategory);
+    console.log("Gather : " + selGather);
+    // 카테고리가 무비추천이면 장소 선택을 초기화
     if (selCategory === "무비추천") setSelGather("");
   }, [selCategory, selGather]);
 
@@ -74,6 +76,8 @@ const PostRevise = () => {
       console.log("API 요청 후 : ", res);
       if (res.data !== null) {
         setBoardData(res.data);
+        // 여기에 set 쌓아요
+        // setSelCategory(res.data.(dto키이름))
       }
     };
     Common.handleTokenAxios(fetchBoardData);
@@ -104,8 +108,6 @@ const PostRevise = () => {
     }
   };
 
-  const [categoryName, setCategoryName] = useState("무비모임");
-
   const onSubmit = () => {
     if (imgSrc !== basicImg) {
       const storageRef = storage.ref();
@@ -124,6 +126,7 @@ const PostRevise = () => {
     }
   };
 
+  // 이 위치에 수정하는 api로 바꾸세요
   const newPost = async (url) => {
     const res = await BoardApi.saveNewPost(
       selCategory,
@@ -167,6 +170,7 @@ const PostRevise = () => {
                       value="무비모임"
                       name="category"
                       onChange={onCategoryChange}
+                      checked={selCategory === "무비모임" ? "checked" : ""}
                     />
                     무비모임
                   </label>
@@ -177,6 +181,7 @@ const PostRevise = () => {
                       value="모임후기"
                       name="category"
                       onChange={onCategoryChange}
+                      checked={selCategory === "모임후기" ? "checked" : ""}
                     />
                     모임후기
                   </label>
@@ -187,6 +192,7 @@ const PostRevise = () => {
                       value="무비추천"
                       name="category"
                       onChange={onCategoryChange}
+                      checked={selCategory === "무비추천" ? "checked" : ""}
                     />
                     무비추천
                   </label>
@@ -205,6 +211,7 @@ const PostRevise = () => {
                       name="gather"
                       onChange={onGatherChange}
                       disabled={selCategory === "무비추천" ? true : false}
+                      checked={selGather === "온라인" ? "checked" : ""}
                     />
                     온라인
                   </label>
@@ -216,6 +223,7 @@ const PostRevise = () => {
                       name="gather"
                       onChange={onGatherChange}
                       disabled={selCategory === "무비추천" ? true : false}
+                      checked={selGather === "오프라인" ? "checked" : ""}
                     />
                     오프라인
                   </label>
