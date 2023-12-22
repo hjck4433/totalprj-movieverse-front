@@ -13,12 +13,16 @@ const Layout = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
   // 로그인 / 멤버쉽 여부
-  const { loginStatus, isKikiMember, setIsKikiMember } = context;
+  const { loginStatus, setLoginStatus, isKikiMember, setIsKikiMember } =
+    context;
 
   useEffect(() => {
     console.log("로그인 여부" + loginStatus);
     console.log("kiki" + isKikiMember);
-    if (loginStatus) {
+    if (loginStatus === "ADMIN") {
+      setLoginStatus("");
+      window.localStorage.clear();
+    } else if (loginStatus) {
       Common.handleTokenAxios(fetchIsKikiMember);
     }
   }, [loginStatus]);

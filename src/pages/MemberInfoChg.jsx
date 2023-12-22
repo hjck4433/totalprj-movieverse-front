@@ -13,6 +13,8 @@ import Common from "../util/Common";
 
 const MemberInfoChg = () => {
   const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { loginStatus, setLoginStatus, setIsKikiMember } = context;
 
   // 회원정보
   const [memberInfo, setMemberInfo] = useState(null);
@@ -271,6 +273,16 @@ const MemberInfoChg = () => {
     navigate(-1);
   };
 
+  const onWithdraw = async () => {
+    const res = await MemberApi.withdrawMember();
+    if (res.data) {
+      setLoginStatus("");
+      setIsKikiMember("");
+      window.localStorage.clear();
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <InfoChgComp>
@@ -381,7 +393,9 @@ const MemberInfoChg = () => {
                 width="30%"
                 height="40px"
                 active={true}
-                // clickEvt={onSubmit}
+                clickEvt={() => {
+                  handleModal("탈퇴", "정말 탈퇴하시겠습니까?", true, 1);
+                }}
               />
             </div>
           </div>
@@ -396,6 +410,8 @@ const MemberInfoChg = () => {
         confirm={() => {
           if (modalConfirm === 0) {
             navigate("/mypage");
+          } else if (modalConfirm === 1) {
+            Common.handleTokenAxios(onWithdraw);
           }
         }}
       />

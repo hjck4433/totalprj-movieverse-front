@@ -1,15 +1,30 @@
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ScrollToTop = () => {
   const location = useLocation();
   const topRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (topRef.current) {
-      topRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [location]);
+    const scrollToTop = () => {
+      if (topRef.current) {
+        topRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    // if (topRef.current) {
+    //   topRef.current.scrollIntoView({ behavior: "smooth" });
+    // }
+    scrollToTop();
+
+    // const delay = 500; // milliseconds
+    // const timeoutId = setTimeout(() => {
+    //   navigate(location.pathname);
+    // }, delay);
+
+    // // Cleanup the timeout to avoid navigating after unmounting
+    // return () => clearTimeout(timeoutId);
+  }, [location, navigate]);
 
   return <div ref={topRef} tabIndex="-1" />;
 };
