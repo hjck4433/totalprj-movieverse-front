@@ -49,7 +49,11 @@ const CommentList = ({ id }) => {
         <div className="commentList">
           {commentData &&
             commentData.map((comment) => (
-              <Comment key={comment.commentId} comment={comment} />
+              <Comment
+                key={comment.commentId}
+                comment={comment}
+                fetchCommentList={fetchCommentList}
+              />
             ))}
         </div>
         <div className="textInputBox">
