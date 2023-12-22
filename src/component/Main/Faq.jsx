@@ -25,13 +25,15 @@ const FAQComp = styled.section`
       width: 90%;
       margin: 0 auto;
       font-size: 1.4rem;
+
       li {
         position: relative;
         border-radius: 5px;
         background-color: rgba(42, 33, 71, 0.9);
-        padding: 15px;
+        padding: 18px;
         font-size: 1.2rem;
         font-weight: 500;
+        margin-bottom: 10px;
 
         .faqBox {
           display: flex;
@@ -66,9 +68,9 @@ const FAQComp = styled.section`
         svg {
           color: var(--GREY);
           position: absolute;
-          top: 0;
+          top: 3px;
           right: 0;
-          padding: 15px;
+          padding: 18px;
           cursor: pointer;
         }
       }
