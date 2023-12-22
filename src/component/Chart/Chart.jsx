@@ -50,6 +50,28 @@ export default function Chart() {
           Common.tokenHeader()
         );
         if (response.data !== null) {
+          // 월 속성 기준으로 monthlyUSerData 배열 정렬
+          const monthOrder = [
+            "1월",
+            "2월",
+            "3월",
+            "4월",
+            "5월",
+            "6월",
+            "7월",
+            "8월",
+            "9월",
+            "10월",
+            "11월",
+            "12월",
+          ];
+
+          const sortedMonthlyUserData = response.data.sort((a, b) => {
+            const monthA = monthOrder.indexOf(a.month);
+            const monthB = monthOrder.indexOf(b.month);
+            return monthA - monthB;
+          });
+
           setMonthlyUserData(response.data);
         }
       } catch (error) {
@@ -78,7 +100,7 @@ export default function Chart() {
               <XAxis
                 dataKey="month"
                 stroke="var(--GREY)"
-                domain={["1월", "12월"]}
+                // domain={["1월", "12월"]}
                 tickCount={12}
               />
               <Line type="monotone" dataKey="monthlyUser" />

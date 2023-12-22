@@ -108,7 +108,7 @@ const AdminMember = () => {
     if (res.data) {
       console.log("회원 삭제 성공");
       closeModal();
-      Common.handleTokenAxios(adminMemList);
+      Common.handleTokenAxios(adminMemList); // 멤버 삭제하고 나면 멤버리스트 다시 불러줘!(리스트 부를 때 토큰 필요)
     }
   };
 
