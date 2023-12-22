@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../util/Button";
 import Modal from "../util/Modal";
 import AgreementModal from "../util/Agreement/AgreementModal";
 import Chart from "../component/Chart/Chart";
+import PaginationUtil from "../util/Pagination/Pagination";
 const UtilTest = () => {
   //Modal
   // 여기서부터
@@ -48,6 +49,11 @@ const UtilTest = () => {
     setAModalOpen(false);
   };
 
+  // 페이지네이션 관련
+
+  const [totalPage, setTotalPage] = useState(5);
+  const [page, setPage] = useState(1);
+
   return (
     <>
       <div className="container">
@@ -78,7 +84,13 @@ const UtilTest = () => {
         }}
       />
       <AgreementModal open={openAgreement} close={closeAgree} type={"use"} />
-      <Chart />
+      {/* <Chart /> */}
+      <PaginationUtil
+        totalPage={totalPage}
+        limit={5}
+        page={page}
+        setPage={setPage}
+      />
     </>
   );
 };

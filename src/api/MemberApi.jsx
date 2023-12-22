@@ -131,6 +131,13 @@ const MemberApi = {
       Common.tokenHeader()
     );
   },
+  // admin - 페이지 수 가져오기
+  getTotalPage: async () => {
+    return await axios.get(
+      Common.MV_DOMAIN + "/member/admin/list/count",
+      Common.tokenHeader()
+    );
+  },
 
   // admin - 회원 삭제
   deleteMem: async (memId) => {

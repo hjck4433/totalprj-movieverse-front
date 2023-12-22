@@ -55,7 +55,7 @@ const MemTr = ({ data, index, setId, deleteModal }) => {
       <td className="center">{data.name}</td>
       <td className="center">{data.email}</td>
       <td className="center">{data.phone}</td>
-      <td className="center">{data && data.iskakao ? "O" : "X"}</td>
+      <td className="center">{data && data.isKakao ? "O" : "X"}</td>
       <td className="center">{data && data.isMembership ? "O" : "X"}</td>
       <td className="center">{regDate}</td>
       <td className="center">{data.isWithdraw ? "O" : "X"}</td>
