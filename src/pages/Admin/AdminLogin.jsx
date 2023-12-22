@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
 import Logo from "../../images/movieverse_logo.png";
 import Button from "../../util/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../context/UserStore";
 import Common from "../../util/Common";
 import { useNavigate } from "react-router-dom";
+import MemberApi from "../../api/MemberApi";
+import Modal from "../../util/Modal";
 
 const AdminLoginComp = styled.section`
   background-image: url(${Logo});
@@ -61,6 +64,8 @@ const AdminLoginComp = styled.section`
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const context = useContext(UserContext);
+  const { setLoginStatus, loginStatus } = context;
 
   //키보드 입력
   const [inputId, setInputId] = useState("");
@@ -84,6 +89,41 @@ const AdminLogin = () => {
 
   // 버튼 활성화
   const [isActive, setIsActive] = useState(false);
+
+  const loginClick = async () => {
+    try {
+      const res = await MemberApi.adminLogin(inputId, inputPw);
+      if (res.data !== null) {
+        console.log("ADaccessToken : " + res.data.accessToken);
+        console.log("ADrefreshToken : " + res.data.refreshToken);
+        Common.setAccessToken(res.data.accessToken);
+        Common.setRefreshToken(res.data.refreshToken);
+        setLoginStatus("ADMIN");
+        navigate("/admin");
+      }
+    } catch (e) {
+      console.log(e.error);
+      handleModal("오류", "아이디 또는 비밀번호를 확인하세요");
+      setInputPw("");
+    }
+  };
+
+  //Modal
+  // 여기서부터
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+  };
+  const handleModal = (header, msg) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+  };
+  // 여기까지 고정적으로 복사 (수정 X)
 
   return (
     <AdminLoginComp>
@@ -109,9 +149,16 @@ const AdminLogin = () => {
             active={isActive}
             width="100%"
             height="50px"
-            // clickEvt={loginClick}
+            clickEvt={loginClick}
           />
         </div>
+        <Modal
+          open={openModal}
+          close={closeModal}
+          header={modalHeader}
+          children={modalMsg}
+          type={false}
+        />
       </div>
     </AdminLoginComp>
   );

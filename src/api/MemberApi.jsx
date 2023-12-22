@@ -147,5 +147,13 @@ const MemberApi = {
       Common.tokenHeader()
     );
   },
+  //관리자 로그인
+  adminLogin: async (adminId, adminPassword) => {
+    const data = {
+      adminId: adminId,
+      adminPassword: adminPassword,
+    };
+    return await axios.post(Common.MV_DOMAIN + "/auth/adminlogin", data);
+  },
 };
 export default MemberApi;
