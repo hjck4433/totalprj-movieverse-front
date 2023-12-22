@@ -84,7 +84,11 @@ const BoxOfficeSlide = () => {
 
   // useEffect [] => 빈 배열은 처음 마운트되고 한번만 실행
   useEffect(() => {
-    fetchBoxOfficeList();
+    try {
+      fetchBoxOfficeList();
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   return (

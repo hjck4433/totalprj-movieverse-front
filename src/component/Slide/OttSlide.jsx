@@ -99,7 +99,11 @@ const OttSlide = ({ activeButton }) => {
   };
 
   useEffect(() => {
-    fetchMoviesByButton();
+    try {
+      fetchMoviesByButton();
+    } catch (e) {
+      console.log(e);
+    }
   }, [activeButton]);
 
   return (

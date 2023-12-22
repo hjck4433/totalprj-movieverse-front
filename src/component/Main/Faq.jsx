@@ -107,10 +107,14 @@ const FAQList = () => {
 
   // faq 리스트 불러오기
   const fetchFaqList = async () => {
-    const res = await FaqApi.getMainFaq();
-    if (res.data !== null) {
-      setFaqData(res.data);
-      console.log("Faq리스트 가져옴");
+    try {
+      const res = await FaqApi.getMainFaq();
+      if (res.data !== null) {
+        setFaqData(res.data);
+        console.log("Faq리스트 가져옴");
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
