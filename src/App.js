@@ -54,8 +54,8 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/payment/result" element={<PaymentRst />} />
               <Route path="/utiltest" element={<UtilTest />}></Route>
-              <Route path="/*" element={<NotFound />} />
             </Route>
+            <Route path="/*" element={<NotFound />} />
             <Route path="/login/admin" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route path="/admin" element={<AdminMember />} />
