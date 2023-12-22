@@ -29,7 +29,7 @@ const BookMarkList = () => {
       <BookMarkListComp>
         <div className="container">
           <h2>BOOKMARKLIST</h2>
-          <SearchMapBox />
+          <SearchMapBox sortType={"member"} />
         </div>
       </BookMarkListComp>
     </>

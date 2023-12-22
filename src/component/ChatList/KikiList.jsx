@@ -84,7 +84,7 @@ const KikiListComp = styled.section`
 
 const KikiList = () => {
   const navigate = useNavigate();
-  const [kikiList, setKikiList] = useState("");
+  const [kikiList, setKikiList] = useState([]);
 
   // 새 채팅 생성 관련
   const [openModal, setModalOpen] = useState(false);
@@ -188,10 +188,12 @@ const KikiList = () => {
                   onClick={() => enterKiki(room.roomId)}
                 />
               ))}
-            {/* <div className="txtBox">
+            {KikiList.length === 0 && (
+              <div className="txtBox">
                 <p>진행중인 키키가 없습니다</p>
                 <p>키키를 오픈하고 새로운 영화친구를 기다려보세요!</p>
-              </div> */}
+              </div>
+            )}
           </div>
         </div>
         <NewChatModal

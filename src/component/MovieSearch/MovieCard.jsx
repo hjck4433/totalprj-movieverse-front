@@ -1,10 +1,15 @@
 import { styled } from "styled-components";
 import Bookmark from "./Bookmark";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const MovieCardComp = styled.div`
   position: relative;
   cursor: pointer;
+
+  &.hide {
+    display: none;
+  }
 
   img {
     width: 100%;
@@ -98,7 +103,14 @@ const MovieCardComp = styled.div`
   }
 `;
 
-const MovieCard = ({ movie, handleModal }) => {
+const MovieCard = ({
+  movie,
+  handleModal,
+  sortType,
+  hideState,
+  setHideState,
+  hideMovie,
+}) => {
   // console.log(movie);
   const navigate = useNavigate();
 
@@ -106,9 +118,11 @@ const MovieCard = ({ movie, handleModal }) => {
     navigate(`/moviesearch/${movie.id}`);
   };
 
+  const hide = (hideState && hideState[movie.id]) || false;
+
   return (
     <>
-      <MovieCardComp>
+      <MovieCardComp className={hide ? "hide" : ""}>
         <img src={movie.posters} alt={movie.title} />
         <div className="overlay" onClick={toMovieDetail}>
           <div className="hoverInfo">
@@ -120,7 +134,14 @@ const MovieCard = ({ movie, handleModal }) => {
             </p>
           </div>
         </div>
-        <Bookmark movieId={movie.id} handleModal={handleModal} />
+        <Bookmark
+          movieId={movie.id}
+          handleModal={handleModal}
+          hideState={hideState}
+          setHideState={setHideState}
+          sortType={sortType}
+          hideMovie={hideMovie}
+        />
       </MovieCardComp>
     </>
   );

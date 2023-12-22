@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import { UserContext } from "../../context/UserStore";
 import BookmarkApi from "../../api/BookmarkApi";
 import Common from "../../util/Common";
+import { isRouteErrorResponse } from "react-router-dom";
 
 const BookmarkComp = styled.div`
   position: absolute;
@@ -53,7 +54,13 @@ const BookmarkComp = styled.div`
   }
 `;
 
-const Bookmark = ({ movieId, handleModal }) => {
+const Bookmark = ({
+  movieId,
+  handleModal,
+  setHideState,
+  sortType,
+  hideMovie,
+}) => {
   const context = useContext(UserContext);
   const { loginStatus } = context;
 
@@ -108,6 +115,13 @@ const Bookmark = ({ movieId, handleModal }) => {
     if (res.data) {
       console.log("북마크 해제 성공!");
       setBookMark();
+      if (sortType === "member") {
+        // setHideState((prevHideState) => ({
+        //   ...prevHideState,
+        //   [movieId]: true,
+        // }));
+        hideMovie(movieId);
+      }
     }
   };
 

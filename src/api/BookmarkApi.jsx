@@ -27,9 +27,9 @@ const BookmarkApi = {
   },
 
   // 회원 북마크 리스트
-  getMemberMovie: async () => {
+  getMemberMovie: async (page, size) => {
     return await axios.get(
-      Common.MV_DOMAIN + "/bookmark/member/movielist",
+      Common.MV_DOMAIN + `/bookmark/member/movielist?page=${page}&size=${size}`,
       Common.tokenHeader()
     );
   },
