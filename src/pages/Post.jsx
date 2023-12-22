@@ -10,7 +10,7 @@ const Post = () => {
   const onClickBoard = (num) => {
     switch (num) {
       case 1:
-        navigate("/board/new");
+        navigate(`/board/revise/${postId}`);
         break;
       case 2:
         navigate("/board/:id");

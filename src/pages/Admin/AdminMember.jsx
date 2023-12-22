@@ -5,12 +5,15 @@ import MemberApi from "../../api/MemberApi";
 import { useEffect, useState } from "react";
 import Common from "../../util/Common";
 import Modal from "../../util/Modal";
+import PaginationUtil from "../../util/Pagination/Pagination";
+
 const AdminMemberComp = styled.div`
   padding-top: 10%;
   .container {
     width: 1200px;
     background-color: var(--VIOLET);
     padding: 40px 30px;
+    border-radius: 5px;
     h2 {
       margin-bottom: 30px;
     }
@@ -70,18 +73,29 @@ const AdminMember = () => {
   const [editId, setEditId] = useState("");
 
   useEffect(() => {
-    Common.handleTokenAxios(adminMemList);
+    Common.handleTokenAxios(() => adminMemList(page));
   }, [page]);
 
   useEffect(() => {
-    Common.handleTokenAxios(adminMemList);
+    Common.handleTokenAxios(fetchPageList);
   }, []);
 
+  const fetchPageList = async () => {
+    const res = await MemberApi.getTotalPage();
+    if (res.data !== null) {
+      setTotalPage(res.data);
+      Common.handleTokenAxios(adminMemList);
+    }
+  };
+
   // 멤버정보 불러오기
-  const adminMemList = async () => {
+  const adminMemList = async (page) => {
     const rsp = await MemberApi.memberPage(page);
     if (rsp.data !== null) {
       setMemData(rsp.data);
+      // 페이지네이션을 위해 추가
+      // setTotalPage(rsp.headers["x-total-pages"]);
+      //HTTP 응답 헤더 중에서 "x-total-pages" 헤더 값을 가져와서 React 상태(State)에 저장하는 코드
     }
   };
 
@@ -111,6 +125,10 @@ const AdminMember = () => {
       Common.handleTokenAxios(adminMemList); // 멤버 삭제하고 나면 멤버리스트 다시 불러줘!(리스트 부를 때 토큰 필요)
     }
   };
+
+  // 페이지네이션 관련
+
+  const [totalPage, setTotalPage] = useState(5);
 
   return (
     <>
@@ -152,6 +170,12 @@ const AdminMember = () => {
               </tbody>
             </table>
           </div>
+          <PaginationUtil
+            totalPage={totalPage}
+            limit={10}
+            page={page}
+            setPage={setPage}
+          />
         </div>
         <Modal
           open={openModal}
