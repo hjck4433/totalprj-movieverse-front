@@ -5,8 +5,15 @@ import { useNavigate } from "react-router-dom";
 const NotFoundComp = styled.section`
   width: 100%;
   .container {
-    padding-bottom: 100px;
+    height: 80vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    /* outline: 1px solid red; */
+
     .ErrorBox {
+      /* outline: 1px solid white; */
       margin-top: 100px;
       margin-bottom: 50px;
       text-align: center;
@@ -22,7 +29,7 @@ const NotFoundComp = styled.section`
         }
       }
       p {
-        margin-top: 12px;
+        margin-top: 10px;
         font-size: 20px;
         line-height: 1.4;
       }
@@ -31,6 +38,7 @@ const NotFoundComp = styled.section`
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column; // 버튼을 수직으로 정렬
     }
   }
 `;
