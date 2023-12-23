@@ -69,20 +69,6 @@ const PostRevise = () => {
   const [boardData, setBoardData] = useState("");
   const { postId } = useParams();
 
-  useEffect(() => {
-    const fetchBoardData = async () => {
-      console.log("API 요청 전");
-      const res = await BoardApi.boardDetail(postId);
-      console.log("API 요청 후 : ", res);
-      if (res.data !== null) {
-        setBoardData(res.data);
-        // 여기에 set 쌓아요
-        // setSelCategory(res.data.(dto키이름))
-      }
-    };
-    Common.handleTokenAxios(fetchBoardData);
-  }, []);
-
   // 게시판 리스트로 이동
   const navigate = useNavigate();
   const toGatherList = () => {
@@ -108,6 +94,23 @@ const PostRevise = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchBoardData = async () => {
+      console.log("API 요청 전");
+      const res = await BoardApi.boardDetail(postId);
+      console.log("API 요청 후 : ", res);
+      if (res.data !== null) {
+        setBoardData(res.data);
+        // 여기에 set 쌓아요
+        setSelCategory(res.data.categoryName);
+        setSelGather(res.data.gatherType);
+        setInputTitle(res.data.title);
+        setInputContents(res.data.boardContent);
+        setImgSrc(res.data.image);
+      }
+    };
+    Common.handleTokenAxios(fetchBoardData);
+  }, []);
   const onSubmit = () => {
     if (imgSrc !== basicImg) {
       const storageRef = storage.ref();
@@ -124,21 +127,21 @@ const PostRevise = () => {
     } else {
       Common.handleTokenAxios(newPost);
     }
-  };
 
-  // 이 위치에 수정하는 api로 바꾸세요
-  const newPost = async (url) => {
-    const res = await BoardApi.saveNewPost(
-      selCategory,
-      selGather,
-      inputTitle,
-      url,
-      inputContents
-    );
-    if (res.data) {
-      console.log("저장 성공!");
-      navigate("/board/gather");
-    }
+    // 이 위치에 수정하는 api로 바꾸세요
+    const newPost = async (url) => {
+      const res = await BoardApi.saveNewPost(
+        selCategory,
+        selGather,
+        inputTitle,
+        url,
+        inputContents
+      );
+      if (res.data) {
+        console.log("저장 성공!");
+        navigate("/board/:id");
+      }
+    };
   };
 
   return (
