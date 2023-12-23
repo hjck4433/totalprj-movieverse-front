@@ -80,7 +80,7 @@ const Kakao = () => {
   return (
     <>
       {isMember && <Join email={email} kakaoId={kakaoId} profile={profile} />}
-      <Loading />
+      {!isMember && <Loading />}
     </>
   );
 };
