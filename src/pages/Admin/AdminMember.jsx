@@ -93,9 +93,6 @@ const AdminMember = () => {
     const rsp = await MemberApi.memberPage(page);
     if (rsp.data !== null) {
       setMemData(rsp.data);
-      // 페이지네이션을 위해 추가
-      // setTotalPage(rsp.headers["x-total-pages"]);
-      //HTTP 응답 헤더 중에서 "x-total-pages" 헤더 값을 가져와서 React 상태(State)에 저장하는 코드
     }
   };
 

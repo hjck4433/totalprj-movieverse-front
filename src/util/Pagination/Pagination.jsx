@@ -48,17 +48,42 @@ const PaginationUtil = ({ totalPage, limit, page, setPage }) => {
       .map(() => totalPageArray.splice(0, limit));
   };
 
+  const handleToFirst = () => {
+    if (totalPageArray.length > 0) {
+      setPage(totalPageArray[0][0] + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (page < totalPage) {
+      setPage(page + 1);
+    }
+  };
+
+  const handleToLast = () => {
+    if (totalPageArray.length > 0) {
+      const lastPageArray = totalPageArray[totalPageArray.length - 1];
+      setPage(lastPageArray[lastPageArray.length - 1] + 1);
+    }
+  };
+
   return (
     <>
       <PaginationComp>
-        {/* 맨처음 버튼, 이전 버튼 */}
-        <ButtonStyle className="toFirst">
+        {/* 맨 처음 버튼, 이전 버튼 */}
+        <ButtonStyle className="toFirst" onClick={handleToFirst}>
           <FontAwesomeIcon icon={faAnglesLeft} />
         </ButtonStyle>
-        <ButtonStyle className="prev">
+        <ButtonStyle className="prev" onClick={handlePrev}>
           <FontAwesomeIcon icon={faAngleLeft} />
         </ButtonStyle>
-        {/* 숫자버튼 */}
+        {/* 숫자 버튼 */}
         <PageWrapper>
           {currentPageArray?.map((i) => (
             <PageButton
@@ -71,10 +96,10 @@ const PaginationUtil = ({ totalPage, limit, page, setPage }) => {
           ))}
         </PageWrapper>
         {/* 다음 버튼, 맨 끝 버튼 */}
-        <ButtonStyle className="next">
+        <ButtonStyle className="next" onClick={handleNext}>
           <FontAwesomeIcon icon={faAngleRight} />
         </ButtonStyle>
-        <ButtonStyle className="toLast">
+        <ButtonStyle className="toLast" onClick={handleToLast}>
           <FontAwesomeIcon icon={faAnglesRight} />
         </ButtonStyle>
       </PaginationComp>
