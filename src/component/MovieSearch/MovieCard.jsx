@@ -6,15 +6,12 @@ import { useState, useEffect } from "react";
 const MovieCardComp = styled.div`
   position: relative;
   cursor: pointer;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 
   &.hide {
     display: none;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
   }
   .overlay {
     position: absolute;
@@ -32,10 +29,14 @@ const MovieCardComp = styled.div`
       width: 100%;
       height: 100%;
       .title {
+        width: 100%;
         font-size: 1.2em;
         font-weight: 600;
         margin-bottom: 10%;
         text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .plotText {
         font-size: 0.8em;
@@ -43,9 +44,12 @@ const MovieCardComp = styled.div`
         margin-bottom: 10px;
         word-break: break-all;
         text-overflow: ellipsis;
-        height: 68%;
         overflow: hidden;
         text-align: left;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 10;
       }
 
       .score {
@@ -60,15 +64,17 @@ const MovieCardComp = styled.div`
         align-items: center;
         border-top: 1px solid var(--GREY);
         padding-top: 10px;
-      }
-      .scoreText {
-        padding: 2%;
-      }
-      .scoreNum {
-        padding: 0% 2%;
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--LIGHTVIO);
+        .scoreText {
+          padding: 2%;
+          font-size: 1.2em;
+          font-weight: 600;
+        }
+        .scoreNum {
+          padding: 0% 2%;
+          font-size: 1.8rem;
+          font-weight: 600;
+          color: var(--LIGHTVIO);
+        }
       }
     }
   }
@@ -103,6 +109,15 @@ const MovieCardComp = styled.div`
   }
 `;
 
+const ImgComp = styled.div`
+  width: 100%;
+  padding-bottom: 148%;
+  background-image: url(${(props) => props.imgsrc});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
 const MovieCard = ({
   movie,
   handleModal,
@@ -123,7 +138,7 @@ const MovieCard = ({
   return (
     <>
       <MovieCardComp className={hide ? "hide" : ""}>
-        <img src={movie.posters} alt={movie.title} />
+        <ImgComp imgsrc={movie.posters} />
         <div className="overlay" onClick={toMovieDetail}>
           <div className="hoverInfo">
             <p className="title">{movie.title}</p>

@@ -51,12 +51,22 @@ const TrComp = styled.tr`
 `;
 
 const Tr = ({ data, index }) => {
-  const [categorySel, setCategorySel] = useState("sel");
+  const [categorySel, setCategorySel] = useState(data.category);
   const [categoryActive, setCategoryActive] = useState(true);
-  const [typeSel, setTypeSel] = useState("sel");
+
+  const [typeSel, setTypeSel] = useState(data.gatherType);
   const [gatherActive, setGatherActive] = useState(true);
 
   const [confirmRevise, setConfirmRevise] = useState(false);
+
+  useEffect(() => {
+    // console.log("Category : " + selCategory);
+    // console.log("Gather : " + selGather);
+    if (categorySel === "무비추천") {
+      setTypeSel("sel");
+      setGatherActive(true);
+    }
+  }, [categorySel, typeSel]);
 
   //Modal
   const [openModal, setModalOpen] = useState(false);
@@ -84,6 +94,19 @@ const Tr = ({ data, index }) => {
     setConfirmRevise(true);
   };
 
+  const onChangeCategory = (e) => {
+    setCategorySel(e.target.value);
+    if (e.target.value !== "무비추천") {
+      setGatherActive(false);
+      if (data.gatherType === "") {
+        setTypeSel("오프라인");
+      } else setTypeSel(data.gatherType);
+    }
+  };
+  const onChangeType = (e) => {
+    setTypeSel(e.target.value);
+  };
+
   const ClickOk = () => {
     handleModal("확인", "수정하시겠습니까?", true, 0);
   };
@@ -108,19 +131,25 @@ const Tr = ({ data, index }) => {
         <select
           name="category"
           disabled={categoryActive}
-          dafaultValue={categorySel}
+          value={categorySel}
+          onChange={onChangeCategory}
         >
           <option value="sel" hidden>
             선택
           </option>
           <option value="무비모임">무비모임</option>
           <option value="모임후기">모임후기</option>
-          <option value="영화추천">영화추천</option>
+          <option value="무비추천">무비추천</option>
         </select>
       </td>
       {/* 셀렉트 들어갈 예정 */}
       <td className="selectBox">
-        <select name="gather" disabled={gatherActive} defaultValue={typeSel}>
+        <select
+          name="gather"
+          disabled={gatherActive}
+          value={typeSel}
+          onChange={onChangeType}
+        >
           <option value="sel" hidden>
             선택
           </option>
@@ -175,6 +204,13 @@ const Tr = ({ data, index }) => {
             closeModal();
             setConfirmRevise(false);
           }
+        }}
+        closeEvt={() => {
+          setCategoryActive(true);
+          setGatherActive(true);
+          setConfirmRevise(false);
+          setCategorySel(data.category);
+          setTypeSel(data.gatherType);
         }}
       />
     </TrComp>

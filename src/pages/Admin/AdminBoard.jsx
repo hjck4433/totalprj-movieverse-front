@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Button from "../../util/Button";
 import { useState, useEffect } from "react";
 import Tr from "../../component/Administor/AdminBoard/TableElement";
+import PaginationUtil from "../../util/Pagination/Pagination";
 
 const AdminBoardComp = styled.div`
   padding-top: 8%;
@@ -49,9 +50,6 @@ const AdminBoardComp = styled.div`
 `;
 
 const AdminBoard = () => {
-  const [categoryActive, setCategoryActive] = useState(true);
-  const [gatherActive, setGatherActive] = useState(true);
-
   const dataList = [
     {
       alias: "햄스터",
@@ -72,8 +70,8 @@ const AdminBoard = () => {
         "햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!",
       count: 120,
       regDate: "2023.12.16",
-      category: "영화추천",
-      gatherType: "온라인",
+      category: "무비추천",
+      gatherType: "",
     },
     {
       alias: "햄스터",
@@ -87,6 +85,21 @@ const AdminBoard = () => {
       gatherType: "오프라인",
     },
   ];
+
+  //페이지 네이션 관련
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(5);
+
+  useEffect(() => {
+    //클릭된 페이지의 게시글 가져오기
+  }, [page]);
+  useEffect(() => {
+    // 총페이지 수 가져오는 APi
+  }, []);
+
+  // 페이지 api 정의
+  // 게시글 api 정의
+
   return (
     <AdminBoardComp>
       <div className="container">
@@ -115,6 +128,12 @@ const AdminBoard = () => {
             </tbody>
           </table>
         </div>
+        <PaginationUtil
+          totalPage={totalPage}
+          limit={10}
+          page={page}
+          setPage={setPage}
+        />
       </div>
     </AdminBoardComp>
   );

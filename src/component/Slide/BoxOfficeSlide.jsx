@@ -17,29 +17,46 @@ const BoxOfficeSlideStyle = styled.div`
   .boxOfficeRank-slider {
     width: 100%;
     position: relative;
-    .swiper-button-prev,
-    .swiper-button-next {
+    width: 100%;
+    position: relative;
+    .swiper-button {
       color: #494949;
       background-color: white;
       opacity: 0.5;
-      padding: 15px 15px;
+      padding: 20px 20px;
       height: 15px;
       width: 15px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 10;
+      &:hover {
+        background-color: var(--LIGHTVIO);
+      }
+
+      &::after {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--DARKBLUE);
+      }
+      &.swiper-button-prev {
+      }
+      &.swiper-button-next {
+      }
+      &.swiper-button-disabled {
+        z-index: 10;
+        cursor: default;
+        pointer-events: auto;
+        &:hover {
+          background-color: white;
+        }
+      }
     }
 
     .swiper-wrapper {
+      align-items: center;
       .slide {
         width: 30%;
       }
-    }
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      /* display: none; */
-      font-size: 1.1rem;
-      font-weight: 600;
     }
   }
 `;
@@ -124,8 +141,8 @@ const BoxOfficeSlide = () => {
               <MovieCard movie={movie} handleModal={handleModal} />
             </SwiperSlide>
           ))}
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev swiper-button"></div>
+        <div className="swiper-button-next swiper-button"></div>
       </Swiper>
       <Modal
         open={openModal}

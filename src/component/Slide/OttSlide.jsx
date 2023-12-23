@@ -1,5 +1,5 @@
 // OttSlide.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
@@ -12,23 +12,43 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../../util/Modal";
 
 const OttSlideStyle = styled.div`
-  padding-top: 50px;
   width: 100%;
-  align-items: center;
+  padding-top: 80px;
+  /* align-items: center; */
   .ottRank-slider {
     width: 100%;
     position: relative;
-    .swiper-button-prev,
-    .swiper-button-next {
+    .swiper-button {
       color: #494949;
       background-color: white;
       opacity: 0.5;
-      padding: 15px 15px;
+      padding: 20px 20px;
       height: 15px;
       width: 15px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 10;
+      &:hover {
+        background-color: var(--LIGHTVIO);
+      }
+
+      &::after {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--DARKBLUE);
+      }
+      &.swiper-button-prev {
+      }
+      &.swiper-button-next {
+      }
+      &.swiper-button-disabled {
+        z-index: 10;
+        cursor: default;
+        pointer-events: auto;
+        &:hover {
+          background-color: white;
+        }
+      }
     }
 
     .swiper-wrapper {
@@ -37,12 +57,6 @@ const OttSlideStyle = styled.div`
         width: 30%;
       }
     }
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      /* display: none; */
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
   }
 `;
 
@@ -50,6 +64,8 @@ const OttSlide = ({ activeButton }) => {
   const [movieData, setMovieData] = useState([]);
 
   const navigate = useNavigate();
+
+  const swiperRef = useRef(null);
 
   //Modal
   // 여기서부터
@@ -90,6 +106,9 @@ const OttSlide = ({ activeButton }) => {
       if (result && result.data !== null) {
         console.log(result.data);
         setMovieData(result.data);
+
+        swiperRef.current.swiper.slideTo(0);
+        swiperRef.current.swiper.update();
       } else {
         console.log("영화 정보가 없습니다.");
       }
@@ -118,7 +137,7 @@ const OttSlide = ({ activeButton }) => {
         }}
         allowTouchMove={true}
         initialSlide={0}
-        spaceBetween={10}
+        spaceBetween={20}
         breakpoints={{
           992: {
             slidesPerView: 5,
@@ -133,6 +152,7 @@ const OttSlide = ({ activeButton }) => {
             spaceBetween: 20,
           },
         }}
+        ref={swiperRef}
       >
         {movieData &&
           movieData.map((movie) => (
@@ -140,9 +160,10 @@ const OttSlide = ({ activeButton }) => {
               <MovieCard movie={movie} handleModal={handleModal} />
             </SwiperSlide>
           ))}
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev swiper-button"></div>
+        <div className="swiper-button-next swiper-button"></div>
       </Swiper>
+
       <Modal
         open={openModal}
         close={closeModal}

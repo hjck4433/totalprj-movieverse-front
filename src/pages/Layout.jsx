@@ -2,15 +2,13 @@ import { Outlet } from "react-router-dom";
 import Header from "../component/Layout/Header/Header";
 import Footer from "../component/Layout/Footer";
 import Advertise from "../component/Layout/Ad";
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import { UserContext } from "../context/UserStore";
 import Common from "../util/Common";
 import ScrollToTop from "../component/Layout/ScrollToTop";
 import MemberApi from "../api/MemberApi";
 
 const Layout = () => {
-  const navigate = useNavigate();
   const context = useContext(UserContext);
   // 로그인 / 멤버쉽 여부
   const { loginStatus, setLoginStatus, isKikiMember, setIsKikiMember } =

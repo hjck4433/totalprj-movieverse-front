@@ -7,7 +7,6 @@ import FaqApi from "../../api/FaqApi";
 import Common from "../../util/Common";
 
 const FAQComp = styled.section`
-  min-height: 40vw;
   .container {
     display: flex;
     justify-content: center;

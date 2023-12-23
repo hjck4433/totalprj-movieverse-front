@@ -95,7 +95,15 @@ const Button = styled.button`
 `;
 
 const Modal = (props) => {
-  const { open, confirm, close, type, header, children } = props;
+  const {
+    open,
+    confirm,
+    close,
+    type,
+    header,
+    children,
+    closeEvt = () => {},
+  } = props;
 
   return (
     <ModalStyle>
@@ -114,7 +122,14 @@ const Modal = (props) => {
                   확인
                 </Button>
               )}
-              <Button onClick={close}>{type ? "취소" : "확인"}</Button>
+              <Button
+                onClick={() => {
+                  close();
+                  closeEvt();
+                }}
+              >
+                {type ? "취소" : "확인"}
+              </Button>
             </footer>
           </section>
         )}

@@ -46,7 +46,7 @@ const MovieSort = ({ selBtn, setSelBtn }) => {
             className={`recent ${selBtn === "recent" ? "selected" : ""}`}
             onClick={() => setSelBtn("recent")}
           >
-            최신 영화순
+            최신 순
           </button>
           <button
             className={`former ${selBtn === "former" ? "selected" : ""}`}
