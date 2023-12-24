@@ -6,7 +6,6 @@ import Modal from "../../../util/Modal";
 const TrComp = styled.tr`
   vertical-align: middle;
   td {
-    outline: 1px solid red;
     padding: 10px;
     vertical-align: middle;
     &.center {

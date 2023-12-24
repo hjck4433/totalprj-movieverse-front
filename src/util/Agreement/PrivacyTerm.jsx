@@ -9,7 +9,7 @@ const PrivacyTerm = () => {
         처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을
         수립·공개합니다.
       </p>
-      <p>■ 이 개인정보처리방침은 2023년 7월 1일 부터 적용됩니다.</p>
+      <p>■ 이 개인정보처리방침은 2023년 12월 27일 부터 적용됩니다.</p>
       <div className="term 1">
         <p className="term_title">제1조(개인정보의 처리 목적)</p>
         <ul className="ul_square">
@@ -81,9 +81,7 @@ const PrivacyTerm = () => {
             <li>
               홈페이지 회원가입 및 관리
               <br />
-              필수항목 : 이메일, 비밀번호, 닉네임
-              <br />
-              선택항목 : 관심지역, 한 줄 소개
+              필수항목 : 이메일, 비밀번호, 이름, 닉네임, 전화번호, 주소
               <br />
               카카오 간편가입 : [필수] 이메일, 닉네임, 프로필 사진
             </li>
@@ -226,11 +224,11 @@ const PrivacyTerm = () => {
               <li>
                 개인정보 보호책임자
                 <br />
-                성명 :양경미, 최지인, 김다은
+                성명 :김현지, 박소현, 이재원, 이세웅, 유현주
                 <br />
                 직책 :<br />
                 직급 :<br />
-                연락처 devpawcommunity@naver.com
+                연락처 movieverse2023@naver.com
                 <br />※ 개인정보 보호 담당부서로 연결됩니다.
               </li>
             </ul>
@@ -281,7 +279,7 @@ const PrivacyTerm = () => {
       </div>
       <div className="term 11">
         <p className="term_title">제11조(개인정보 처리방침 변경)</p>
-        <p>■ 이 개인정보처리방침은 2023년 7월 1일 부터 적용됩니다.</p>
+        <p>■ 이 개인정보처리방침은 2023년 12월 27일 부터 적용됩니다.</p>
       </div>
     </AgreementContent>
   );

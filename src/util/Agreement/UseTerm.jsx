@@ -174,7 +174,7 @@ const UseTerm = () => {
           </li>
         </ol>
       </div>
-      ■ 적용 일자 : 2023년 7월 1일
+      ■ 적용 일자 : 2023년 12월 27일
       <br />
     </AgreementContent>
   );
