@@ -121,7 +121,7 @@ const PostRevise = () => {
           console.log("저장경로 확인 : " + url);
           setUrl(url);
           console.log("url" + url);
-          Common.handleTokenAxios(newPost);
+          Common.handleTokenAxios(newPost(url));
         });
       });
     } else {
@@ -129,14 +129,14 @@ const PostRevise = () => {
     }
 
     // 이 위치에 수정하는 api로 바꾸세요
-    const newPost = async () => {
+    const newPost = async (url) => {
       const res = await BoardApi.updateBoard(
         boardData.id,
         selCategory,
         selGather,
         inputTitle,
-        inputContents,
-        imgSrc
+        url,
+        inputContents
       );
       if (res.data) {
         console.log("저장 성공!");
