@@ -121,7 +121,7 @@ const PostRevise = () => {
           console.log("저장경로 확인 : " + url);
           setUrl(url);
           console.log("url" + url);
-          Common.handleTokenAxios(() => newPost(url));
+          Common.handleTokenAxios(newPost);
         });
       });
     } else {
@@ -140,7 +140,7 @@ const PostRevise = () => {
       );
       if (res.data) {
         console.log("저장 성공!");
-        navigate("/board/:id");
+        navigate(`/board/${boardData.id}`);
       }
     };
   };

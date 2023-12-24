@@ -32,6 +32,7 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
+
   updateBoard: async (
     id,
     categoryName,
@@ -51,6 +52,7 @@ const BoardApi = {
     };
     return await axios.post(
       Common.MV_DOMAIN + "/board/update",
+      data,
       Common.tokenHeader()
     );
   },
