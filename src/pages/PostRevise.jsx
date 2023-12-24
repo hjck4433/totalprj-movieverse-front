@@ -129,13 +129,14 @@ const PostRevise = () => {
     }
 
     // 이 위치에 수정하는 api로 바꾸세요
-    const newPost = async (url) => {
-      const res = await BoardApi.saveNewPost(
+    const newPost = async () => {
+      const res = await BoardApi.updateBoard(
+        boardData.id,
         selCategory,
         selGather,
         inputTitle,
-        url,
-        inputContents
+        inputContents,
+        imgSrc
       );
       if (res.data) {
         console.log("저장 성공!");

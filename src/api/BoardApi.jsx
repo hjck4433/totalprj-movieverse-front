@@ -32,5 +32,27 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
+  updateBoard: async (
+    id,
+    categoryName,
+    gatherType,
+    title,
+    image,
+    boardContent
+  ) => {
+    console.log("보더수정 저장 !");
+    const data = {
+      id,
+      categoryName,
+      gatherType,
+      title,
+      image,
+      boardContent,
+    };
+    return await axios.post(
+      Common.MV_DOMAIN + "/board/update",
+      Common.tokenHeader()
+    );
+  },
 };
 export default BoardApi;
