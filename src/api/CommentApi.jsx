@@ -60,7 +60,8 @@ const CommnetApi = {
   // 댓글 페이지네이션
   commentPageList: async (boardId, page) => {
     return await axios.get(
-      Common.MV_DOMAIN + `/comment/page/list/${boardId}?page=${page}&size=5`,
+      Common.MV_DOMAIN +
+        `/comment/page/list/${boardId}?page=${page - 1}&size=5`,
       Common.tokenHeader()
     );
   },

@@ -8,20 +8,23 @@ import PaginationUtil from "../../../util/Pagination/Pagination";
 const CommentList = ({ id }) => {
   const [commentData, setCommmentData] = useState("");
   const [inputComment, setInputComment] = useState("");
+  // paginationutil 관련 필요 useState 2개
+  const [totalPage, setTotalPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   const oninputCommentChange = (e) => {
     setInputComment(e.target.value);
   };
 
-  // 댓글 리스트
-  const fetchCommentList = async () => {
-    console.log("API 요청 전");
-    const res = await CommnetApi.commentList(id);
-    console.log("API 요청 후 : ", res);
-    if (res.data !== null) {
-      setCommmentData(res.data);
-    }
-  };
+  // // 댓글 리스트
+  // const fetchCommentList = async () => {
+  //   console.log("API 요청 전");
+  //   const res = await CommnetApi.commentList(id);
+  //   console.log("API 요청 후 : ", res);
+  //   if (res.data !== null) {
+  //     setCommmentData(res.data);
+  //   }
+  // };
 
   // 댓글 저장
   const handleSubmitComment = async () => {
@@ -29,23 +32,23 @@ const CommentList = ({ id }) => {
     console.log("댓글 결과 : ", response.data);
     if (response.data) {
       setInputComment("");
-      Common.handleTokenAxios(fetchCommentList);
+      // Common.handleTokenAxios(fetchCommentList);
+      Common.handleTokenAxios(fetchPage);
+      setPage(1);
     }
   };
 
-  useEffect(() => {
-    Common.handleTokenAxios(fetchCommentList);
-    console.log("boardId : " + id);
-  }, []);
+  // useEffect(() => {
+  //   Common.handleTokenAxios(fetchCommentList);
+  //   console.log("boardId : " + id);
+  // }, []);
 
   useEffect(() => {
     console.log("입력한 댓글 : " + inputComment);
   }, [inputComment]);
 
-  const [totalPage, setTotalPage] = useState(5);
-  const [pageData, setPageData] = useState("");
-  const [page, setPage] = useState(0);
-  const [isId, setIsId] = useState("");
+  // const [pageData, setPageData] = useState("");
+  // const [isId, setIsId] = useState("");
 
   useEffect(() => {
     Common.handleTokenAxios(() => fetchPageList(page));
@@ -61,15 +64,17 @@ const CommentList = ({ id }) => {
     if (res.data !== null) {
       console.log("댓글 총 페이지 수 : ", res.data);
       setTotalPage(res.data);
-      Common.handleTokenAxios(() => fetchPageList(0));
+      Common.handleTokenAxios(() => fetchPageList(1));
     }
   };
   // 댓글 페이지네이션 불러오기
   const fetchPageList = async (page) => {
-    const res1 = await CommnetApi.commentPageList(id, page);
-    if (res1.data !== null) {
-      console.log("댓글 페이지네이션 : ", res1.data);
-      setPageData(res1.data);
+    // res1 이라고 안해도 되요,,
+    const res = await CommnetApi.commentPageList(id, page);
+    if (res.data !== null) {
+      console.log("댓글 페이지네이션 : ", res.data);
+      // setPageData(res1.data);
+      setCommmentData(res.data);
     }
   };
 
@@ -84,7 +89,9 @@ const CommentList = ({ id }) => {
               <Comment
                 key={comment.commentId}
                 comment={comment}
-                fetchCommentList={fetchCommentList}
+                fetchCommentList={() =>
+                  Common.handleTokenAxios(() => fetchPage())
+                }
               />
             ))}
         </div>
