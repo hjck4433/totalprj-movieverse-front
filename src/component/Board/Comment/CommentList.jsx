@@ -3,6 +3,7 @@ import Button from "../../../util/Button";
 import CommnetApi from "../../../api/CommentApi";
 import Common from "../../../util/Common";
 import Comment from "./Comment";
+import PaginationUtil from "../../../util/Pagination/Pagination";
 
 const CommentList = ({ id }) => {
   const [commentData, setCommmentData] = useState("");
@@ -41,6 +42,37 @@ const CommentList = ({ id }) => {
     console.log("입력한 댓글 : " + inputComment);
   }, [inputComment]);
 
+  const [totalPage, setTotalPage] = useState(5);
+  const [pageData, setPageData] = useState("");
+  const [page, setPage] = useState(0);
+  const [isId, setIsId] = useState("");
+
+  useEffect(() => {
+    Common.handleTokenAxios(() => fetchPageList(page));
+  }, [page]);
+
+  useEffect(() => {
+    Common.handleTokenAxios(fetchPage);
+  }, []);
+
+  // 댓글 총 페이지 수 불러오기
+  const fetchPage = async () => {
+    const res = await CommnetApi.commentPageCount(id);
+    if (res.data !== null) {
+      console.log("댓글 총 페이지 수 : ", res.data);
+      setTotalPage(res.data);
+      Common.handleTokenAxios(() => fetchPageList(0));
+    }
+  };
+  // 댓글 페이지네이션 불러오기
+  const fetchPageList = async (page) => {
+    const res1 = await CommnetApi.commentPageList(id, page);
+    if (res1.data !== null) {
+      console.log("댓글 페이지네이션 : ", res1.data);
+      setPageData(res1.data);
+    }
+  };
+
   return (
     <>
       {/* 댓글 영역 */}
@@ -56,6 +88,12 @@ const CommentList = ({ id }) => {
               />
             ))}
         </div>
+        <PaginationUtil
+          totalPage={totalPage}
+          limit={5}
+          page={page}
+          setPage={setPage}
+        />
         <div className="textInputBox">
           <textarea
             type="text"
