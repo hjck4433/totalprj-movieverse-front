@@ -2,76 +2,72 @@ import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 
 const ToggleBtn = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 300px;
-  height: 35px;
+  width: 25%;
   border-radius: 30px;
+  padding: 5px;
   border: 1px solid #909090;
+  overflow: hidden;
   cursor: pointer;
   background-color: white;
-  // 토글내 버튼 색
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: all 0.5s ease;
-`;
-
-const Circle = styled.div`
-  background-color: var(--VIOLET);
-  width: 150px;
-  height: 30px;
-  border-radius: 30px;
-  position: absolute;
-  left: 1%;
-  transition: all 0.8s ease;
-  ${(props) =>
-    props.toggle &&
-    css`
-      transform: translate(144px, 0);
-      transition: all 0.5s ease;
-    `}
+  .btnBox {
+    display: flex;
+    justify-content: space-around;
+    outline: 1px solid yellow;
+    width: 100%;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 40%;
+  }
 `;
 
 const BtnText = styled.div`
-  display: inline;
-  position: absolute;
+  width: 50%;
   z-index: 5;
   left: ${(props) => (!props.Text ? "60px" : "195px")};
-  display: inline;
   color: ${(props) => (!props.toggle ? "GREY" : "white")};
   font-size: 15px;
   font-weight: bold;
   transition: all 0.5s ease;
 `;
 
-const ToggleButton = ({ onselect, onselect3, gatherType }) => {
+const Circle = styled.div`
+  background-color: var(--VIOLET);
+  width: 49%;
+  height: 90%;
+  border-radius: 30px;
+  position: absolute;
+  left: 2%;
+  top: 6%;
+  transition: all 0.8s ease;
+  ${(props) =>
+    props.toggle &&
+    css`
+      transform: translate(98%, 0);
+      transition: all 0.5s ease;
+    `}
+`;
+
+const ToggleButton = ({ onChange, gatherType }) => {
   const [toggle, setToggle] = useState(false);
 
   const clickedToggle = () => {
     setToggle((prev) => !prev);
-    if (toggle === true) {
-      onselect(gatherType);
-      onselect3(gatherType === "온라인" ? "온라인" : "오프라인");
-    } else {
-      onselect(gatherType);
-      onselect3(gatherType === "온라인" ? "온라인" : "오프라인");
-    }
-    console.log(gatherType);
+    onChange();
   };
 
   return (
     <>
       <ToggleBtn onClick={clickedToggle} toggle={toggle}>
-        <BtnText toggle={!toggle}>온라인</BtnText>
-        <BtnText Text={true} toggle={toggle}>
-          오프라인
-        </BtnText>
-        <Circle toggle={toggle} />
+        <div className="btnBox">
+          <BtnText toggle={!toggle}>온라인</BtnText>
+          <BtnText Text={true} toggle={toggle}>
+            오프라인
+          </BtnText>
+        </div>
+        <Circle toggle={toggle} className="right" />
       </ToggleBtn>
-      {/*<h3>Toggle Switch {!toggle ? "OFF" : "ON"}</h3> on off 기능 */}
     </>
   );
 };

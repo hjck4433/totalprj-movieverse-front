@@ -43,12 +43,12 @@ const BoardApi = {
   ) => {
     console.log("보더수정 저장 !");
     const data = {
-      id,
-      categoryName,
-      gatherType,
-      title,
-      image,
-      boardContent,
+      id: id,
+      categoryName: categoryName,
+      gatherType: gatherType,
+      title: title,
+      image: image,
+      boardContent: boardContent,
     };
     return await axios.post(
       Common.MV_DOMAIN + "/board/update",

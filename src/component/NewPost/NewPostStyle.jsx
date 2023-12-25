@@ -98,6 +98,7 @@ export const NewPostComp = styled.section`
           border-radius: 10px;
           padding: 10px;
           font-size: 1.1rem;
+          resize: none;
         }
         h3 {
           letter-spacing: 8px;
@@ -154,6 +155,7 @@ export const NewPostComp = styled.section`
           padding: 10px;
           font-size: 1.1rem;
           margin-top: 15px;
+          resize: none;
         }
       }
       .buttonBox {

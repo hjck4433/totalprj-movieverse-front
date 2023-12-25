@@ -20,6 +20,7 @@ const Post = () => {
   };
   const [boardData, setBoardData] = useState("");
   const { postId } = useParams();
+  const [regDate, setRegDate] = useState("");
 
   useEffect(() => {
     const fetchBoardData = async () => {
@@ -28,8 +29,11 @@ const Post = () => {
       console.log("API 요청 후 : ", res);
       if (res.data !== null) {
         setBoardData(res.data);
+        const toDate = new Date(res.data.regDate);
+        setRegDate(toDate.toISOString().split("T")[0]);
       }
     };
+
     Common.handleTokenAxios(fetchBoardData);
   }, []);
 
@@ -54,7 +58,7 @@ const Post = () => {
                     <p>{boardData.gatherType}</p>
                   </div>
                 </div>
-                <div className="uploadedDate">{boardData.regDate}</div>
+                <div className="uploadedDate">{regDate}</div>
               </div>
               <h3>{boardData.title}</h3>
             </div>
@@ -62,15 +66,17 @@ const Post = () => {
           <div className="contentsBox">
             <div className="introduce">
               <img src={boardData.image} alt="selectedImg" />
-              <div className="contentsText">
-                <p>{boardData.boardContent}</p>
-              </div>
+              <div className="contentsText">{boardData.boardContent}</div>
             </div>
-            <Button
-              children="수정하기"
-              active={true}
-              clickEvt={() => onClickBoard(1)}
-            />
+            <div className="buttonBox">
+              <Button
+                children="수정하기"
+                front="var(--BLUE)"
+                active={true}
+                clickEvt={() => onClickBoard(1)}
+              />
+              <Button children="삭제하기" active={true} clickEvt={() => {}} />
+            </div>
           </div>
           {/* 댓글 영역 */}
           <CommentList id={postId} />

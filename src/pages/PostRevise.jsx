@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { storage } from "../api/firebase";
 import Button from "../util/Button";
-import { useNavigate, useParams, useRevalidator } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 import basicImg from "../images/congrats.png";
@@ -10,8 +10,10 @@ import Common from "../util/Common";
 import BoardApi from "../api/BoardApi";
 
 const PostRevise = () => {
-  const [currentDate, setCurrentDate] = useState("");
+  const [boardData, setBoardData] = useState("");
+  const { postId } = useParams();
   const [memberInfo, setMemberInfo] = useState(null);
+  const [regDate, setRegDate] = useState("");
 
   const fetchMemberDetail = async () => {
     const res = await MemberApi.getMemberDetail();
@@ -51,23 +53,9 @@ const PostRevise = () => {
     console.log("contents : " + inputContents);
   }, [inputTitle, inputContents]);
 
-  //날짜
   useEffect(() => {
-    const getCurrentDate = () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = (today.getMonth() + 1).toString().padStart(2, "0");
-      const day = today.getDate().toString().padStart(2, "0");
-      return `${year}.${month}.${day}`;
-    };
-
-    setCurrentDate(getCurrentDate());
-
     Common.handleTokenAxios(fetchMemberDetail); // 멤버 정보 가져옴
   }, []);
-
-  const [boardData, setBoardData] = useState("");
-  const { postId } = useParams();
 
   // 게시판 리스트로 이동
   const navigate = useNavigate();
@@ -107,12 +95,32 @@ const PostRevise = () => {
         setInputTitle(res.data.title);
         setInputContents(res.data.boardContent);
         setImgSrc(res.data.image);
+
+        const toDate = new Date(res.data.regDate);
+        setRegDate(toDate.toISOString().split("T")[0]);
       }
     };
     Common.handleTokenAxios(fetchBoardData);
   }, []);
+
+  // 이 위치에 수정하는 api로 바꾸세요
+  const updatePost = async (url) => {
+    const res = await BoardApi.updateBoard(
+      boardData.id,
+      selCategory,
+      selGather,
+      inputTitle,
+      url,
+      inputContents
+    );
+    if (res.data) {
+      console.log("저장 성공!");
+      navigate(`/board/${boardData.id}`);
+    }
+  };
+
   const onSubmit = () => {
-    if (imgSrc !== basicImg) {
+    if (imgSrc !== basicImg && imgSrc !== boardData.image) {
       const storageRef = storage.ref();
       const fileRef = storageRef.child(file.name);
       fileRef.put(file).then(() => {
@@ -121,28 +129,12 @@ const PostRevise = () => {
           console.log("저장경로 확인 : " + url);
           setUrl(url);
           console.log("url" + url);
-          Common.handleTokenAxios(newPost(url));
+          Common.handleTokenAxios(() => updatePost(url));
         });
       });
     } else {
-      Common.handleTokenAxios(newPost);
+      Common.handleTokenAxios(updatePost);
     }
-
-    // 이 위치에 수정하는 api로 바꾸세요
-    const newPost = async (url) => {
-      const res = await BoardApi.updateBoard(
-        boardData.id,
-        selCategory,
-        selGather,
-        inputTitle,
-        url,
-        inputContents
-      );
-      if (res.data) {
-        console.log("저장 성공!");
-        navigate(`/board/${boardData.id}`);
-      }
-    };
   };
 
   return (
@@ -167,7 +159,7 @@ const PostRevise = () => {
               <RadioBox>
                 {/* name 부분이 같아야 함 */}
                 <div className="boardSelectBtn">
-                  <label class="boardLable1" htmlFor="btn1">
+                  <label className="boardLable1" htmlFor="btn1">
                     <input
                       type="radio"
                       id="무비모임"
@@ -178,7 +170,7 @@ const PostRevise = () => {
                     />
                     무비모임
                   </label>
-                  <label class="boardLable2" htmlFor="btn2">
+                  <label className="boardLable2" htmlFor="btn2">
                     <input
                       type="radio"
                       id="모임후기"
@@ -189,7 +181,7 @@ const PostRevise = () => {
                     />
                     모임후기
                   </label>
-                  <label class="boardLable3" htmlFor="btn3">
+                  <label className="boardLable3" htmlFor="btn3">
                     <input
                       type="radio"
                       id="무비추천"
@@ -240,7 +232,7 @@ const PostRevise = () => {
             </div>
             <div className="uploadDate">
               <h3>작성일</h3>
-              <p>{currentDate}</p>
+              <p>{regDate}</p>
             </div>
             <div className="postTitle">
               <h3>제 목</h3>

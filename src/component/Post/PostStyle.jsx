@@ -97,17 +97,21 @@ export const PostComp = styled.section`
           width: 100%;
           border-radius: 10px;
         }
-      }
-      .contentsText {
-        width: 100%;
-        margin: 40px 0;
-        /* border: 1px solid blue; */
-        p {
+        .contentsText {
+          width: 100%;
+          margin: 40px 0;
+          color: #333;
+          line-height: 1.5;
           font-size: 1.2rem;
           font-weight: 300;
-          color: black;
-          padding-bottom: 5px;
-          line-height: 1.5; //줄간격을 위한
+          white-space: pre-wrap;
+        }
+      }
+      .buttonBox {
+        button {
+          &:first-child {
+            margin-right: 20px;
+          }
         }
       }
     }
@@ -151,6 +155,7 @@ export const PostComp = styled.section`
             /* border: 1px solid orange; */
             width: 60%;
             padding: 2%;
+
             .nickName {
               color: var(--VIOLET);
               font-weight: 600;
@@ -197,6 +202,7 @@ export const PostComp = styled.section`
           border: 2px solid var(--GREY);
           border-radius: 10px;
           outline-color: var(--GREY);
+          resize: none;
         }
         .postBtn {
           align-items: right;

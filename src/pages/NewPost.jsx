@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { storage } from "../api/firebase";
 import Button from "../util/Button";
-import { useNavigate, useRevalidator } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import face from "../images/faceIcon/faceIcon7.png";
 import { NewPostComp, RadioBox } from "../component/NewPost/NewPostStyle";
 import basicImg from "../images/congrats.png";
