@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-const BoardHeaderList = ({ id, setKeyword }) => {
+const BoardHeaderList = ({ id, keyword, setKeyword, setIsKeyword }) => {
   const [inputSearch, setInputSearch] = useState("");
 
   const changeValue = (e) => {
@@ -83,14 +83,14 @@ const BoardHeaderList = ({ id, setKeyword }) => {
               <input
                 type="text"
                 placeholder="검색어를 입력해 주세요."
-                value={inputSearch}
-                onChange={changeValue}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
               />
               <div className="searchBox">
                 <FontAwesomeIcon
                   icon={faSearch}
                   onClick={() => {
-                    setKeyword(inputSearch);
+                    setIsKeyword(true);
                   }}
                 />
               </div>

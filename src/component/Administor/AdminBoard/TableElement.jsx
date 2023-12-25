@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import Button from "../../../util/Button";
-import Modal from "../../../util/Modal";
+import basicProfile from "../../../images/faceIcon/faceIcon1.png";
 
 const TrComp = styled.tr`
   vertical-align: middle;
@@ -23,6 +23,7 @@ const TrComp = styled.tr`
           position: relative;
           border-radius: 100%;
           overflow: hidden;
+          background-color: var(--GREY);
           img {
             position: absolute;
             width: 100%;
@@ -49,14 +50,24 @@ const TrComp = styled.tr`
   }
 `;
 
-const Tr = ({ data, index }) => {
-  const [categorySel, setCategorySel] = useState(data.category);
+const Tr = ({
+  data,
+  index,
+  handleModal,
+  setEditCategory,
+  setEditType,
+  setEditId,
+  revise,
+  setRevise,
+}) => {
+  const [confirmRevise, setConfirmRevise] = useState(false);
+  const [categorySel, setCategorySel] = useState(data.categoryName);
   const [categoryActive, setCategoryActive] = useState(true);
-
   const [typeSel, setTypeSel] = useState(data.gatherType);
   const [gatherActive, setGatherActive] = useState(true);
 
-  const [confirmRevise, setConfirmRevise] = useState(false);
+  const toDate = new Date(data.regDate);
+  const regDate = toDate.toISOString().split("T")[0];
 
   useEffect(() => {
     // console.log("Category : " + selCategory);
@@ -66,25 +77,16 @@ const Tr = ({ data, index }) => {
       setGatherActive(true);
     }
   }, [categorySel, typeSel]);
-
-  //Modal
-  const [openModal, setModalOpen] = useState(false);
-  const [modalMsg, setModalMsg] = useState("");
-  const [modalHeader, setModalHeader] = useState("");
-  const [modalType, setModalType] = useState(null);
-  const [modalConfirm, setModalConfirm] = useState(null);
-
-  // 모달 닫기
-  const closeModal = (num) => {
-    setModalOpen(false);
-  };
-  const handleModal = (header, msg, type, num) => {
-    setModalOpen(true);
-    setModalHeader(header);
-    setModalMsg(msg);
-    setModalType(type);
-    setModalConfirm(num);
-  };
+  useEffect(() => {
+    setConfirmRevise(false);
+    setRevise(false);
+    setCategoryActive(true);
+    setGatherActive(true);
+    if (revise === "back") {
+      setCategorySel(data.categoryName);
+      setTypeSel(data.gatherType);
+    }
+  }, [revise]);
 
   const clickRevise = () => {
     setCategoryActive(false);
@@ -106,8 +108,20 @@ const Tr = ({ data, index }) => {
     setTypeSel(e.target.value);
   };
 
-  const ClickOk = () => {
+  const clickOk = () => {
     handleModal("확인", "수정하시겠습니까?", true, 0);
+    setEditCategory(categorySel);
+    if (categorySel === "무비추천") {
+      setEditType("");
+    } else {
+      setEditType(typeSel);
+    }
+    setEditId(data.id);
+  };
+
+  const clickDel = () => {
+    handleModal("삭제", "삭제하시겠습니까?", true, 1);
+    setEditId(data.id);
   };
 
   return (
@@ -117,14 +131,17 @@ const Tr = ({ data, index }) => {
       <td className="profile">
         <span className="wrapper">
           <span className="imgBox">
-            <img src={data.image} alt="profile" />
+            <img
+              src={data.memberImage ? data.memberImage : basicProfile}
+              alt="profile"
+            />
           </span>
           <span>{data.alias}</span>
         </span>
       </td>
       <td>{data.title}</td>
       <td className="center">{data.count}</td>
-      <td className="center">{data.regDate}</td>
+      <td className="center">{regDate}</td>
       {/* 셀렉트 들어갈 예정 */}
       <td className="selectBox">
         <select
@@ -160,12 +177,13 @@ const Tr = ({ data, index }) => {
         {confirmRevise ? (
           <Button
             children={"확인"}
-            back="var(--BLUE)"
+            back="var(--MIDBLUE)"
+            front="var(--BLUE)"
             fontSize=".8em"
             width="80px"
             height="30px"
             active={true}
-            clickEvt={ClickOk}
+            clickEvt={clickOk}
           />
         ) : (
           <Button
@@ -182,36 +200,15 @@ const Tr = ({ data, index }) => {
       <td>
         <Button
           children={"삭제"}
+          front="var(--GREY)"
           back="var(--BLUE)"
           fontSize=".8em"
           width="80px"
           height="30px"
           active={true}
-          clickEvt={() => {}}
+          clickEvt={clickDel}
         />
       </td>
-      <Modal
-        open={openModal}
-        close={closeModal}
-        header={modalHeader}
-        children={modalMsg}
-        type={modalType}
-        confirm={() => {
-          if (modalConfirm === 0) {
-            setCategoryActive(true);
-            setGatherActive(true);
-            closeModal();
-            setConfirmRevise(false);
-          }
-        }}
-        closeEvt={() => {
-          setCategoryActive(true);
-          setGatherActive(true);
-          setConfirmRevise(false);
-          setCategorySel(data.category);
-          setTypeSel(data.gatherType);
-        }}
-      />
     </TrComp>
   );
 };

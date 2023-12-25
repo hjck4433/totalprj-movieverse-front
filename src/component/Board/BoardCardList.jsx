@@ -8,10 +8,17 @@ import BoardApi from "../../api/BoardApi";
 import Common from "../../util/Common";
 import PaginationUtil from "../../util/Pagination/Pagination";
 
-const BoardCardList = ({ category, keyword }) => {
+const BoardCardList = ({
+  category,
+  keyword,
+  type,
+  isKeyword,
+  setIsKeyword,
+  setKeyword,
+}) => {
   // 페이지 네이션 관련
   const [totalPage, setTotalPage] = useState(5);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("recent");
   const [boardData, setBoardData] = useState([]);
   const [gatherType, setGatherType] = useState("온라인");
@@ -24,6 +31,12 @@ const BoardCardList = ({ category, keyword }) => {
     console.log("총페이지 게더 : " + gatherType);
     if (res.data !== null) {
       setTotalPage(res.data);
+      setPage(1);
+      setIsKeyword(false);
+      setKeyword("");
+      if (category === "무비추천") {
+        setGatherType("");
+      }
       await Common.handleTokenAxios(() => fetchBoardList(1));
     }
   };
@@ -42,13 +55,40 @@ const BoardCardList = ({ category, keyword }) => {
     }
   };
 
-  useEffect(() => {
-    Common.handleTokenAxios(fetchTotalPage);
-    console.log("타입 : " + gatherType);
-  }, [category, sortBy, keyword, gatherType]);
+  // 회원 게시글 페이지 수
+  const fetchMemTotalPage = async () => {
+    const res = await BoardApi.getMemTotalPage(type);
+    if (res.data !== null) {
+      setTotalPage(res.data);
+      await Common.handleTokenAxios(() => fetchMemBoardList(1));
+    }
+  };
+
+  // 회원 게시글 리스트
+  const fetchMemBoardList = async (page) => {
+    const res = await BoardApi.getMemBoardList(page, type);
+    if (res.data !== null) {
+      setBoardData(res.data);
+    }
+  };
 
   useEffect(() => {
-    Common.handleTokenAxios(() => fetchBoardList(page));
+    category === "member"
+      ? Common.handleTokenAxios(fetchMemTotalPage)
+      : Common.handleTokenAxios(fetchTotalPage);
+    console.log("타입 : " + gatherType);
+  }, [category, sortBy, gatherType, type]);
+
+  useEffect(() => {
+    if (isKeyword) {
+      Common.handleTokenAxios(fetchTotalPage);
+    }
+  }, [isKeyword]);
+
+  useEffect(() => {
+    category === "member"
+      ? Common.handleTokenAxios(() => fetchMemBoardList(page))
+      : Common.handleTokenAxios(() => fetchBoardList(page));
   }, [page]);
 
   useEffect(() => {

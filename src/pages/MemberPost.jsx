@@ -15,7 +15,7 @@ const MemberPost = () => {
   return (
     <>
       <MempostSort selType={selType} setSelType={onChange} />
-      <BoardCardList category="member" />
+      <BoardCardList category="member" type={selType} />
     </>
   );
 };

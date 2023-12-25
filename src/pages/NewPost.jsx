@@ -118,7 +118,19 @@ const NewPost = () => {
     );
     if (res.data) {
       console.log("저장 성공!");
-      navigate("/board/gather");
+      switch (selCategory) {
+        case "무비모임":
+          navigate("/board/gather");
+          break;
+        case "모임후기":
+          navigate("/board/recap");
+          break;
+        case "무비추천":
+          navigate("/board/recs");
+          break;
+        default:
+          console.log("카테고리 오류");
+      }
     }
   };
 

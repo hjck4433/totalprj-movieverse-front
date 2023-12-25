@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import { useState, useEffect } from "react";
 import Button from "../../../util/Button";
+import basicProfile from "../../../images/faceIcon/faceIcon1.png";
+
 const MemTrComp = styled.tr`
   vertical-align: middle;
   td {
@@ -22,6 +23,7 @@ const MemTrComp = styled.tr`
           position: relative;
           border-radius: 100%;
           overflow: hidden;
+          background-color: var(--GREY);
           img {
             position: absolute;
             width: 100%;
@@ -47,7 +49,10 @@ const MemTr = ({ data, index, setId, deleteModal }) => {
       <td className="profile">
         <span className="wrapper">
           <span className="imgBox">
-            <img src="{data.image}" alt="profile" />
+            <img
+              src={data.image ? `${data.image}` : `${basicProfile}`}
+              alt="profile"
+            />
           </span>
           <span>{data.alias}</span>
         </span>

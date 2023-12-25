@@ -35,6 +35,14 @@ const BoardApi = {
     );
   },
 
+  boardCounter: async (postId) => {
+    return await axios.put(
+      Common.MV_DOMAIN + `/board/post/counter/`,
+      postId,
+      Common.tokenHeader()
+    );
+  },
+
   // 게시글 수정
   updateBoard: async (
     id,
@@ -59,11 +67,20 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
+  // 게시글 삭제
+  deleteBoard: async (id) => {
+    return await axios.delete(
+      Common.MV_DOMAIN + `/board/delete/${id}`,
+      Common.tokenHeader()
+    );
+  },
 
+  // 총 페이지 수
   getTotalPage: async (keyword, categoryName, gatherType) => {
     // console.log("총페이지 키워드 : " + keyword);
     // console.log("총페이지 카테고리 : " + categoryName);
     // console.log("총페이지 게더 : " + gatherType);
+    if (categoryName === "무비추천") gatherType = "";
     const page = 0;
     const size = 6;
     return await axios.get(
@@ -72,18 +89,56 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
-
+  // 페이지에 해당 하는 보드 리스트
   getBoardList: async (page, sort, keyword, categoryName, gatherType) => {
     console.log("리스트 키워드 : " + keyword);
     console.log("리스트 카테고리 : " + categoryName);
     console.log("리스트 게더 : " + gatherType);
     console.log("리스트 페이지 : " + page);
+    if (categoryName === "무비추천") gatherType = "";
     const size = 6;
     return await axios.get(
       Common.MV_DOMAIN +
         `/board/processedlist?page=${
           page - 1
         }&size=${size}&sort=${sort}&keyword=${keyword}&categoryName=${categoryName}&gatherType=${gatherType}`,
+      Common.tokenHeader()
+    );
+  },
+
+  // 멤버 내 게시글 관련
+  getMemTotalPage: async (type) => {
+    const page = 0;
+    const size = 6;
+    return await axios.get(
+      Common.MV_DOMAIN +
+        `/board/memboard/page?page=${page}&size=${size}&type=${type}`,
+      Common.tokenHeader()
+    );
+  },
+  getMemBoardList: async (page, type) => {
+    const size = 6;
+    return await axios.get(
+      Common.MV_DOMAIN +
+        `/board/memboard/list?page=${page - 1}&size=${size}&type=${type}`,
+      Common.tokenHeader()
+    );
+  },
+
+  // admin
+  // 페이지 수 조회
+  getAdminPages: async () => {
+    const page = 0;
+    const size = 10;
+    return await axios.get(
+      Common.MV_DOMAIN + `/board/admin/totalpage?page=${page}&size=${size}`,
+      Common.tokenHeader()
+    );
+  },
+  // 게시글 리스트 조회 (페이지네이션)
+  getAdminBoardList: async (page) => {
+    return await axios.get(
+      Common.MV_DOMAIN + `/board/admin/boardlist?page=${page - 1}&size=10`,
       Common.tokenHeader()
     );
   },

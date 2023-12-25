@@ -5,12 +5,12 @@ import Common from "../../../util/Common";
 import Comment from "./Comment";
 import PaginationUtil from "../../../util/Pagination/Pagination";
 
-const CommentList = ({ id }) => {
+const CommentList = ({ id, userAlias }) => {
   const [commentData, setCommmentData] = useState("");
   const [inputComment, setInputComment] = useState("");
   // paginationutil 관련 필요 useState 2개
   const [totalPage, setTotalPage] = useState(5);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const oninputCommentChange = (e) => {
     setInputComment(e.target.value);
@@ -64,6 +64,7 @@ const CommentList = ({ id }) => {
     if (res.data !== null) {
       console.log("댓글 총 페이지 수 : ", res.data);
       setTotalPage(res.data);
+      setPage(1);
       Common.handleTokenAxios(() => fetchPageList(1));
     }
   };
@@ -88,6 +89,7 @@ const CommentList = ({ id }) => {
             commentData.map((comment) => (
               <Comment
                 key={comment.commentId}
+                userAlias={userAlias}
                 comment={comment}
                 fetchCommentList={() =>
                   Common.handleTokenAxios(() => fetchPage())
@@ -104,14 +106,14 @@ const CommentList = ({ id }) => {
         <div className="textInputBox">
           <textarea
             type="text"
-            placeholder="댓글을 남겨주세요."
+            placeholder="100자 이하로 댓글을 남겨주세요."
             value={inputComment}
             onChange={oninputCommentChange}
           ></textarea>
           <Button
             className="postBtn"
             children="등록"
-            active={true}
+            active={inputComment.length > 0 && inputComment.length < 101}
             width="70px"
             height="30px"
             fontSize="14px"

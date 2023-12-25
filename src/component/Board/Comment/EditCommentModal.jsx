@@ -53,6 +53,12 @@ const ModalStyle = styled.div`
       color: #333;
       white-space: pre-line;
       line-height: 1.4;
+      input {
+        width: 80%;
+        padding: 5px;
+        outline: none;
+        border: 1px solid var(--GREY);
+      }
     }
     footer {
       padding: 12px 16px;
@@ -105,13 +111,16 @@ const EditModal = (props) => {
         {open && (
           <section>
             <header>{header}</header>
-            <textarea
-              defaultValue={contentVal}
-              onChange={(e) => {
-                onChangeContent(e.target.value);
-              }}
-              placeholder={"답변을 작성해 주세요"}
-            />
+            <div className="inputArea">
+              <input
+                type="text"
+                defaultValue={contentVal}
+                onChange={(e) => {
+                  onChangeContent(e.target.value);
+                }}
+                placeholder={"댓글을 입력하세요"}
+              />
+            </div>
             <footer>
               {type && (
                 <Button

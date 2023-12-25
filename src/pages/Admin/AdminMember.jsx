@@ -70,7 +70,7 @@ const AdminMemberComp = styled.div`
 const AdminMember = () => {
   // 페이지네이션 관련
   const [totalPage, setTotalPage] = useState(5);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [memData, setMemData] = useState([]);
   const [editId, setEditId] = useState("");
 

@@ -13,6 +13,7 @@ export const PostComp = styled.section`
       /* justify-content: center; */
       align-items: center;
       padding-bottom: 30px;
+      position: relative;
 
       .memIconArea {
         width: 15%;
@@ -80,8 +81,14 @@ export const PostComp = styled.section`
           color: var(--GREY);
         }
         h3 {
-          color: black;
+          color: #333;
         }
+      }
+      .count {
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        color: #333;
       }
     }
     .contentsBox {
@@ -105,9 +112,13 @@ export const PostComp = styled.section`
           font-size: 1.2rem;
           font-weight: 300;
           white-space: pre-wrap;
+          @media only screen and (max-width: 768px) {
+            font-size: 1rem;
+          }
         }
       }
       .buttonBox {
+        display: flex;
         button {
           &:first-child {
             margin-right: 20px;
@@ -155,6 +166,7 @@ export const PostComp = styled.section`
             /* border: 1px solid orange; */
             width: 60%;
             padding: 2%;
+            line-height: 1.4;
 
             .nickName {
               color: var(--VIOLET);

@@ -6,7 +6,7 @@ import { useState } from "react";
 import CommnetApi from "../../../api/CommentApi";
 import Common from "../../../util/Common";
 
-const Comment = ({ comment, fetchCommentList }) => {
+const Comment = ({ comment, fetchCommentList, userAlias }) => {
   const dateTimeString = comment.commentRegDate;
   const toDate = new Date(dateTimeString);
   const regDate = toDate.toISOString().split("T")[0];
@@ -96,30 +96,32 @@ const Comment = ({ comment, fetchCommentList }) => {
         </div>
         <div className="rightArea">
           <div className="writeDate">{regDate}</div>
-          <div className="editBtnBox">
-            <Button
-              className="deleteBtn"
-              children="삭제"
-              active={true}
-              width="70px"
-              height="30px"
-              fontSize="14px"
-              front="var(--BLUE)"
-              clickEvt={() => {
-                handleModal("삭제", "삭제하시겠습니까 ?", true);
-              }}
-            />
-            <Button
-              className="editBtn"
-              children="수정"
-              active={true}
-              width="70px"
-              height="30px"
-              fontSize="14px"
-              front="var(--GREY)"
-              clickEvt={editModalOpen}
-            />
-          </div>
+          {userAlias === comment.memberAlias && (
+            <div className="editBtnBox">
+              <Button
+                className="editBtn"
+                children="수정"
+                active={true}
+                width="70px"
+                height="30px"
+                fontSize="14px"
+                front="var(--BLUE)"
+                clickEvt={editModalOpen}
+              />
+              <Button
+                className="deleteBtn"
+                children="삭제"
+                active={true}
+                width="70px"
+                height="30px"
+                fontSize="14px"
+                front="var(--GREY)"
+                clickEvt={() => {
+                  handleModal("삭제", "삭제하시겠습니까 ?", true);
+                }}
+              />
+            </div>
+          )}
           <Modal
             open={openModal}
             close={closeModal}

@@ -3,6 +3,9 @@ import Button from "../../util/Button";
 import { useState, useEffect } from "react";
 import Tr from "../../component/Administor/AdminBoard/TableElement";
 import PaginationUtil from "../../util/Pagination/Pagination";
+import BoardApi from "../../api/BoardApi";
+import Common from "../../util/Common";
+import Modal from "../../util/Modal";
 
 const AdminBoardComp = styled.div`
   padding-top: 8%;
@@ -50,55 +53,76 @@ const AdminBoardComp = styled.div`
 `;
 
 const AdminBoard = () => {
-  const dataList = [
-    {
-      alias: "햄스터",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-      title:
-        "햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!",
-      count: 120,
-      regDate: "2023.12.16",
-      category: "무비모임",
-      gatherType: "온라인",
-    },
-    {
-      alias: "햄스터",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-      title:
-        "햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!",
-      count: 120,
-      regDate: "2023.12.16",
-      category: "무비추천",
-      gatherType: "",
-    },
-    {
-      alias: "햄스터",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/movieverse-e1c4f.appspot.com/o/hamster.jpg?alt=media&token=3d2fe721-d4f2-4cde-8862-604ad7081656",
-      title:
-        "햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!햄찌랜드 입니다 어서 놀러오세요! 같이 놀러갑시다!",
-      count: 120,
-      regDate: "2023.12.16",
-      category: "무비모임",
-      gatherType: "오프라인",
-    },
-  ];
+  const [dataList, setDataLIst] = useState([]);
 
   //페이지 네이션 관련
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(5);
 
   useEffect(() => {
     //클릭된 페이지의 게시글 가져오기
+    Common.handleTokenAxios(() => fetchDataList(page));
   }, [page]);
   useEffect(() => {
     // 총페이지 수 가져오는 APi
+    Common.handleTokenAxios(fetchTotalPage);
   }, []);
 
   // 페이지 api 정의
+  const fetchTotalPage = async () => {
+    const res = await BoardApi.getAdminPages();
+    if (res.data !== null) {
+      setTotalPage(res.data);
+      setPage(1);
+      Common.handleTokenAxios(fetchDataList(1));
+    }
+  };
   // 게시글 api 정의
+  const fetchDataList = async (page) => {
+    const res = await BoardApi.getAdminBoardList(page);
+    if (res.data !== null) {
+      setDataLIst(res.data);
+    }
+  };
+
+  // 모달
+  const [openModal, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [modalHeader, setModalHeader] = useState("");
+  const [modalType, setModalType] = useState(null);
+  const [confirm, setConfirm] = useState(null);
+
+  // 모달 닫기
+  const closeModal = (num) => {
+    setModalOpen(false);
+    setRevise("back");
+  };
+  const handleModal = (header, msg, type, num) => {
+    setModalOpen(true);
+    setModalHeader(header);
+    setModalMsg(msg);
+    setModalType(type);
+    setConfirm(num);
+  };
+
+  const [revise, setRevise] = useState(false);
+  const [editCategory, setEditCategory] = useState("");
+  const [editType, setEditType] = useState("");
+  const [editId, setEditId] = useState("");
+
+  const moveBoard = async () => {
+    const res = await BoardApi.updateBoard(editId, editCategory, editType);
+    if (res.data) {
+      Common.handleTokenAxios(fetchTotalPage);
+    }
+  };
+
+  const deleteBoard = async () => {
+    const res = await BoardApi.deleteBoard(editId);
+    if (res.data) {
+      Common.handleTokenAxios(fetchTotalPage);
+    }
+  };
 
   return (
     <AdminBoardComp>
@@ -123,7 +147,17 @@ const AdminBoard = () => {
               {/* map으로 반복할 요소 */}
               {dataList &&
                 dataList.map((data, index) => (
-                  <Tr key={data.title} data={data} index={index} />
+                  <Tr
+                    key={data.id}
+                    data={data}
+                    index={index}
+                    handleModal={handleModal}
+                    setEditCategory={setEditCategory}
+                    setEditType={setEditType}
+                    setEditId={setEditId}
+                    revise={revise}
+                    setRevise={setRevise}
+                  />
                 ))}
             </tbody>
           </table>
@@ -135,6 +169,24 @@ const AdminBoard = () => {
           setPage={setPage}
         />
       </div>
+
+      <Modal
+        open={openModal}
+        close={closeModal}
+        header={modalHeader}
+        children={modalMsg}
+        type={modalType}
+        confirm={() => {
+          if (confirm === 0) {
+            Common.handleTokenAxios(moveBoard);
+            setModalOpen(false);
+            setRevise(true);
+          } else if (confirm === 1) {
+            closeModal();
+            Common.handleTokenAxios(deleteBoard);
+          }
+        }}
+      />
     </AdminBoardComp>
   );
 };
