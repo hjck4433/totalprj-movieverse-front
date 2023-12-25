@@ -19,26 +19,18 @@ const BoardComp = styled.section`
         padding-top: 20px;
         margin-bottom: 50px;
         li {
-          font-size: 0.9rem;
+          font-size: 1.1em;
           position: relative;
           cursor: pointer;
           margin-left: 10px;
           color: var(--GREY);
-          &::after {
-            background-color: var(--GREY);
-          }
-
-          &:first-child {
-            &::after {
-              display: none;
-            }
-          }
 
           &:hover {
             color: var(--LIGHTVIO);
           }
           &.active {
             color: var(--LIGHTVIO);
+            font-weight: 600;
           }
         }
       }

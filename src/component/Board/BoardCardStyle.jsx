@@ -5,11 +5,7 @@ const BoardCardStyle = styled.section`
       padding-top: 90px;
       margin-bottom: 50px;
       .gatherTypeList {
-        display: flex;
         margin-bottom: 20px;
-        p {
-          margin-left: 5px;
-        }
       }
       .sortArea {
         display: flex;

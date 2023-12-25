@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 const ToggleBtn = styled.button`
   width: 25%;
@@ -25,8 +25,7 @@ const ToggleBtn = styled.button`
 const BtnText = styled.div`
   width: 50%;
   z-index: 5;
-  left: ${(props) => (!props.Text ? "60px" : "195px")};
-  color: ${(props) => (!props.toggle ? "GREY" : "white")};
+  color: ${(props) => (props.$toggle === true ? "var(--VIOLET)" : "white")};
   font-size: 15px;
   font-weight: bold;
   transition: all 0.5s ease;
@@ -42,31 +41,38 @@ const Circle = styled.div`
   top: 6%;
   transition: all 0.8s ease;
   ${(props) =>
-    props.toggle &&
+    props.$toggle === false &&
     css`
       transform: translate(98%, 0);
-      transition: all 0.5s ease;
     `}
 `;
 
 const ToggleButton = ({ onChange, gatherType }) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const clickedToggle = () => {
-    setToggle((prev) => !prev);
-    onChange();
+    setToggle(toggle ? false : true);
+    gatherType === "온라인" ? onChange("오프라인") : onChange("온라인");
   };
+
+  useEffect(() => {
+    if (gatherType === "온라인") {
+      setToggle(true);
+      onChange("온라인");
+    } else if (gatherType === "오프라인") {
+      setToggle(false);
+      onChange("오프라인");
+    }
+  }, [gatherType]);
 
   return (
     <>
-      <ToggleBtn onClick={clickedToggle} toggle={toggle}>
+      <ToggleBtn onClick={clickedToggle}>
         <div className="btnBox">
-          <BtnText toggle={!toggle}>온라인</BtnText>
-          <BtnText Text={true} toggle={toggle}>
-            오프라인
-          </BtnText>
+          <BtnText $toggle={!toggle}>온라인</BtnText>
+          <BtnText $toggle={toggle}>오프라인</BtnText>
         </div>
-        <Circle toggle={toggle} className="right" />
+        <Circle $toggle={toggle} />
       </ToggleBtn>
     </>
   );

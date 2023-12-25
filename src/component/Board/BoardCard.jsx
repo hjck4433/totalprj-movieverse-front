@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const BoardCardComp = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   height: 300px;
   background-color: #ffffff;
@@ -36,6 +36,10 @@ const BoardCardComp = styled.div`
           }
           &.gather {
             background-color: var(--BLUE);
+          }
+          @media only screen and (max-width: 768px) {
+            font-size: 1em;
+            padding: 5px 8px;
           }
         }
       }
@@ -81,7 +85,7 @@ const BoardCardComp = styled.div`
 const ImgBoxComp = styled.div`
   width: 40%;
   height: 100%;
-  background-image: url(${(props) => props.imgsrc});
+  background-image: url(${(props) => props.$imgsrc});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,12 +104,14 @@ const BoardCard = ({ board }) => {
           navigate(`/board/post/${board.id}`);
         }}
       >
-        <ImgBoxComp imgsrc={board.image} />
+        <ImgBoxComp $imgsrc={board.image} />
         <div className="textBox">
           <div className="categoryGatherBox">
             <div className="categoryGather">
               <p className="category">{board.categoryName}</p>
-              <p className="gather">{board.gatherType}</p>
+              {board.categoryName !== "무비추천" && (
+                <p className="gather">{board.gatherType}</p>
+              )}
             </div>
             <div className="regdate">
               <p className="regdate">{regDate}</p>

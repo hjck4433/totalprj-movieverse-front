@@ -13,8 +13,11 @@ export const ButtonStyle = styled.button`
   background-color: transparent;
   border: 0;
   color: var(--GREY);
-  font-size: 0.7rem;
+  font-size: 1rem;
   cursor: pointer;
+  &:hover {
+    color: var(--LIGHTVIO);
+  }
 `;
 export const PageWrapper = styled.div``;
 
@@ -23,6 +26,13 @@ export const PageButton = styled.button`
   background-color: transparent;
   border: 0;
   color: var(--GREY);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
   cursor: pointer;
+
+  ${({ $isActive }) =>
+    $isActive &&
+    `
+    color: var(--LIGHTVIO);
+  `}
 `;

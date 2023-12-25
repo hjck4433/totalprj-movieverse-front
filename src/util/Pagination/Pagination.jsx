@@ -90,6 +90,7 @@ const PaginationUtil = ({ totalPage, limit, page, setPage }) => {
               key={i + 1}
               onClick={() => setPage(i + 1)}
               aria-current={page === i + 1 ? "page" : null}
+              $isActive={page === i + 1}
             >
               {i + 1}
             </PageButton>

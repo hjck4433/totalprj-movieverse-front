@@ -5,37 +5,60 @@ import ToggleButton from "../Board/BoardToggleBtn";
 import Button from "../../util/Button";
 import { useNavigate } from "react-router-dom";
 import BoardApi from "../../api/BoardApi";
-const BoardCardList = ({ search, nofilter }) => {
-  const [sortBy, setSortBy] = useState("highestCount");
+import Common from "../../util/Common";
+import PaginationUtil from "../../util/Pagination/Pagination";
+
+const BoardCardList = ({ category, keyword }) => {
+  // 페이지 네이션 관련
+  const [totalPage, setTotalPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [sortBy, setSortBy] = useState("recent");
   const [boardData, setBoardData] = useState([]);
   const [gatherType, setGatherType] = useState("온라인");
 
-  const [loading, setLoading] = useState(false);
+  // 페이지 수
+  const fetchTotalPage = async () => {
+    const res = await BoardApi.getTotalPage(keyword, category, gatherType);
+    console.log("총페이지 키워드 : " + keyword);
+    console.log("총페이지 카테고리 : " + category);
+    console.log("총페이지 게더 : " + gatherType);
+    if (res.data !== null) {
+      setTotalPage(res.data);
+      Common.handleTokenAxios(() => fetchBoardList(1));
+    }
+  };
 
-  const onChangeGather = () => {
-    gatherType === "온라인"
-      ? setGatherType("오프라인")
-      : setGatherType("오프라인");
+  // 게시글 리스트
+  const fetchBoardList = async (page) => {
+    const res = await BoardApi.getBoardList(
+      page,
+      sortBy,
+      keyword,
+      category,
+      gatherType
+    );
+    if (res.data !== null) {
+      setBoardData(res.data);
+    }
   };
 
   useEffect(() => {
-    const boardData = async () => {
-      try {
-        setLoading(true);
-        const response = await BoardApi.boardList();
-        if (response.data === false) {
-          console.log("게시판에 정보가 없습니다.");
-        } else {
-          setBoardData(response.data);
-        }
-      } catch (error) {
-        console.error("게시판 데이터를 불러오는 중 에러 발생 : ", error);
-        setLoading(false);
-      }
-    };
+    Common.handleTokenAxios(fetchTotalPage);
+    console.log("타입 : " + gatherType);
+    setPage(1);
+  }, [category, sortBy, keyword, gatherType]);
 
-    boardData();
-  }, []);
+  useEffect(() => {
+    Common.handleTokenAxios(() => fetchBoardList(page));
+  }, [page]);
+
+  useEffect(() => {
+    console.log("카테고리" + category);
+
+    if (category === "무비추천") {
+      setGatherType("");
+    } else setGatherType("온라인");
+  }, [category]);
 
   const navigate = useNavigate();
 
@@ -43,12 +66,16 @@ const BoardCardList = ({ search, nofilter }) => {
     <BoardCardStyle>
       <div className="container">
         <div className="boardCardBox">
-          <div className="gatherTypeList">
-            <ToggleButton
-              gatherType={boardData.gatherType}
-              onChange={onChangeGather}
-            />
-          </div>
+          {category !== "무비추천" && (
+            <div className="gatherTypeList">
+              <ToggleButton
+                onChange={setGatherType}
+                category={category}
+                gatherType={gatherType}
+              />
+            </div>
+          )}
+
           <ul className="sortArea">
             <li
               className={sortBy === "recent" ? "active" : ""}
@@ -68,8 +95,14 @@ const BoardCardList = ({ search, nofilter }) => {
               boardData.map((board) => (
                 <BoardCard key={board.title} board={board} />
               ))}
+            {/* 페이지네이션 */}
+            <PaginationUtil
+              totalPage={totalPage}
+              limit={10}
+              page={page}
+              setPage={setPage}
+            />
           </div>
-
           <div className="newPostBtn">
             <Button
               children="새 글 작성"

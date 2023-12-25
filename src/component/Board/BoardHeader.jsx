@@ -3,15 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import BoardCardList from "./BoardCardList";
-import { useNavigate, useParams } from "react-router-dom";
-const BoardHeaderList = ({ active }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+import { useNavigate } from "react-router-dom";
+const BoardHeaderList = ({ id, setKeyword }) => {
   const [inputSearch, setInputSearch] = useState("");
-  const getValue = (e) => {
-    setInputSearch(e.target.value.toLowerCase());
+  const changeValue = (e) => {
+    setInputSearch(e.target.value);
   };
 
-  const { id } = useParams();
   const { category, description } = (() => {
     switch (id) {
       case "gather":
@@ -26,12 +24,12 @@ const BoardHeaderList = ({ active }) => {
         };
       case "recs":
         return {
-          category: "영화추천",
+          category: "무비추천",
           description:
             "트렌드에 민감한 여러분을 위한 최고의 영화 소식과 추천작을 즐겨보세요.",
         };
       default:
-        return { category: "", title: "", description: "" };
+        return { category: "", description: "" };
     }
   })();
   const navigate = useNavigate();
@@ -70,10 +68,10 @@ const BoardHeaderList = ({ active }) => {
               모임후기
             </li>
             <li
-              className={category === "영화추천" ? "active" : ""}
+              className={category === "무비추천" ? "active" : ""}
               onClick={() => onClickMenu(3)}
             >
-              영화추천
+              무비추천
             </li>
           </ul>
           <div className="boardText">
@@ -85,13 +83,14 @@ const BoardHeaderList = ({ active }) => {
               <input
                 type="text"
                 placeholder="검색어를 입력해 주세요."
-                onChange={getValue}
+                value={inputSearch}
+                onChange={changeValue}
               />
               <div className="searchBox">
                 <FontAwesomeIcon
                   icon={faSearch}
                   onClick={() => {
-                    setSearchTerm(inputSearch);
+                    setKeyword(inputSearch);
                   }}
                 />
               </div>
@@ -99,7 +98,6 @@ const BoardHeaderList = ({ active }) => {
           </div>
         </div>
       </div>
-      <BoardCardList search={searchTerm} nofilter={""} />
     </BoardComp>
   );
 };

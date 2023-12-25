@@ -68,6 +68,8 @@ const AdminMemberComp = styled.div`
 `;
 
 const AdminMember = () => {
+  // 페이지네이션 관련
+  const [totalPage, setTotalPage] = useState(5);
   const [page, setPage] = useState(0);
   const [memData, setMemData] = useState([]);
   const [editId, setEditId] = useState("");
@@ -122,10 +124,6 @@ const AdminMember = () => {
       Common.handleTokenAxios(() => adminMemList(0)); // 멤버 삭제하고 나면 멤버리스트 다시 불러줘!(리스트 부를 때 토큰 필요)
     }
   };
-
-  // 페이지네이션 관련
-
-  const [totalPage, setTotalPage] = useState(5);
 
   return (
     <>
@@ -182,7 +180,6 @@ const AdminMember = () => {
           type={modalType}
           confirm={() => {
             Common.handleTokenAxios(deleteMem);
-            // deleteMem();
           }}
         />
       </AdminMemberComp>

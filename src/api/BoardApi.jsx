@@ -18,10 +18,10 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
-  boardList: async (id) => {
+  boardList: async () => {
     console.log("게시판 불러와졌니 ? ");
     return await axios.get(
-      Common.MV_DOMAIN + `/board/${id}`,
+      Common.MV_DOMAIN + `/board/list`,
       Common.tokenHeader()
     );
   },
@@ -53,6 +53,34 @@ const BoardApi = {
     return await axios.post(
       Common.MV_DOMAIN + "/board/update",
       data,
+      Common.tokenHeader()
+    );
+  },
+
+  getTotalPage: async (keyword, categoryName, gatherType) => {
+    // console.log("총페이지 키워드 : " + keyword);
+    // console.log("총페이지 카테고리 : " + categoryName);
+    // console.log("총페이지 게더 : " + gatherType);
+    const page = 0;
+    const size = 6;
+    return await axios.get(
+      Common.MV_DOMAIN +
+        `/board/totalpages?page=${page}&size=${size}&keyword=${keyword}&categoryName=${categoryName}&gatherType=${gatherType}`,
+      Common.tokenHeader()
+    );
+  },
+
+  getBoardList: async (page, sort, keyword, categoryName, gatherType) => {
+    console.log("리스트 키워드 : " + keyword);
+    console.log("리스트 카테고리 : " + categoryName);
+    console.log("리스트 게더 : " + gatherType);
+    console.log("리스트 페이지 : " + page);
+    const size = 6;
+    return await axios.get(
+      Common.MV_DOMAIN +
+        `/board/processedlist?page=${
+          page - 1
+        }&size=${size}&sort=${sort}&keyword=${keyword}&categoryName=${categoryName}&gatherType=${gatherType}`,
       Common.tokenHeader()
     );
   },
