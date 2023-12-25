@@ -7,34 +7,46 @@ import Common from "../util/Common";
 import CommentList from "../component/Board/Comment/CommentList";
 const Post = () => {
   const navigate = useNavigate();
+  const [boardData, setBoardData] = useState("");
+  const { postId } = useParams();
+  const [regDate, setRegDate] = useState("");
+  const [category, setCategory] = useState("");
   const onClickBoard = (num) => {
     switch (num) {
       case 1:
         navigate(`/board/revise/${postId}`);
         break;
       case 2:
-        navigate("/board/:id");
+        switch (boardData.categoryName) {
+          case "무비모임":
+            navigate("/board/gather");
+            break;
+          case "모임후기":
+            navigate("/board/recap");
+            break;
+          case "무비추천":
+            navigate("/board/recs");
+            break;
+          default:
+            navigate("/board/gather");
+        }
         break;
       default:
     }
   };
-  const [boardData, setBoardData] = useState("");
-  const { postId } = useParams();
-  const [regDate, setRegDate] = useState("");
 
+  const fetchBoardData = async () => {
+    console.log("API 요청 전");
+    const res = await BoardApi.boardDetail(postId);
+    console.log("API 요청 후 : ", res);
+    if (res.data !== null) {
+      setBoardData(res.data);
+      const toDate = new Date(res.data.regDate);
+      setRegDate(toDate.toISOString().split("T")[0]);
+    }
+  };
   useEffect(() => {
-    const fetchBoardData = async () => {
-      console.log("API 요청 전");
-      const res = await BoardApi.boardDetail(postId);
-      console.log("API 요청 후 : ", res);
-      if (res.data !== null) {
-        setBoardData(res.data);
-        const toDate = new Date(res.data.regDate);
-        setRegDate(toDate.toISOString().split("T")[0]);
-      }
-    };
-
-    Common.handleTokenAxios(fetchBoardData);
+    Common.handleTokenAxios(() => fetchBoardData());
   }, []);
 
   return (

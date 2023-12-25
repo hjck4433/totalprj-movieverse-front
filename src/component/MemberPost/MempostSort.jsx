@@ -29,55 +29,22 @@ const MempostSortComp = styled.section`
     &.selected {
       color: var(--LIGHTVIO);
     }
-
-    /* &.written {
-      margin-right: 10px;
-      vertical-align: text-bottom;
-      font-weight: ${({ selectedButton }) =>
-      selectedButton === "written" ? "bold" : "normal"};
-      font-size: ${({ selectedButton }) =>
-      selectedButton === "written" ? "1.3em" : "1.1em"};
-      line-height: 1;
-    }
-
-    &.comment {
-      vertical-align: text-bottom;
-      font-weight: ${({ selectedButton }) =>
-      selectedButton === "comment" ? "bold" : "normal"};
-      font-size: ${({ selectedButton }) =>
-      selectedButton === "comment" ? "1.3em" : "1.1em"};
-      line-height: 1;
-    } */
   }
 `;
 
-const MempostSort = ({ defaultSelectedButton = "written" }) => {
-  const [selectedButton, setSelectedButton] = useState(defaultSelectedButton);
-
-  const handleButtonClick = (button) => {
-    setSelectedButton(button);
-  };
-
-  useEffect(() => {
-    setSelectedButton(defaultSelectedButton);
-  }, [defaultSelectedButton]);
-
+const MempostSort = ({ selType, setSelType }) => {
   return (
-    <MempostSortComp selectedButton={selectedButton}>
+    <MempostSortComp>
       <div className="container">
         <button
-          className={`written ${
-            selectedButton === "written" ? "selected" : ""
-          }`}
-          onClick={() => handleButtonClick("written")}
+          className={`written ${selType === "written" ? "selected" : ""}`}
+          onClick={setSelType}
         >
           작성글
         </button>
         <button
-          className={`comment ${
-            selectedButton === "comment" ? "selected" : ""
-          }`}
-          onClick={() => handleButtonClick("comment")}
+          className={`comment ${selType === "comment" ? "selected" : ""}`}
+          onClick={setSelType}
         >
           작성댓글
         </button>

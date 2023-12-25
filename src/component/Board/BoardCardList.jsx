@@ -24,7 +24,7 @@ const BoardCardList = ({ category, keyword }) => {
     console.log("총페이지 게더 : " + gatherType);
     if (res.data !== null) {
       setTotalPage(res.data);
-      Common.handleTokenAxios(() => fetchBoardList(1));
+      await Common.handleTokenAxios(() => fetchBoardList(1));
     }
   };
 
@@ -45,7 +45,6 @@ const BoardCardList = ({ category, keyword }) => {
   useEffect(() => {
     Common.handleTokenAxios(fetchTotalPage);
     console.log("타입 : " + gatherType);
-    setPage(1);
   }, [category, sortBy, keyword, gatherType]);
 
   useEffect(() => {
@@ -57,7 +56,9 @@ const BoardCardList = ({ category, keyword }) => {
 
     if (category === "무비추천") {
       setGatherType("");
-    } else setGatherType("온라인");
+    } else if (category !== "무비추천") {
+      setGatherType("온라인");
+    }
   }, [category]);
 
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const BoardCardList = ({ category, keyword }) => {
     <BoardCardStyle>
       <div className="container">
         <div className="boardCardBox">
-          {category !== "무비추천" && (
+          {category !== "무비추천" && category !== "member" && (
             <div className="gatherTypeList">
               <ToggleButton
                 onChange={setGatherType}
@@ -76,20 +77,22 @@ const BoardCardList = ({ category, keyword }) => {
             </div>
           )}
 
-          <ul className="sortArea">
-            <li
-              className={sortBy === "recent" ? "active" : ""}
-              onClick={() => setSortBy("recent")}
-            >
-              최신순
-            </li>
-            <li
-              className={sortBy === "former" ? "active" : ""}
-              onClick={() => setSortBy("former")}
-            >
-              과거순
-            </li>
-          </ul>
+          {category !== "member" && (
+            <ul className="sortArea">
+              <li
+                className={sortBy === "recent" ? "active" : ""}
+                onClick={() => setSortBy("recent")}
+              >
+                최신순
+              </li>
+              <li
+                className={sortBy === "former" ? "active" : ""}
+                onClick={() => setSortBy("former")}
+              >
+                과거순
+              </li>
+            </ul>
+          )}
           <div className="boardMap">
             {boardData &&
               boardData.map((board) => (

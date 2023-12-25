@@ -2,6 +2,7 @@ import axios from "axios";
 import Common from "../util/Common";
 
 const BoardApi = {
+  // 새 포스트 저장
   saveNewPost: async (categoryName, gatherType, title, image, boardContent) => {
     console.log("저장 진입");
     console.log("저장중 이미지 : " + image);
@@ -25,6 +26,7 @@ const BoardApi = {
       Common.tokenHeader()
     );
   },
+  // 상세 게시글 정보
   boardDetail: async (postId) => {
     console.log("상세 게시판은 불러와졌을까? ");
     return await axios.get(
@@ -33,6 +35,7 @@ const BoardApi = {
     );
   },
 
+  // 게시글 수정
   updateBoard: async (
     id,
     categoryName,

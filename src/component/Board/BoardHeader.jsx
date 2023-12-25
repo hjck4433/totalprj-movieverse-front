@@ -2,10 +2,10 @@ import BoardComp from "./BoardHeaderStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import BoardCardList from "./BoardCardList";
 import { useNavigate } from "react-router-dom";
 const BoardHeaderList = ({ id, setKeyword }) => {
   const [inputSearch, setInputSearch] = useState("");
+
   const changeValue = (e) => {
     setInputSearch(e.target.value);
   };
