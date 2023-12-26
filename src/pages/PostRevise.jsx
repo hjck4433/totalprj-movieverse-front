@@ -199,7 +199,7 @@ const PostRevise = () => {
               <h3>장 소</h3>
               <RadioBox>
                 <div className="placeSelectBtn">
-                  <label class="placeLable1" htmlFor="btn1">
+                  <label className="placeLable1" htmlFor="btn1">
                     <input
                       type="radio"
                       id="온라인"
@@ -211,7 +211,7 @@ const PostRevise = () => {
                     />
                     온라인
                   </label>
-                  <label class="placeLable2" htmlFor="btn2">
+                  <label className="placeLable2" htmlFor="btn2">
                     <input
                       type="radio"
                       id="오프라인"

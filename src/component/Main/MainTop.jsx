@@ -63,7 +63,7 @@ const MainTop = () => {
     navigate("/kikilist");
   };
   const toMoim = () => {
-    navigate("/board/:id");
+    navigate("/board/gather");
   };
   return (
     <>

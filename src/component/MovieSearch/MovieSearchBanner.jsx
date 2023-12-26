@@ -3,11 +3,13 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { styled } from "styled-components";
 import searchBannerPc from "../../../src/images/moviesearch_pc.jpg";
+import searchBannerPc2 from "../../../src/images/SearchBannerPc2.jpg";
+import searchBannerMo2 from "../../../src/images/searchBannerMo2.jpg";
 
 const SearchBannerStyle = styled.section`
   width: 100%;
-  background-image: url(${searchBannerPc});
-  background-size: cover;
+  background-image: url(${searchBannerPc2});
+  background-size: 100%;
   background-position: center;
   margin-bottom: 5%;
   height: 350px;
@@ -69,6 +71,10 @@ const SearchBannerStyle = styled.section`
         }
       }
     }
+  }
+  @media only screen and (max-width: 768px) {
+    background-image: url(${searchBannerMo2});
+    height: 300px;
   }
 `;
 

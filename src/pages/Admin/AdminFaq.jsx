@@ -176,7 +176,7 @@ const AdminFaq = () => {
                 {faqData &&
                   faqData.map((data, index) => (
                     <FaqTr
-                      key={data.id}
+                      key={data.faqId}
                       data={data}
                       index={index}
                       editModal={openEdit}

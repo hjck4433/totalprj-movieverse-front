@@ -112,7 +112,7 @@ const MovieCardComp = styled.div`
 const ImgComp = styled.div`
   width: 100%;
   padding-bottom: 148%;
-  background-image: url(${(props) => props.imgsrc});
+  background-image: url(${(props) => props.$imgsrc});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -138,7 +138,7 @@ const MovieCard = ({
   return (
     <>
       <MovieCardComp className={hide ? "hide" : ""}>
-        <ImgComp imgsrc={movie.posters} />
+        <ImgComp $imgsrc={movie.posters} />
         <div className="overlay" onClick={toMovieDetail}>
           <div className="hoverInfo">
             <p className="title">{movie.title}</p>

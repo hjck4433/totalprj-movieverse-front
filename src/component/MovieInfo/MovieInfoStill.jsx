@@ -3,7 +3,7 @@ import StillCutComp from "./StillCutComp";
 
 const MovieInfoStillStyle = styled.section`
   background-color: white;
-  padding-bottom: 5% 0%;
+  padding-bottom: 140px;
   .container {
     display: grid;
     .content {
@@ -21,11 +21,9 @@ const MovieInfoStillStyle = styled.section`
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2%;
-      margin-bottom: 10%;
 
       @media only screen and (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
-        margin-bottom: 15%;
       }
     }
     .noStillMsg {
