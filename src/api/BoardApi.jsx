@@ -78,7 +78,7 @@ const BoardApi = {
   // 총 페이지 수
   getTotalPage: async (keyword, categoryName, gatherType) => {
     // console.log("총페이지 키워드 : " + keyword);
-    // console.log("총페이지 카테고리 : " + categoryName);
+    console.log("총페이지 카테고리 : " + categoryName);
     // console.log("총페이지 게더 : " + gatherType);
     if (categoryName === "무비추천") gatherType = "";
     const page = 0;

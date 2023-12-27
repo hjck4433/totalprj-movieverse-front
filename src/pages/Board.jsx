@@ -58,6 +58,7 @@ const Board = () => {
         isKeyword={isKeyword}
         setKeyword={setKeyword}
         setIsKeyword={setIsKeyword}
+        mountCategory={category}
       />
     </div>
   );

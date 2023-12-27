@@ -15,6 +15,7 @@ const BoardCardList = ({
   isKeyword,
   setIsKeyword,
   setKeyword,
+  mountCategory,
 }) => {
   // 페이지 네이션 관련
   const [totalPage, setTotalPage] = useState(5);
@@ -100,6 +101,13 @@ const BoardCardList = ({
       setGatherType("온라인");
     }
   }, [category]);
+
+  useEffect(() => {
+    console.log("첫 카테고리 : " + mountCategory);
+    category === "member"
+      ? Common.handleTokenAxios(fetchMemTotalPage)
+      : Common.handleTokenAxios(fetchTotalPage);
+  }, []);
 
   const navigate = useNavigate();
 
