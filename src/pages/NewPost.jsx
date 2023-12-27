@@ -68,7 +68,7 @@ const NewPost = () => {
   // 게시판 리스트로 이동
   const navigate = useNavigate();
   const toGatherList = () => {
-    navigate("/board/gather");
+    navigate(-1);
   };
 
   // 이미지 업로드
