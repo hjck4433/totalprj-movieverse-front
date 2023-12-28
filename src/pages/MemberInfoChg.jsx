@@ -239,7 +239,7 @@ const MemberInfoChg = () => {
         console.log("저장성공!");
         fileRef.getDownloadURL().then((url) => {
           console.log("저장경로 확인 : " + url);
-          setUrl(url);
+          // setUrl(url);
           //수정
           Common.handleTokenAxios(() => saveMemberInfo(url));
         });
@@ -249,7 +249,7 @@ const MemberInfoChg = () => {
     }
   };
   // 수정
-  const saveMemberInfo = async (url) => {
+  const saveMemberInfo = async (url = "") => {
     const originImage = imgSrc === basicProfile ? "" : imgSrc;
     const image = url !== "" ? url : originImage;
     const res = await MemberApi.changeMemberInfo(
