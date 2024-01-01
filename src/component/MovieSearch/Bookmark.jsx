@@ -4,8 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { styled } from "styled-components";
 import { UserContext } from "../../context/UserStore";
 import BookmarkApi from "../../api/BookmarkApi";
-import Common from "../../util/Common";
-import { isRouteErrorResponse } from "react-router-dom";
+import useTokenAxios from "../../hooks/useTokenAxios";
 
 const BookmarkComp = styled.div`
   position: absolute;
@@ -49,26 +48,51 @@ const BookmarkComp = styled.div`
       }
     }
   }
-
-  @media only screen and (max-width: 768px) {
-  }
 `;
 
-const Bookmark = ({
-  movieId,
-  handleModal,
-  sortType,
-  hideMovie,
-}) => {
+const Bookmark = ({ movieId, handleModal, sortType, hideMovie }) => {
   const context = useContext(UserContext);
   const { loginStatus } = context;
 
   const [marked, setMarked] = useState(false);
+
+  // 북마크 불러오기
+  const fetchBookMark = async () => {
+    const res = await BookmarkApi.isBookmark(movieId);
+    if (res.data) {
+      setMarked(true);
+    } else {
+      setMarked(false);
+    }
+  };
+  const setBookMark = useTokenAxios(fetchBookMark);
+
+  // 북마크 저장
+  const saveBookMark = async () => {
+    const res = await BookmarkApi.saveBookmark(movieId);
+    if (res.data) {
+      console.log("북마크 성공!");
+      setBookMark();
+    }
+  };
+  const bookMarkSave = useTokenAxios(saveBookMark);
+
+  // 북마크 삭제
+  const deleteBookMark = async () => {
+    const res = await BookmarkApi.removeBookmark(movieId);
+    if (res.data) {
+      console.log("북마크 해제 성공!");
+      setBookMark();
+      if (sortType === "member") {
+        hideMovie(movieId);
+      }
+    }
+  };
+  const bookMarkDelete = useTokenAxios(deleteBookMark);
+
   const changeHeart = () => {
     if (loginStatus) {
-      marked
-        ? Common.handleTokenAxios(deleteBookMark)
-        : Common.handleTokenAxios(saveBookMark);
+      marked ? bookMarkDelete() : bookMarkSave();
     } else {
       handleModal(
         "로그인",
@@ -83,42 +107,12 @@ const Bookmark = ({
   }, [marked]);
 
   useEffect(() => {
-    if (loginStatus) {
+    if (loginStatus === "true") {
       setBookMark();
     } else {
       setMarked(false);
     }
   }, [loginStatus]);
-
-  const setBookMark = () => {
-    Common.handleTokenAxios(fetchBookMark);
-  };
-
-  const fetchBookMark = async () => {
-    const res = await BookmarkApi.isBookmark(movieId);
-    if (res.data) {
-      setMarked(true);
-    } else {
-      setMarked(false);
-    }
-  };
-  const saveBookMark = async () => {
-    const res = await BookmarkApi.saveBookmark(movieId);
-    if (res.data) {
-      console.log("북마크 성공!");
-      setBookMark();
-    }
-  };
-  const deleteBookMark = async () => {
-    const res = await BookmarkApi.removeBookmark(movieId);
-    if (res.data) {
-      console.log("북마크 해제 성공!");
-      setBookMark();
-      if (sortType === "member") {
-        hideMovie(movieId);
-      }
-    }
-  };
 
   return (
     <BookmarkComp>
