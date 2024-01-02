@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import Bookmark from "./Bookmark";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo, useCallback } from "react";
 
 const MovieCardComp = styled.div`
   position: relative;
@@ -126,7 +125,6 @@ const MovieCard = ({
   setHideState,
   hideMovie,
 }) => {
-  // console.log(movie);
   const navigate = useNavigate();
 
   const toMovieDetail = () => {
@@ -135,7 +133,7 @@ const MovieCard = ({
 
   const hide = (hideState && hideState[movie.id]) || false;
 
-  console.log(`MovieCard rendering for movie ID: ${movie.id}`);
+  // console.log(`MovieCard 렌더링 중: ${movie.id}`);
 
   return (
     <>
