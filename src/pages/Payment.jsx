@@ -4,9 +4,8 @@ import { UserContext } from "../context/UserStore";
 import styled from "styled-components";
 import Button from "../util/Button";
 import face from "../images/faceIcon/faceIcon4.png";
-import Modal from "../util/Modal";
 import MemberApi from "../api/MemberApi";
-import Common from "../util/Common";
+import useTokenAxios from "../hooks/useTokenAxios";
 
 const PayComp = styled.section`
   width: 100%;
@@ -102,6 +101,19 @@ const Payment = () => {
     };
   }, []);
 
+  // 멤버십 정보 저장
+  const membershipUpdate = async () => {
+    const res = await MemberApi.saveMembership(true);
+    console.log(res.data);
+    if (res.data) {
+      navigate("/payment/result");
+      console.log("멤버십 저장 성공");
+    } else {
+      console.log("멤버십 저장 실패!");
+    }
+  };
+  const updateMembership = useTokenAxios(membershipUpdate);
+
   const onClickPayment = () => {
     const { IMP } = window;
     IMP.init("imp78148083");
@@ -136,25 +148,12 @@ const Payment = () => {
     } = response;
 
     if (success) {
-      Common.handleTokenAxios(membershipUpdate);
-
+      updateMembership();
       console.log("결제 성공");
       // 토큰
       setIsKikiMember(true);
     } else {
       alert(`결제 실패: ${error_msg}`);
-    }
-  };
-
-  // 멤버십 정보 저장
-  const membershipUpdate = async () => {
-    const res = await MemberApi.saveMembership(true);
-    console.log(res.data);
-    if (res.data) {
-      navigate("../payment/result");
-      console.log("멤버십 저장 성공");
-    } else {
-      console.log("멤버십 저장 실패!");
     }
   };
 
