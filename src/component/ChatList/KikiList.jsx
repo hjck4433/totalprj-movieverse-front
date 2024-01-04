@@ -58,6 +58,11 @@ const KikiListComp = styled.section`
           font-size: 1.6em;
           line-height: 2.3;
         }
+        @media only screen and (max-width: 480px) {
+          p {
+            font-size: 1.2em;
+          }
+        }
       }
     }
   }

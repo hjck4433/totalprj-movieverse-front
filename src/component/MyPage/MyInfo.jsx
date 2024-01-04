@@ -9,6 +9,9 @@ const MyInfoComp = styled.section`
   padding-top: 80px;
   /* outline: 1px solid yellow; */
   margin-bottom: 100px;
+  @media only screen and (max-width: 480px) {
+    margin-bottom: 0;
+  }
 
   .container {
     h2 {
@@ -103,7 +106,6 @@ const MyInfoComp = styled.section`
 
         .userContent {
           width: 100%; /* 모바일에서 전체 너비로 */
-          padding: 0 50px;
           justify-content: center;
           /* align-items: center; */
           text-align: center;
@@ -111,6 +113,18 @@ const MyInfoComp = styled.section`
             padding-right: 0; /* 모바일에서 오른쪽 패딩 제거 */
             justify-content: center; /* 가운데 정렬 */
             margin-top: 70px;
+          }
+        }
+      }
+    }
+    @media only screen and (max-width: 480px) {
+      .wrapper {
+        .userContent {
+          padding: 0 10px;
+          .userBox {
+            p {
+              font-size: 1.2em;
+            }
           }
         }
       }
@@ -175,7 +189,7 @@ const MyInfo = ({ memberInfo }) => {
                   active={true}
                   height="45px"
                   width="120px"
-                  fontSize="16px"
+                  fontSize="1em"
                   clickEvt={toinfochange}
                 />
                 <Button
@@ -183,7 +197,7 @@ const MyInfo = ({ memberInfo }) => {
                   active={true}
                   height="45px"
                   width="120px"
-                  fontSize="16px"
+                  fontSize="1em"
                   clickEvt={tomemberpost}
                 />
               </div>
