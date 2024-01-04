@@ -106,6 +106,24 @@ const MovieCardComp = styled.div`
       }
     }
   }
+  @media only screen and (max-width: 480px) {
+    .overlay {
+      .hoverInfo {
+        .title {
+          font-size: 1.1em;
+        }
+        .plotText {
+          font-size: 0.76em;
+          -webkit-line-clamp: 8;
+        }
+        .score {
+          .scoreNum {
+            font-size: 1.6em;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const ImgComp = styled.div`

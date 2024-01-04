@@ -12,9 +12,9 @@ const InfoSection1Style = styled.section`
   .container {
     display: flex;
     .moviePoster {
+      margin-right: 40px;
       position: relative;
       width: 28%;
-      margin: 0 10%;
       img {
         width: 100%;
         border-radius: 10px;
@@ -28,19 +28,15 @@ const InfoSection1Style = styled.section`
       }
     }
     .movieOtherInfo {
-      flex: 1;
       font-size: 1.4em;
       letter-spacing: -0.8px;
       .titleInfo {
         .title {
-          word-break: keep-all;
-          white-space: normal;
           margin-bottom: 5px;
         }
       }
       .titleEngInfo {
         .titleEng {
-          line-height: 20px;
           color: var(--GREY);
           margin-bottom: 12%;
         }
@@ -68,13 +64,43 @@ const InfoSection1Style = styled.section`
       width: 95%;
       .moviePoster {
         width: 45%;
-        margin-left: 1.5%;
       }
       .movieOtherInfo {
         .infoBox {
           /* margin-bottom: 1.5%; */
           .movieInfo {
             width: 35%;
+          }
+          .loadInfo {
+            width: 65%;
+            word-break: keep-all;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .container {
+      .moviePoster {
+        width: 60%;
+      }
+      .movieOtherInfo {
+        .titleInfo {
+          .title {
+            font-size: 1.1em;
+            word-break: keep-all;
+            line-height: 1.4;
+          }
+          .titleEngInfo {
+            .titleEng {
+              font-size: 1em;
+            }
+          }
+        }
+        .infoBox {
+          /* margin-bottom: 1.5%; */
+          .movieInfo {
+            width: 40%;
           }
           .loadInfo {
             width: 65%;
@@ -113,6 +139,9 @@ const MovieInfoSection1 = ({ movieDetail, movieId }) => {
         const month = numericDate.slice(4, 6);
         const day = numericDate.slice(6, 8);
         return `${year}.${month}.${day}`;
+      } else if (numericDate && numericDate.length === 4) {
+        const year = numericDate.slice(0, 4);
+        return year;
       } else {
         throw new Error("잘못된 날짜");
       }
@@ -121,7 +150,7 @@ const MovieInfoSection1 = ({ movieDetail, movieId }) => {
         // "잘못된 날짜"가 아닌 경우에만 콘솔에 에러 메시지 출력
         console.error(`날짜 변환 오류: ${error.message}`);
       }
-      return "날짜 변환 오류";
+      return "-";
     }
   };
   return (

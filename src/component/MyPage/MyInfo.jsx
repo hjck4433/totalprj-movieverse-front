@@ -14,6 +14,8 @@ const MyInfoComp = styled.section`
   }
 
   .container {
+    outline: 1px solid red;
+    padding-bottom: 80px;
     h2 {
       text-align: center;
       margin-bottom: 50px;
