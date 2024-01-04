@@ -28,7 +28,6 @@ const MovBtnStyle = `
 
 const OTTComp = styled.section`
   width: 100%;
-  height: 800px;
   background-color: white;
   position: relative;
 
@@ -64,7 +63,6 @@ const OTTComp = styled.section`
       .ottBtnBox {
         display: flex;
         justify-content: space-between;
-        align-items: center;
         width: 50%;
         .tivingBtn {
           ${MovBtnStyle}
@@ -89,6 +87,7 @@ const OTTComp = styled.section`
       }
       .ottRank-slider {
         width: 100%;
+        padding-top: 20px;
       }
     }
   }
@@ -129,7 +128,7 @@ const OTT = () => {
       <div className="bgBox"></div>
       <div className="container">
         <div className="ottRankBox">
-          <h3>OTT별 순위</h3>
+          <h3>OTT별 추천</h3>
           <hr />
           <div className="ottBtnBox">
             <div
