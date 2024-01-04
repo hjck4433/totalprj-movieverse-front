@@ -13,11 +13,11 @@ import Modal from "../../util/Modal";
 
 const OttSlideStyle = styled.div`
   width: 100%;
-  padding-top: 80px;
-  /* align-items: center; */
+
   .ottRank-slider {
     width: 100%;
     position: relative;
+    padding: 50px 0;
     .swiper-button {
       color: #494949;
       background-color: white;
@@ -33,14 +33,11 @@ const OttSlideStyle = styled.div`
       }
 
       &::after {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: var(--DARKBLUE);
       }
-      &.swiper-button-prev {
-      }
-      &.swiper-button-next {
-      }
+
       &.swiper-button-disabled {
         z-index: 10;
         cursor: default;
@@ -55,6 +52,18 @@ const OttSlideStyle = styled.div`
       align-items: center;
       .slide {
         width: 30%;
+      }
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .ottRank-slider {
+      width: 100%;
+      position: relative;
+      padding: 50px 0;
+      .swiper-button {
+        padding: 15px 15px;
+        height: 10px;
+        width: 10px;
       }
     }
   }
