@@ -11,15 +11,17 @@ const InfoSection1Style = styled.section`
   position: relative;
   .container {
     display: flex;
+    justify-content: space-between;
+    outline: 1px solid red;
     .moviePoster {
-      margin-right: 40px;
       position: relative;
       width: 28%;
+      outline: 1px solid yellow;
       img {
         width: 100%;
         border-radius: 10px;
         object-fit: cover;
-        height: 91.5%;
+        height: 100%;
       }
       .bookmarkIcon {
         position: absolute;
@@ -28,6 +30,8 @@ const InfoSection1Style = styled.section`
       }
     }
     .movieOtherInfo {
+      width: 68%;
+      outline: 1px solid cyan;
       font-size: 1.4em;
       letter-spacing: -0.8px;
       .titleInfo {
@@ -38,22 +42,30 @@ const InfoSection1Style = styled.section`
       .titleEngInfo {
         .titleEng {
           color: var(--GREY);
-          margin-bottom: 12%;
+          margin-bottom: 30px;
         }
       }
       .infoBox {
         display: flex;
-        margin-bottom: 5%;
+        width: 50%;
+        margin-bottom: 20px;
         .movieInfo {
           margin-right: 10px;
-          width: 23%;
+          width: 40%;
           font-weight: 600;
           color: var(--LIGHTVIO);
+          outline: 1px solid red;
+        }
+        .loadInfo {
+          width: 60%;
+          outline: 1px solid yellow;
+          white-space: normal;
+          overflow-wrap: break-word;
         }
       }
     }
     p {
-      line-height: 1.5rem;
+      line-height: 1.4;
     }
   }
 
@@ -66,15 +78,9 @@ const InfoSection1Style = styled.section`
         width: 45%;
       }
       .movieOtherInfo {
+        width: 52%;
         .infoBox {
-          /* margin-bottom: 1.5%; */
-          .movieInfo {
-            width: 35%;
-          }
-          .loadInfo {
-            width: 65%;
-            word-break: keep-all;
-          }
+          width: 80%;
         }
       }
     }
@@ -82,13 +88,13 @@ const InfoSection1Style = styled.section`
   @media only screen and (max-width: 480px) {
     .container {
       .moviePoster {
-        width: 60%;
+        width: 50%;
       }
       .movieOtherInfo {
+        width: 48%;
         .titleInfo {
           .title {
             font-size: 1.1em;
-            word-break: keep-all;
             line-height: 1.4;
           }
           .titleEngInfo {
@@ -98,13 +104,12 @@ const InfoSection1Style = styled.section`
           }
         }
         .infoBox {
-          /* margin-bottom: 1.5%; */
+          width: 100%;
           .movieInfo {
-            width: 40%;
+            width: 46%;
           }
           .loadInfo {
-            width: 65%;
-            word-break: keep-all;
+            width: 54%;
           }
         }
       }
@@ -203,7 +208,9 @@ const MovieInfoSection1 = ({ movieDetail, movieId }) => {
               </div>
               <div className="infoBox">
                 <p className="movieInfo">상영시간</p>
-                <p className="loadInfo">{movieDetail.runtime + "분"}</p>
+                <p className="loadInfo">
+                  {movieDetail.runtime ? movieDetail.runtime + "분" : "-"}
+                </p>
               </div>
             </div>
           </div>
